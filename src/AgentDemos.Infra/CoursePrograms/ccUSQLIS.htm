@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <title>Implementing Data Warehouses with Integration Services</title>
+    <meta name="NumberOfDays" content="5" />
+
+    <!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ContentTypeId msdt:dt="string">0x0101009C33340F38E14D1EABEAC83093A8F172009DA844D12E01544BB00C5B9F6569C6DF</mso:ContentTypeId>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+    <h2>Learning Goals</h2>
+    <p>
+        This course describes how to implement a data warehouse platform to support a BI
+        solution. Students will learn how to create a data warehouse with Microsoft SQL
+        Server 2022 or earlier, implement ETL with SQL Server Integration Services, and validate and
+        cleanse data with SQL Server Data Quality Services and SQL Server Master Data Services.
+    </p>
+
+    <h2>Target Audience</h2>
+    <p>
+        This course is intended for database professionals who need to create and support
+        a data warehousing solution. Primary responsibilities include:
+    </p>
+    <ul>
+        <li>Implementing a data warehouse.</li>
+        <li>
+            Developing SSIS packages for data extraction,
+            transformation, and loading.
+        </li>
+        <li>Enforcing data integrity by using Master Data Services.</li>
+        <li>Cleansing data by using Data Quality Services.</li>
+    </ul>
+    <p>
+        This course does not assume any prior knowledge with SQL Server Integration Services or building a relational
+        data warehouse.
+    </p>
+
+    <h2>Course Outline</h2>
+    <h4>Introduction to Data Warehousing</h4>
+    <p>
+        This module provides an introduction to the key components of a data warehousing
+        solution and the high-level considerations you must take into account when you embark
+        on a data warehousing project.
+    </p>
+    <ul>
+        <li>Overview of Data Warehousing</li>
+        <li>Considerations for a Data Warehouse Solution</li>
+        <li>LAB: Inspecting an SSIS Solution</li>
+    </ul>
+
+    <h4>Planning Data Warehouse Infrastructure</h4>
+    <p>
+        This module discusses considerations for selecting hardware and distributing SQL Server facilities across
+        servers.
+    </p>
+    <ul>
+        <li>Considerations for Data Warehouse Infrastructure</li>
+        <li>Planning Data Warehouse Hardware</li>
+    </ul>
+    <h4>Designing and Implementing a Data Warehouse</h4>
+    <p>
+        This module describes the key considerations for the logical design of a data warehouse, and then discusses best
+        practices for its physical implementation.
+    </p>
+    <ul>
+        <li>Data Warehouse Design Overview</li>
+        <li>Designing Dimension Tables</li>
+        <li>Designing Fact Tables</li>
+        <li>Physical Design for a Data Warehouse</li>
+        <li>LAB: Implementing dimension and fact tables in SQL Server</li>
+    </ul>
+
+    <h4>Columnstore Indexes</h4>
+    <p>Indexing is crucial for performance. Typical BI queries have different indexing needs that operational queries.
+        This module explains how to create and maintain columnstore indexes, which are ideal suited for most BI needs.
+    </p>
+    <ul>
+        <li>Introduction to Columnstore Indexes</li>
+        <li>Creating Columnstore Indexes</li>
+        <li>Working with Columnstore Indexes</li>
+        <li>LAB: creating and querying ColumnStore Indexes in SQL Server</li>
+    </ul>
+
+    <h4>Implementing a Data Warehouse on Azure Synapse Analytics</h4>
+    <p>
+        This module introduces how to host a data warehouse in Azure using provisioned databases in Azure Synapse
+        Analytics, formerly known as Azure SQL Data Warehouse.
+    </p>
+    <ul>
+        <li>Advantages of Azure Synapse Analytics</li>
+        <li>Provisioning an Azure Synapse Analytics Workspace</li>
+        <li>Basics of developing on Azure Synapse Analytics Provisioned SQL Pool</li>
+    </ul>
+
+    <h4>Creating an ETL Solution</h4>
+    <p>
+        This module discusses considerations for implementing an ETL process, and then focuses on Microsoft SQL Server
+        Integration Services (SSIS) as a platform for building ETL solutions.
+    </p>
+    <ul>
+        <li>Introduction to ETL with SSIS</li>
+        <li>Exploring Data Sources</li>
+        <li>Implementing Data Flow</li>
+        <li>LAB: Developing an SSIS data flow in Visual Studio</li>
+    </ul>
+    <h4>Implementing Control Flow in an SSIS Package</h4>
+    <p>
+        This module describes how to implement ETL solutions that combine multiple tasks and workflow logic.
+    </p>
+    <ul>
+        <li>Introduction to Control Flow</li>
+        <li>Creating Dynamic Packages</li>
+        <li>Using Containers</li>
+        <li>Managing Consistency</li>
+        <li>LAB: Creating an SSIS package control flow</li>
+    </ul>
+
+    <h4>Debugging and Troubleshooting SSIS Packages</h4>
+    <p>
+        This module describes how you can debug packages to find the cause of errors that occur during execution. It
+        then discusses the logging functionality built into SSIS that you can use to log events for troubleshooting
+        purposes. Finally, the module describes common approaches for handling errors in control flow and data flow.
+    </p>
+    <ul>
+        <li>Debugging an SSIS Package</li>
+        <li>Logging SSIS Package Events</li>
+        <li>Handling Errors in an SSIS Package</li>
+        <li>LAB: Debugging, logging and event handlers in SSIS</li>
+    </ul>
+
+    <h4>Implementing a Data Extraction Solution</h4>
+    <p>
+        This module describes the techniques you can use to implement an incremental data warehouse refresh process.
+    </p>
+    <ul>
+        <li>Planning Data Extraction</li>
+        <li>Extracting Modified Data</li>
+        <li>LAB: Implementing an incremental data load</li>
+    </ul>
+    <h4>Enforcing Data Quality</h4>
+    <p>
+        Ensuring the high quality of data is essential if the results of data analysis are to be trusted. SQL Server
+        includes Data Quality Services (DQS) to provide a computer-assisted process for cleansing data values, as well
+        as identifying and removing duplicate data entities. This process reduces the workload of the data steward to a
+        minimum while maintaining human interaction to ensure accurate results.
+    </p>
+    <ul>
+        <li>Introduction to Data Quality</li>
+        <li>Using Data Quality Services to Cleanse Data</li>
+        <li>Using Data Quality Services to Cleanse Data</li>
+        <li>LAB: Data Quality Services</li>
+    </ul>
+
+    <h4>Master Data Services</h4>
+    <p>
+        Master Data Services provides a way for organizations to standardize and improve the quality, consistency, and
+        reliability of the data that guides key business decisions. This module introduces Master Data Services and
+        explains the benefits of using it.
+    </p>
+    <ul>
+        <li>Introduction to Master Data Services</li>
+        <li>Implementing a Master Data Services Model</li>
+        <li>Managing Master Data</li>
+        <li>Creating a Master Data Hub</li>
+        <li>LAB: Working with Master Data Services</li>
+    </ul>
+
+    <h4>Extending SQL Server Integration Services</h4>
+    <p>
+        This module describes the techniques you can use to extend SSIS. The module is not designed to be a
+        comprehensive guide to developing custom SSIS solutions, but to provide an awareness of the fundamental steps
+        required to use custom components and scripts in an ETL process, based on SSIS.
+    </p>
+    <ul>
+        <li>Using Scripts in SSIS</li>
+        <li>Using Custom Components in SSIS</li>
+        <li>LAB: Using the Script task and Script component</li>
+    </ul>
+    <h4>Deploying and Configuring SSIS Packages</h4>
+    <p>
+        Microsoft SQL Server Integration Services (SSIS) provides tools that make it easy to deploy packages to another
+        computer. The deployment tools also manage any dependencies, such as configurations and files that the package
+        needs. In this module, you will learn how to use these tools to install packages and their dependencies on a
+        target computer.
+    </p>
+    <ul>
+        <li>Overview of SSIS Deployment</li>
+        <li>Deploying SSIS Projects</li>
+        <li>Planning SSIS Package Execution</li>
+        <li>LAB: Deploying packages in project and in package deployment mode</li>
+    </ul>
+    <h4>Consuming Data in a Data Warehouse</h4>
+    <p>
+        This module introduces BI, describing the components of Microsoft SQL Server that you can use to create a BI
+        solution, and the client tools with which users can create reports and analyze data.
+    </p>
+    <ul>
+        <li>Introduction to Business Intelligence</li>
+        <li>Enterprise Business Intelligence</li>
+        <li>Self-Service BI and Big Data</li>
+    </ul>
+</body>
+
+</html>

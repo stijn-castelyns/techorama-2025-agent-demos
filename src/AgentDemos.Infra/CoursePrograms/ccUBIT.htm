@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <title>Business Intelligence Executive Overview</title>
+    <meta name="NumberOfDays" content="2" />
+    <!--[if gte mso 9]><xml>
+    <mso:CustomDocumentProperties>
+    <mso:ContentTypeId msdt:dt="string">0x0101009C33340F38E14D1EABEAC83093A8F1720082882079D3923A4F95C19CCE67B235B2</mso:ContentTypeId>
+    </mso:CustomDocumentProperties>
+    </xml><![endif]-->
+</head>
+
+<body>
+    <h2>Learning Goals</h2>
+    <p>
+        Business Intelligence (BI) is a hot topic today: In an information driven society, analyzing and reporting upon the data that
+        lives within an enterprise is crucial. Microsoft offers a lot of products that can help you setup your Business Intelligence
+        infrastructure. From analyzing a few 10000 rows of data in Excel up to building a multi-terabyte enterprise-wide
+        data warehouse, it&#39;s all possible. In this course, we focus on both self-service BI with Power BI as well as enterprise BI with SQL Server.
+    </p>
+    <p>
+        But also the story of Big Data and cloud-based BI solutions are touched upon. Microsoft Azure Big Data is
+        a collection of cloud solutions to store, transform and analyze both static and streaming data sets in the Azure
+        cloud.
+    </p>
+
+    <p>
+        In this demo-rich course, we briefly demonstrate the capabilities of each of these tools and focus upon their advantages
+        and disadvantages. Student will have a 360-degree view of the Microsoft Business Intelligence offering, which will
+        help them decide which technologies are useful in their context.
+    </p>
+    <h2>Target audience</h2>
+    <p>
+        This course is intended for project managers, analysts and developers who want to obtain an overview of the Microsoft Business
+        Intelligence stack. This course does not contain hands-on exercises nor does it require any prior knowledge regarding business intelligence.
+    </p>
+
+    <h2>Course Outline</h2>
+
+    <h4>Business Intelligence in the Microsoft stack</h4>
+    <p>In this introduction we take a brief look at the three options for doing business intelligence
+        in the Microsoft stack: enterprise BI on-premises with SQL Server, self-service BI on-premises with Power BI, and the cloud based options with Azure. In this way we set the scene for the next modules.
+    </p>
+        <ul>
+        <li>The need for Business Intelligence</li>
+        <li>Self Service BI versus Enterprise BI</li>
+    </ul>
+    <h4>Data Warehousing with SQL Server</h4>
+    <p>What is a data warehouse and why do we need it? This is the main question we want to answer in this module. But we also take a look at SQL Server Data Tools, a free Microsoft solution for
+    developing data warehouses and other databases.    
+    </p>
+    <ul>
+        <li>What is a data warehouse and why do we need one?</li>
+        <li>Dimensional modeling</li>
+        <li>Star versus snowflake dimensions</li>
+        <li>Fact Tables</li>
+        <li>Slowly Changing Dimensions</li>
+        <li>SQL Server data tools and dacpacs</li>
+    </ul>
+    <h4>Implement ETL with Integration Services</h4>
+    <p>Once we have an empty data warehouse we need an ETL (Extract, Transform and Load) tool to pump the data from our operational data sources into the data warehouse. Microsoft SQL Server Integration Services is the enterprise tool to make this possible.</p>
+    <ul>
+        <li>Extract, Transform and Load</li>
+        <li>Initial versus incremental ETL</li>
+        <li>Integration Services</li>
+        <li>Data Flow: Sources, Transformations and Destinations</li>
+        <li>Control Flow</li>
+        <li>Automating the ETL</li>
+    </ul>
+    <h4>Improve Data Quality</h4>
+    <p>"Garbage in, garbage out!"<br>
+    Data quality is crucial, and in the SQL Server stack there are two tools to help you clean up dirty data. Data Quality Services let business users build a knowledge base and uses this to automatically clean up data. Master Data Services on the other hand helps business users to directly identify data issues and fix them from Excel or the browser.
+    </p>
+    <ul>
+        <li>Data Quality Services Introduction</li>
+        <li>DQS Data Cleansing and Deduplication</li>
+        <li>Master Data Services</li>
+        <li>The MDS Excel plugin</li>
+    </ul>
+    <h4>OnLine Analytical Processing (OLAP)</h4>
+    <p>Building reports directly on top of a data warehouse requires some SQL skills, especially when more complex calculations such as year-over-year growth etc. are needed. To simplify report creation a semantical model (often called 'cubes' or OLAP) removes the need to have good SQL skills if you want to do reporting. Microsoft SQL Server has Analysis services on board to create these models.</p>
+    <ul>
+        <li>What is OLAP, and why do we need it?</li>
+        <li>Analysis Services Multi-Dimensional cubes</li>
+        <li>Enhancing cubes with calculations, KPIs and Translations</li>
+        <li>Differences between Analysis Services Tabular and Multi-Dimensional</li>
+        <li>Data Mining</li>
+    </ul>
+    <h4>Reporting Services</h4>
+    <p>The last product from the SQL Server stack is Reporting Services. Just as with the previous services you will see the basics of how reports are created and consumed.</p>
+    <ul>
+        <li>Report authoring: Report Designer versus Report Builder</li>
+        <li>Push Delivery</li>
+        <li>Power View reports</li>
+    </ul>
+    <h4>The Microsoft Azure Data Platform</h4>
+    <p>The Microsoft Azure Data Platform is a collection of services in the Microsoft Azure cloud to deal with collecting, storing and analyzing medium to large volumes of data. In this module we take a brief look at each of these services.</p>
+    <ul>
+        <li>Storing large amounts of data in the cloud: Azure Blob Storage and Azure Data Lake Storage Gen 2</li>
+        <li>Using Azure Data Factory for ETL</li>
+        <li>Azure SQL Data Warehouse: using T-SQL on terabytes of data</li>
+        <li>Azure Machine Learning</li>
+    </ul>
+    <h4>Self-service BI: Power BI</h4>
+    <p>
+        Even with the best enterprise BI solution there will always be a need for business users to deal with custom data sets or modeling requirements.
+        To support these self-service BI solutions, Microsoft released Power BI. Power BI is a set of software services that is composed of the Power BI Desktop app, the Power BI Service and the Power BI mobile apps for iOS and Android.
+        In this module we see how you can use Power BI Desktop to load and model data.</p>
+    <ul>
+        <li>Introducing BI Desktop</li>
+        <li>Loading data with Power Query</li>
+        <li>Cleansing data in Power BI</li>
+        <li>Data modeling with Power BI Desktop</li>
+        <li>A brief glance at DAX</li>
+    </ul>
+    <h4>Power BI Reporting</h4>
+    <p>We end this training by taking a look at how to create interactive reports and dashboards in Power BI.</p>
+    <ul>
+        <li>Introduction to the Power BI Service</li>
+        <li>Creating and working with Reports in Power BI Desktop and the Power BI Service</li>
+        <li>Creating and using Dashboards in Power BI</li>
+    </ul>
+
+</body>
+
+</html>

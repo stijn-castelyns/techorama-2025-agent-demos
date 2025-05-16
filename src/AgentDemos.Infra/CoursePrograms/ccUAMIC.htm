@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html
+  xmlns:mso="urn:schemas-microsoft-com:office:office"
+  xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+>
+  <head>
+    <title>
+      Developing Microservices with Docker, Kubernetes and Microsoft Azure
+    </title>
+    <meta name="NumberOfDays" content="3" />
+
+    <!--[if gte mso 9
+      ]><xml>
+        <mso:CustomDocumentProperties>
+          <mso:ContentTypeId msdt:dt="string"
+            >0x0101009C33340F38E14D1EABEAC83093A8F1720089232CDC086D1447BD9ED0F9AD575D5C</mso:ContentTypeId
+          >
+        </mso:CustomDocumentProperties>
+      </xml><!
+    [endif]-->
+  </head>
+
+  <body>
+    <h2>Learning Goals</h2>
+    <p>
+      Containers are a lightweight, portable, and self-sufficient unit of
+      software that packages together everything needed to run an application.
+      This course starts with covering Docker, and how to deploy your .NET
+      applications in Docker containers. The training will make you familiar
+      with the different container services offered by Azure like Azure
+      Kubernetes Service and Azure Container Apps. You will learn about the
+      Microservice architecture and how to implement them using a variety of
+      technologies including Azure Service Bus and Dapr.
+    </p>
+
+    <h2>Target Audience</h2>
+    <p>
+      This course is intended for experienced .NET developers who would like to
+      get acquainted with Containers and Microservices on Azure.
+    </p>
+
+    <h2>Course Outline</h2>
+
+    <h4>Containers</h4>
+    <p>
+      What is this Container-thing developers are talking about? And why should
+      you use it? In this module you will get an overview of what containers
+      are, and how to use them on Windows and Linux.
+    </p>
+    <ul>
+      <li>Why Containers?</li>
+      <li>Containers vs Virtual Machines</li>
+      <li>Linux and Windows Containers</li>
+      <li>Container Orchestration</li>
+    </ul>
+
+    <h4>Docker</h4>
+    <p>
+      A container needs to be hosted and run on a container runtime. Several
+      options are available like rkt, runC, ... In this course, our emphasis
+      will be on the most widely used one: Docker. You will learn how to create,
+      run, and scale containers using Docker.
+    </p>
+    <ul>
+      <li>Running Docker</li>
+      <li>Containers, Images and Registries</li>
+      <li>Building an Image</li>
+      <li>Port Mapping and Volumes</li>
+      <li>Container Orchestration</li>
+      <li>LAB: Simple node.js in Docker</li>
+    </ul>
+
+    <h4>Developing ASP.NET Applications with Containers</h4>
+    <p>
+      Now that you understand what a container is, the next question is: how do
+      you package your applications into containers? In this module, you'll
+      learn how to Dockerize your ASP.NET applications, and how to run and debug
+      them.
+    </p>
+    <ul>
+      <li>ASP.NET or ASP.NET Core?</li>
+      <li>Official .NET Docker Images</li>
+      <li>Containerizing Dependencies</li>
+      <li>Tools</li>
+      <li>LAB: File Uploader</li>
+    </ul>
+
+    <h4>Azure for Container Overview</h4>
+    <p>
+      Azure has many constructs that have to do with containers and
+      microservices. It's a bit overwhelming, really. This module will help you
+      separate the sheep from the goats, to figure out exactly what you need.
+    </p>
+    <ul>
+      <li>Azure Container Registry</li>
+      <li>Hosting Containers: Container Instances, AKS, Service Fabric, ACA</li>
+      <li>Deploy with Containers: Web Apps and Functions</li>
+    </ul>
+
+    <h4>Microservice Architecture</h4>
+    <p>
+      How do you chop your application into multiple smaller components, called
+      &quot;microservices&quot;, and why would you do that? Here, we will show
+      you how to create microservice-applications and introduce you to some key
+      concepts of microservices like data isolation, resiliency, and
+      communication.
+    </p>
+    <ul>
+      <li>Dealing with Evolution in an Application</li>
+      <li>Benefits and Drawbacks</li>
+      <li>Scaling</li>
+      <li>Communication: Client-Service, Service-Service, Event-Based</li>
+      <li>Data Isolation per Microservice</li>
+    </ul>
+
+    <h4>Kubernetes</h4>
+    <p>
+      When employing containers for microservices, you'll inevitably have
+      numerous containers spread across multiple machines. Kubernetes emerges as
+      an open-source solution for managing your infrastructure. In this module,
+      we delve into this widely adopted orchestrator.
+    </p>
+    <ul>
+      <li>Kubernetes Cluster</li>
+      <li>Kubectl and YAML</li>
+      <li>Workloads: Pods and Deployments</li>
+      <li>Communication: Services and Ingresses</li>
+      <li>Scaling and Updates</li>
+      <li>Health Monitoring</li>
+      <li>LAB: Set up your first Kubernetes Cluster</li>
+    </ul>
+
+    <h4>Azure Kubernetes Service (AKS)</h4>
+    <p>
+      Once you've developed your microservice application, the next step is
+      deploying it to the cloud. Azure provides various methods for this
+      purpose, but Azure Kubernetes Service (AKS) offers the most comprehensive
+      options. In this module, you'll become a master of Azure
+      Kubernetes Service.
+    </p>
+    <ul>
+      <li>Putting a Kubernetes Cluster in Azure</li>
+      <li>AKS Features</li>
+      <li>Using Helm Charts</li>
+      <li>LAB: Using Kubernetes on Azure</li>
+    </ul>
+
+    <h4>Azure Container Apps</h4>
+    <p>
+      Managing scalable containers on a Kubernetes cluster in Azure, but without
+      the complexity. Sounds like a dream? It's not, this is exactly what Azure
+      Container Apps are all about. In this module you will learn how to set up
+      a serverless container solution using event-driven scaling.
+    </p>
+    <ul>
+      <li>Container Apps and Environments</li>
+      <li>Event-based Scaling with KEDA</li>
+      <li>Working with Revisions</li>
+      <li>Integrating with Dapr Components</li>
+      <li>Network and Ingress</li>
+      <li>Authentication and Service Connection</li>
+      <li>LAB: Message Processing and Scaling with Container Apps</li>
+    </ul>
+    <!-- <h4>Bridge to Kubernetes</h4>
+    <p>
+       Bridge to Kubernetes allows you to run and
+        debug your containers locally while being surrounded by all other microservice containers in your cluster. 
+        You can experiment and test integration without breaking your fellow services.
+    </p>
+    <ul>
+        <li>Debugging in AKS</li>
+        <li>Bridge to Kubernetes Concept</li>
+        <li>Using Bridge to Kubernetes</li>
+        <li>Client-side Tooling</li>
+        <li>Working in Isolation in a Shared Development Environment</li>
+        <li>Routing</li>
+    </ul> -->
+
+    <h4>API Gateways</h4>
+    <p>
+      This module will give you some insights how to create an API Gateway for
+      your microservices. Using an API Gateway makes building a client
+      application a lot easier.
+    </p>
+    <ul>
+      <li>Benefits and Drawbacks</li>
+      <li>Implementation Options</li>
+      <li>Azure API Management</li>
+    </ul>
+
+    <h4>Asynchronous Communication</h4>
+    <p>
+      In this module, you will learn what event-based communication is and why
+      it's such a great fit for microservices.
+    </p>
+    <ul>
+      <li>Communication Patterns</li>
+      <li>Event-Based Communication</li>
+      <li>Event Bus</li>
+      <li>Integration Events</li>
+      <li>Eventual Consistency</li>
+      <li>Azure Service Bus</li>
+      <li>LAB: Eventual Consistency with Service Bus</li>
+    </ul>
+
+    <h4>Synchronous Communication</h4>
+    <p>
+      In this module, you will learn how to make synchronous communication more
+      reliable by using a number of patterns.
+    </p>
+    <ul>
+      <li>Problems with Direct Communication</li>
+      <li>Retry</li>
+      <li>Circuit Breaker</li>
+      <li>Sidecar Pattern</li>
+      <li>Service Mesh</li>
+    </ul>
+    <!-- <h4>Service Mesh</h4>
+    <p>
+        A Service Mesh functions as a dedicated infrastructure layer to set up communication. A Service Mesh will use the sidecar pattern 
+        to handle all incoming or outgoing traffic in a Kubernetes pod. This allows for better security, advanced routing, effective monitoring and more.
+    </p>
+    <ul>
+        <li>Problems with Synchronous Communication</li>
+        <li>Sidecar Pattern</li>
+        <li>Wat is a Service Mesh?</li>
+        <li>Example: Open Service Mesh</li>
+        <li>LAB: using Open Service Mesh on AKS</li>
+    </ul>
+
+    <h4>Building Microservices with Dapr</h4>
+    <p>
+        Where do you run your containers? How do you store data? Which message broker will you use?
+        The list of decisions you have to make goes on. But how do you shield your code against all those technical details?
+        Dapr is a distributed application runtime that keeps your code platform-agnostic. This is done through an architecture of pluggable components.
+        Swap out your database without even recompiling the code!
+    </p>
+    <ul>
+        <li>Dapr Overview</li>
+        <li>Installation</li>
+        <li>State Management</li>
+        <li>Service Invocation</li>
+        <li>Publish and Subscribe</li>
+        <li>Bindings</li>
+        <li>Observability</li>
+        <li>Secrets Management</li>
+        <li>LAB: Using Dapr with ASP.NET Core</li>
+    </ul> -->
+  </body>
+</html>

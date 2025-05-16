@@ -1,0 +1,249 @@
+<!-- saved from url=(0070)file:///C:/Users/nico/Documents/u2u/Course%20descriptions/ccUSQLOP.htm -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>ccUSQLOP</title>
+	<meta name="NumberOfDays" content="5">
+
+</head>
+
+<body>
+	<h2>Learning Goals</h2>
+	<p>
+		This course covers advanced SQL Server performance tuning and optimization techniques, providing participants
+		with the skills to enhance the efficiency
+		and responsiveness of SQL Server environments. It offers an in-depth understanding of SQL Server's internal
+		architecture, essential for effective performance tuning.
+	</p>
+	<p>
+		The course covers both SQL Server on-premises and cloud-based solutions such as Azure SQL Databases and Azure
+		Managed Instances.
+	</p>
+
+	<h2>Target Audience</h2>
+	<p>
+		This course is targeted towards database administrators, developers, and anyone responsible for managing SQL
+		Server databases seeking
+		to enhance their skills in performance tuning and optimization. Participants should have a basic understanding
+		of SQL Server fundamentals,
+		including database design, SQL querying, and administration concepts.
+	</p>
+
+	<h2>Course Outline</h2>
+
+	<h4>Introduction into SQL Performance tuning</h4>
+	<p>
+		In a course like this many different topics are discussed, so we start this training by briefly discussing the
+		different
+		topics and show how they relate to each other.
+	</p>
+
+	<h4>CPU and Process Scheduling</h4>
+	<p>
+		Sometimes people wonder if their SQL Server needs more CPU power. In this module we see how SQL Server schedules
+		queries
+		to workers for running them on a thread. A very important concept is looking into wait statistics, where we
+		basically learn
+		to ask SQL Server what it's waiting upon.
+	</p>
+	<ul>
+		<li>Threads and Workers</li>
+		<li>Worker Thread Binding</li>
+		<li>Wait Statistics Analysis</li>
+		<li>LAB: Analyzing Wait Statistics</li>
+	</ul>
+
+	<h4>IO and Database Structure</h4>
+	<p>
+		SQL Server stores its data on disk. In this module we discuss how data for regular data structures is stored,
+		how the data
+		can be spread over multiple disks and we discuss common performance pitfalls people encounter when they setup a
+		SQL Server
+		database.
+	</p>
+	<ul>
+		<li>Databases in SQL Server</li>
+		<li>Working with Data files</li>
+		<li>Using and Configuring Filegroups</li>
+		<li>Log Files</li>
+		<li>LAB: Working with Databases</li>
+	</ul>
+
+	<h4>Memory Use</h4>
+	<p>
+		SQL Server cannot run queries on data stored on disk. It must first be loaded into main memory before it can be
+		used. But
+		how does SQL Server decide how long to cache data in memory, how can we inspect what data is cached right now,
+		and what
+		else besides data is kept in memory? These are the questions we answer in this module.
+	</p>
+	<ul>
+		<li>Dynamic Memory Allocation</li>
+		<li>Memory Consumers</li>
+		<li>Monitoring Memory Consumption</li>
+		<li>LAB: Monitoring Memory Usage</li>
+	</ul>
+
+	<h4>Data Types and Tables</h4>
+	<p>
+		When developing the tables within a database we have to take care as well. In this module we discuss the impact
+		that data
+		types have on the size of a row, and bigger rows often result in slower queries. Another thing to worry about
+		are the implicit
+		data type conversions, which can cause SQL Server a lot of extra work, or can even result in SQL Server not
+		being able
+		to use some indexes.
+	</p>
+	<ul>
+		<li>Importance of Data Type Selection</li>
+		<li>Storage Cost</li>
+		<li>Variable versus Fixed Length</li>
+		<li>Implicit and Explicit Data Type Conversions</li>
+		<li>LAB: Optimizing Data Types and Tables</li>
+	</ul>
+
+	<h4>Heaps, Clustered and Nonclustered Indexes</h4>
+	<p>
+		The way data is stored on disk and in memory has a huge impact on the performance of both read operations as
+		well as operations that modify the data.
+		In SQL Server, indexes determine how you store your tables. This module explains how the 3 most common indexes
+		work: Heaps, Clustered index and Nonclustered indexes.
+	</p>
+	<ul>
+		<li>Disecting data files in Pages and Extends</li>
+		<li>How Heaps influence data operations</li>
+		<li>Creating a Clustered Index</li>
+		<li>The need for Nonclustered Indexes</li>
+		<li>LAB: Speed up queries with Clustered and Nonclustered Indexes</li>
+	</ul>
+
+	<h4>Advanced index features</h4>
+	<p>In this module you dive deeper in the way clustered on nonclustered indexes work. You see how statistics help
+		decide which index to use,
+		and why you might want to filter your indexes and statistics. Finally, you will learn how indexing a view can
+		help in computing subtotals much faster.
+	</p>
+	<ul>
+		<li>Monitoring Allocation Units</li>
+		<li>Creating Filtered Indexes</li>
+		<li>Indexes and Statistics</li>
+		<li>Reading Statistics</li>
+		<li>How the Query Optimizer Uses Statistics</li>
+		<li>Using Filtered Statistics</li>
+		<li>Working with Indexed Views</li>
+		<li>LAB: Filtered indexes, Statistics and Indexed Views</li>
+	</ul>
+
+	<h4>Query Execution and Query Plans</h4>
+	<p>
+		Having an index is one thing, using the index is another story: How can we see which indexes SQL Server uses and
+		how it's using them? Execution plans are the answer to that question. We discuss in this part of the training
+		how to get
+		execution plans and how to analyze them.
+	</p>
+	<ul>
+		<li>Execution Context</li>
+		<li>Execution Plans</li>
+		<li>Plan Cache and Plan Reuse</li>
+		<li>Plan Recompilation</li>
+		<li>Parameterization</li>
+		<li>Cardinality Estimator versions</li>
+		<li>LAB: Analyzing Execution plans</li>
+	</ul>
+
+	<h4>Working with the Query Store</h4>
+	<p>The SQL Server Query Store logs every query executed, and helps to get insights on which queries are slow, how
+		frequently they run, how many different execution plans they use, and much more.</p>
+	<ul>
+		<li>Activating the Query store</li>
+		<li>Using the Query Store reports</li>
+		<li>Inspecting the Query Store views</li>
+		<li>Adaptive Query Processing</li>
+		<li>Automatic Regressed Plan Detection</li>
+		<li>LAB: Working with the Query Store</li>
+	</ul>
+
+	<h4>Index and Query Tuning</h4>
+	<p>
+		This module combines the skills we gained in the two previous modules. We see how changing queries, indexes and
+		constraints
+		has an influence on the execution plan ad performance of a query.
+	</p>
+	<ul>
+		<li>Understanding the Query Plan Operators</li>
+		<li>How to Measure Query Cost</li>
+		<li>Common Query Tuning Techniques</li>
+		<li>LAB: Index and Query Tuning</li>
+	</ul>
+
+	<h4>Concurrency and Transactions</h4>
+	<p>
+		A database must store data in a consistent way. But if everybody can change all the data in parallel, we lose
+		transactional
+		consistency. This module discuss how SQL Server provides us with some options for allowing sessions in parallel
+		to access
+		the same data yet keeping this data transactional consistent.
+	</p>
+	<ul>
+		<li>Transactions</li>
+		<li>Optimistic versus Pessimistic Concurrency Control</li>
+		<li>Locking and Lock Types</li>
+		<li>Isolation Levels</li>
+		<li>Monitoring Locks</li>
+		<li>Deadlocks</li>
+		<li>LAB: Working with Transactions and Transaction Isolation Levels</li>
+	</ul>
+
+	<h4>Monitoring SQL Server</h4>
+	<p>
+		To apply performance optimizations in practice we must first monitor the SQL Server to identify the types of
+		performance
+		problems we have. But ideally we start monitor the SQL Server before problems arrive. This way we establish a
+		baseline
+		against which we can compare the monitored values when things start to go wrong. In this module we discuss
+		different types
+		of monitoring tools in SQL Server.
+	</p>
+	<ul>
+		<li>Performance Monitor</li>
+		<li>Profiler</li>
+		<li>Configuring Extended Event Sessions</li>
+		<li>LAB: Configuring Extended Events</li>
+	</ul>
+
+	<h4>Working with ColumnStore Indexes</h4>
+	<p>
+		The main usage of ColumnStore indexes is to improve query performance for data warehouses and data marts
+		workloads.
+		This chapter describes how ColumnStore indexes store data in a columnar format instead of the row-based storage
+		that is used by 'classic' tables and indexes in SQL Server.
+		Then you will learn how to create columnstore indexes and strategies for using them in On-Premise and Azure SQL
+		Databases.
+	</p>
+	<ul>
+		<li>Introduction to Columnar Data Storage</li>
+		<li>Introduction to Rowgroups and Segments</li>
+		<li>Creating Clustered ColumnStore Indexes</li>
+		<li>Creating Non-Clustered ColumnStore Indexes</li>
+		<li>Fragmentation in ColumnStore Indexes</li>
+		<li>Real-time Operational Analytics</li>
+		<li>LAB: Working with columnstore Indexes</li>
+	</ul>
+
+	<h4>Working with In-Memory OLTP</h4>
+	<p>
+		In-Memory OLTP can significantly improve the performance of transaction processing, data ingestion and data
+		load, and transient data scenarios in SQL Server on-premise and Azure SQL Databases.
+		In-Memory OLTP improves performance of transaction processing tables by removing lock and latch contention
+		between concurrently executing transactions.
+	</p>
+	<ul>
+		<li>Planning for In-Memory Tables</li>
+		<li>Creating In-Memory Tables</li>
+		<li>In-Memory Tables and Indexes</li>
+		<li>Working with Native Compiled Stored Procedures</li>
+	</ul>
+</body>
+
+</html>

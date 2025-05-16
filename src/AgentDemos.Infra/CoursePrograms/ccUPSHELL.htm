@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ContentTypeId msdt:dt="string">0x0101009C33340F38E14D1EABEAC83093A8F17200BE55CB7D1EBD7D45AF9B07C966140EEC</mso:ContentTypeId>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+    <title>Scripting with PowerShell</title>
+    <meta name="NumberOfDays" content="3" />
+
+</head>
+<body>
+    <h2>Learning Goals</h2>
+    <p>
+        PowerShell is a powerful tool for automating tasks and managing systems across different platforms.
+        In this course you will learn to work with objects, connect to remote systems and write basic scripts.
+        PowerShell can be used to manage your on-prem systems as well as many cloud services like Entra ID, Intune and Microsoft 365.
+    </p>
+    <p>
+        If you are interested in advanced scripting techniques and error handling, we recommend you to follow our 5-day course <a href="/cc/upshella">Mastering PowerShell</a>.
+    </p>
+    <h2>Target Audience</h2>
+    <p>
+        This course is intended for:
+    </p>
+    <ul>
+        <li>System Administrators or System Engineers who are responsible for the management and configuration of multiple Servers and Microsoft applications.</li>
+		<li>System Administrators or System Engineers who are responsible for the deployment and maintenance of a Microsoft Cloud Infrastructure.</li>
+        <li>Developers interested in automation of test environments, interfacing with C#, embedding PowerShell in their application.</li>
+    </ul>
+    <h2>Course Outline</h2>
+    <h4>PowerShell Overview</h4>
+	<p>PowerShell was first introduced in 2008 as a scripting language for Windows Server. Over the years it has evolved to an open-source, cross platform solution that can be used on Windows, Linux and macOS.</p>
+    <ul>
+        <li>PowerShell Overview</li>
+        <li>Brushing up on objects</li>
+        <li>PowerShell Versions</li>
+        <li>Windows PowerShell versus PowerShell</li>
+		<li>Concepts and Terminology</li>
+		<li>Getting Commands</li>
+		<li>Getting Help</li>
+		<li>Providers and Drives</li>
+		<li>LAB: PowerShell Overview</li>
+    </ul>
+	<h4>PowerShell Shells</h4>
+	<p>The Windows PowerShell Integrated Scripting Environment (ISE) is a script editor for Windows PowerShell that allows you to run commands and write, test, and debug scripts in a single graphical interface. 
+	In addition to the PowerShell ISE, PowerShell is also well-supported in Visual Studio Code with rich intellisense and advanced debugging features.</p>
+	<ul>
+        <li>PowerShell Console</li>
+        <li>Integrated Scripting Environment (ISE)</li>
+        <li>Visual Studio Code</li>
+		<li>LAB:PowerShell Shells</li>
+    </ul>
+    <h4>Core Concepts</h4>
+	<p>Using the pipe operator in PowerShell you can easily perform complex operations in a single line of code. Format cmdlets can be used to change the default output of a command and the Out comdlets allow you to send data to a text file or grid.</p>
+    <ul>
+        <li>Viewing Object Structure</li>
+        <li>Object Pipeline</li>
+        <li>Using Format Cmdlets to Change Output</li>
+        <li>Export Data with Out Cmdlets</li>
+        <li>Using Variables to Store Objects</li>
+		<li>LAB: Core Concepts</li>
+    </ul>
+	<h4>Object Pipeline Processing</h4>
+	<p>PowerShell contains a bunch of commands that allow you to manipulate your objects using the pipeline. These cmdlets will help you to filter, sort, group, ... any object.</p>
+    <ul>
+        <li>Where-Object</li>
+        <li>Foreach-Object</li>
+        <li>Select-Object</li>
+        <li>Sort-Object</li>
+        <li>Measure-Object</li>
+		<li>Compare-Object</li>
+		<li>Group-Object</li>
+		<li>Tee-Object</li>
+		<li>LAB: Object Pipeline Processing</li>
+    </ul>
+	<h4>Working with Objects</h4>
+	<p>PowerShell works mostly with .NET objects but also provides full access to COM and WMI.</p>
+    <ul>
+        <li>Files and Folders</li>
+        <li>Registry Keys and Values</li>
+        <li>COM Objects</li>
+        <li>WMI Objects - CIMCmdlets</li>
+		<li>.NET Objects</li>
+		<li>Static Classes</li>
+		<li>LAB: Working with Objects</li>
+    </ul>
+    <h4>Extending PowerShell Functionality</h4>
+	<p> A module is a set of related PowerShell functionalities, grouped together as a convenient unit. To manage different services the correct modules must be downloaded and installed on your machine.</p>
+    <ul>
+        <li>Modules</li>
+        <li>PowerShellGet and the PowerShell Gallery</li>
+		<li>PowerShell Profiles</li>
+		<li>Operators and Expressions</li>
+		<li>LAB: Extending PowerShell Functionality</li>
+    </ul>
+    <h4>PowerShell Security</h4>
+	<p> The execution policy is part of the security strategy of PowerShell. 
+		It determines whether you can load configuration files and run scripts, and it determines which scripts, if any, must be digitally signed before they will run.</p>
+    <ul>
+        <li>PowerShell Execution Policy</li>
+        <li>Script Signing</li>
+        <li>Security Sensitive Information in Scripts</li>
+		<li>LAB: PowerShell Security</li>
+    </ul>
+	<h4>PowerShell Remoting</h4>
+	<p> PowerShell Remoting lets you run PowerShell commands or access full PowerShell sessions on remote systems.</p>
+    <ul>
+        <li>PowerShell Remoting Overview</li>
+        <li>WS-Management (WSMAN)</li>
+		<li>Remote CIM Sessions</li>
+        <li>Import/Export Remoting Sessions</li>
+        <li>WinRM Security</li>
+		<li>WinRM Double Hop Problem</li>
+		<li>Using Variables in Remoting Sessions</li>
+		<li>LAB: PowerShell Remoting</li>
+    </ul>
+    <h4>PowerShell Jobs</h4>
+	<p> Jobs are long-running tasks that are executed in the background. You don't have to wait for the job to finish and can perform other tasks while the job is running. 
+		Once completed, the job output can be retrieved. Jobs can be executed on a remote system or they can be scheduled.</p>
+    <ul>
+        <li>Background Jobs</li>
+        <li>Remoting Jobs</li>
+		<li>Scheduled Jobs</li>
+		<li>LAB:PowerShell Jobs</li>
+    </ul>
+	<h4>Managing Your Environment</h4>
+	<p> The goal of PowerShell is to ease your work as an administrator. In this module we will talk about basic management tasks that you need 
+		to perform and how you can accomplish these through PowerShell.
+		Configuring network settings, implementing security on files and folders, managing Active Directory.</p>
+	<ul>
+		<li>Networking</li>
+		<li>File Shares</li>
+		<li>Data Import</li>
+		<li>Security</li>
+		<li>Server Management</li>
+		<li>Active Directory</li>
+		<li>Certificates</li>
+		<li>LAB: Managing Your Environment</li>
+	</ul>
+</body>
+</html>

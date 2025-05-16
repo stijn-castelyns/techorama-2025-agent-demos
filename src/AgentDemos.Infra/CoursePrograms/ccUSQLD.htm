@@ -1,0 +1,300 @@
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Developing Microsoft SQL Server Databases</title>
+    <meta name="NumberOfDays" content="5">
+
+    <!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ContentTypeId msdt:dt="string">0x0101009C33340F38E14D1EABEAC83093A8F17200020B5F487FE1FF4AB7179530CDB59C40</mso:ContentTypeId>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+
+    <!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+    <meta id="ConnectiveDocSignExtentionInstalled" name="ConnectiveDocSignExtentionInstalled"
+        data-extension-version="1.0.6">
+</head>
+
+<body>
+    <h2>Learning Goals</h2>
+    <p>
+        This instructor-led course equips students with the skills to develop databases using Microsoft SQL Server 2022, Azure SQL or Azure Managed Instances. 
+        It covers table design, indexing, query plans and the creation of database objects such as views, stored procedures, parameters, and functions. 
+        The course also addresses coding aspects like concurrency, error handling, and triggers.
+    </p>
+    </p>
+    <h2>Target Audience</h2>
+    <p>
+        The primary audience for this course is IT professionals who want to become skilled in 
+        database development on Azure SQL Databases, Azure Managed Instances, or SQL Server 2022.
+    </p>
+    <h2>Course outline</h2>
+
+    <h4>Introduction to Database Development</h4>
+    <p>
+        Before beginning to work with Microsoft SQL Server in either a development or an administration role,
+        it is important to understand the scope of the SQL Server platform. In particular, it is useful to understand
+        that SQL Server is not just
+        a database engine, it is a complete platform for managing enterprise data.
+        SQL Server provides a strong data platform for all sizes of organizations, in addition to a comprehensive set of
+        tools to make development easier,
+        and more robust.
+
+        In this module you will also learn about the common tools used to develop SQL Server solutions: SQL Server
+        Management Studio (SSMS), Azure Data Studio and Visual Studio.
+    </p>
+    <ul>
+        <li>Introduction to the SQL Server Platform</li>
+        <li>Working with SQL Server Management Studio, Azure Data Studio and Visual Studio</li>
+        <li>Configuring SQL Server Services</li>
+        <li>LAB: Working with SQL Server Management Studio, Azure Data Studio, SQLCMD and Visual Studio</li>
+    </ul>
+
+    <h4>Working with Databases in SQL Server</h4>
+    <p>
+        A SQL Server database consists of data files, a log file and optional filestream folders. In this module you will learn how
+        SQL Server stores its data in these files.
+    </p>
+    <ul>
+        <li>Introduction to Data Storage in SQL Server</li>
+        <li>What are Data and Log Files</li>
+        <li>Creating Databases</li>
+        <li>An introduction to Data Pages and Extents</li>
+        <li>Working with Filegroups</li>
+        <li>LAB: Working with Databases and Storage</li>
+    </ul>
+
+    <h4>Designing and Implementing Tables</h4>
+    <p>
+        In a relational database management system (RDBMS), user and system data are stored in tables. Each table
+        consists of a set of rows that describe entities and a set of columns that hold the attributes of an entity. 
+        For example, a Customer table might have columns such as CustomerName and CreditLimit, and a row for each customer. 
+        Each of these columns have a specific data type. Tables are contained within schemas that are very similar in concept to folders that contain files in the operating system.
+    </p>
+    <ul>
+        <li>SQL Server Data Types</li>
+        <li>Working with Character Data</li>
+        <li>Storing Numerical Data</li>
+        <li>Working with Dates and Times</li>
+        <li>Designing Tables</li>
+        <li>Working with Schemas</li>
+        <li>Creating and Altering Tables</li>
+        <li>LAB: Designing and Implementing Tables</li>
+    </ul>
+
+    <h4>Ensuring Data Integrity through Constraints</h4>
+    <p>
+        The quality of data in your database largely determines the usefulness and effectiveness of applications that
+        rely on it—the success or failure of an organization or a business venture could depend on it. Ensuring data
+        integrity is a critical step in maintaining high-quality data.
+
+        You should enforce data integrity at all levels of an application from first entry or collection through
+        storage. SQL Server provides a range of features to simplify the job, one of which are constraints, discussed in
+        this module.
+    </p>
+
+    <ul>
+        <li>Enforcing Data Integrity</li>
+        <li>Implementing Default Constraints</li>
+        <li>Primary Keys, Unique Constraints, and Check Constraints</li>
+        <li>Implementing Referential Integrity with Foreign Keys</li>
+        <li>Cascading Options on Foreign Keys</li>
+        <li>LAB: Using Data Integrity Through Constraints</li>
+    </ul>
+
+    <h4>Introduction to Indexes</h4>
+    <p>
+        Indexes are used to improve the performance of queries or enforce uniqueness of columns.
+        Before learning to implement indexes, it is helpful to understand how they work,
+        how effective different data types are when used within indexes, and how indexes can be constructed from
+        multiple columns. 
+        This module discusses table structures that do not have indexes and tables stored as clustered indexes.
+    </p>
+    <ul>
+        <li>Core Indexing Concepts</li>
+        <li>What is a Heap?</li>
+        <li>What is a Clustered Index?</li>
+        <li>Data Types and Indexes</li>
+        <li>Single-Column and Composite Indexes</li>
+        <li>Indexes and Statistics</li>
+        <li>Index Fragmentation</li>
+        <li>LAB: Implementing Heaps and Clustered Indexes</li>
+    </ul>
+
+    <h4>Working with Nonclustered Indexes</h4>
+    <p>
+        On top of a Heap or Clustered Index you can create one or more secondary indexes that are called Nonclustered Indexes. 
+        Non-clustered indexes are great for optimizing queries that filter on columns that return only a small number of rows.
+        You could say that they are ideal to find the needles in a haystack.
+    </p>
+    <ul>
+        <li>What Is a Nonclustered Index?</li>
+        <li>Nonclustered Indexes over Heaps</li>
+        <li>Nonclustered Indexes over Clustered Indexes</li>
+        <li>Creating Nonclustered Indexes</li>
+        <li>Covered Nonclustered indexes</li>
+        <li>Performance Impact of Lookups in Nonclustered Indexes</li>
+        <li>LAB: Implementing Nonclustered Indexes</li>
+    </ul>
+
+    <h4>Designing Optimized Index Strategies</h4>
+    <p>
+        Indexes play an important role in enabling SQL Server to retrieve data from a database quickly and efficiently.
+        This module discusses advanced index topics including covering indexes, the INCLUDE clause, query hints, padding
+        and fill factor, statistics, as well as using DMVs to inspect these indexes.
+    </p>
+    <ul>
+        <li>Index Strategies</li>
+        <li>Managing Indexes</li>
+        <li>Execution Plans</li>
+        <li>The Database Engine Tuning Advisor</li>
+        <li>Designing Effective Covering Indexes</li>
+        <li>LAB: Optimizing Indexes</li>
+    </ul>
+
+    <h4>Advanced Table Designs</h4>
+    <p>
+        The physical design of a database can have a significant impact on the ability of the database to meet the
+        storage and performance
+        requirements set out by the stakeholders. Designing a physical database implementation includes planning the
+        file groups, how to use
+        partitioning to manage large tables, and using compression to improve storage and performance. Temporal tables
+        offer a straightforward solution to collecting changes to your data.
+    </p>
+    <ul>
+        <li>Partitioning Data</li>
+        <li>Temporal Tables</li>
+        <li>Dynamic Data Masking</li>
+    </ul>
+
+    <h4>Columnstore Indexes</h4>
+    <p>
+        Columnstore indexes are often used in data warehouse solutions, in which many rows are consulted, but only a
+        subset of the columns are used in every query. This module highlights the benefits of using these indexes on
+        large datasets, and the considerations needed to use columnstore indexes
+        effectively in your solutions.
+    </p>
+    <ul>
+        <li>Introduction to Columnstore Indexes</li>
+        <li>Clustered Columnstore Index versus Non-Clustered Columnstore Index</li>
+        <li>Row Groups and Segments</li>
+        <li>Creating Columnstore Indexes</li>
+        <li>Rebuilding Columnstore Indexes</li>
+    </ul>
+
+    <h4>Designing and Implementing Views</h4>
+    <p>
+        This module describes the design and implementation of views. A view is a special type of query—one that is
+        stored and can be used in other queries-just like a table. With a view, only the query definition is stored
+        on in the database, not the result set. The only exception to this is indexed views, when the result set is also stored
+        in the database, just like a table.
+
+        Views simplify the design of a database by providing a layer of abstraction and hiding the complexity of
+        table joins. Views are also a way of securing your data by giving users permissions to use a view, without
+        giving them permissions to the underlying objects. This means data can be kept private and can only be
+        viewed by appropriate users.
+    </p>
+    <ul>
+        <li>Introduction to Views</li>
+        <li>Creating and Managing Views</li>
+        <li>Performance Considerations for Views</li>
+        <li>Working with Indexed Views</li>
+        <li>LAB: Designing and Implementing Views</li>
+    </ul>
+
+    <h4>Designing and Implementing Stored Procedures</h4>
+    <p>
+        This module describes the design and implementation of stored procedures. Stored procedures - in contrast to
+        views - allow for parameterization, as well as code that modifies the database.
+    </p>
+    <ul>
+        <li>Introduction to Stored Procedures</li>
+        <li>Working with Stored Procedures</li>
+        <li>Implementing Parameterized Stored Procedures</li>
+        <li>Controlling Execution Context</li>
+        <li>LAB: Designing and Implementing Stored Procedures</li>
+    </ul>
+
+    <h4>Designing and Implementing User-Defined Functions</h4>
+    <p>
+        Functions are routines that you use to encapsulate frequently performed logic. Rather than having to repeat
+        the function logic in many places, code can call the function. This makes code more maintainable, and easier
+        to debug.
+
+        In this module, you will learn to design and implement user-defined functions (UDFs) that enforce business
+        rules or data consistency. You will also learn how to modify and maintain existing functions.
+    </p>
+    <ul>
+        <li>Overview of Functions</li>
+        <li>Designing and Implementing Scalar Functions</li>
+        <li>Designing and Implementing Table-Valued Functions</li>
+        <li>Considerations for Implementing Functions</li>
+        <li>Alternatives to Functions</li>
+        <li>LAB: Designing and Implementing User-Defined Functions</li>
+    </ul>
+
+    <h4>Responding to Data Manipulation via Triggers</h4>
+    <p>
+        Data Manipulation Language (DML) triggers are powerful tools that you can use to enforce domain, entity,
+        referential data integrity and business logic. The enforcement of integrity helps you to build reliable
+        applications. In this module, you will learn what DML triggers are, how they enforce data integrity, the
+        different types of triggers that are available to you, and how to define them in your database.
+    </p>
+    <ul>
+        <li>Designing DML Triggers</li>
+        <li>Implementing DML Triggers</li>
+        <li>Advanced Trigger Concepts</li>
+        <li>LAB: Responding to Data Manipulation by Using Triggers</li>
+    </ul>
+
+    <h4>Working with Transactions</h4>
+    <p>
+        A transaction is a sequence of operations performed as a single unit of work that follows the ACID properties (Atomicity, Consistency, Isolation, Durability) to ensure data integrity. 
+        Transactions can be explicitly controlled using commands like BEGIN TRANSACTION, COMMIT, and ROLLBACK to manage changes and maintain consistency in case of errors or failures.
+    </p>
+    <ul>
+        <li>Transactions in SQL Server</li>
+        <li>Autocommit transactions</li>
+        <li>Explicit transactions</li>
+        <li>Implicit transactions</li>
+        <li>Transactions and the Transaction Log</li>
+        <li>Working with Savepoints</li>
+        <li>Transaction options</li>
+        <li>LAB: Working with Transactions</li>
+    </ul>
+
+    <h4>SQL Server Concurrency</h4>
+    <p>
+        Concurrency control is a critical feature of multi-user database systems; it allows
+        data to remain consistent when many users are modifying data at the same time. This module covers the
+        implementation of concurrency in Microsoft SQL Server. You will learn about how SQL Server implements
+        concurrency controls, and the different ways you can configure and work with concurrency settings.
+    </p>
+    <ul>
+        <li>Pessimistic and Optimistic Concurrency Control</li>
+        <li>Transaction Isolation Levels</li>
+        <li>Locking Internals</li>
+        <li>LAB: SQL Server Concurrency</li>
+    </ul>
+
+    <h4>Performance and Monitoring</h4>
+    <p>
+        This module looks at how to measure and monitor the performance of your SQL Server
+        databases. The first two lessons look at SQL Server Extended Events, a flexible, lightweight event-handling
+        system built into the Microsoft SQL Server Database Engine. These lessons focus on the architectural
+        concepts, troubleshooting strategies and usage scenarios.
+    </p>
+    <ul>
+        <li>Extended Events</li>
+        <li>Working with extended Events</li>
+        <li>Live Query Statistics</li>
+        <li>Optimize Database File Configuration</li>
+        <li>Metrics</li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html
+  xmlns:mso="urn:schemas-microsoft-com:office:office"
+  xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+>
+  <head>
+    <title>Team Development Workflows with Azure DevOps</title>
+    <meta name="NumberOfDays" content="4" />
+
+    <!--[if gte mso 9
+      ]><xml>
+        <mso:CustomDocumentProperties>
+          <mso:ContentTypeId msdt:dt="string"
+            >0x0101009C33340F38E14D1EABEAC83093A8F17200BBAA9A3DB882F84EA6CED6668F1DEA35</mso:ContentTypeId
+          >
+        </mso:CustomDocumentProperties>
+      </xml><!
+    [endif]-->
+
+    <!--[if gte mso 9
+      ]><xml>
+        <mso:CustomDocumentProperties> </mso:CustomDocumentProperties> </xml
+    ><![endif]-->
+  </head>
+
+  <body>
+    <h2>Learning Goals</h2>
+    <p>
+      Do you want to learn how DevOps and GitHub can deliver a higher quality software product 
+      in less time? How to avoid broken deployments using continuous integration and
+       deployment? Then this course is for you!
+    </p>
+    <h2>Target Audience</h2>
+    <p>
+      Anyone who is involved in application development. Exercices don't require real 
+      coding skills as they are for illustrating the workflow with Azure DevOps and GitHub.
+    </p>
+
+    <h2>Course Outline</h2>
+      <h4>Azure DevOps Services</h4>
+      <p>
+        What is Azure DevOps? Who is it for? What is the big picture?
+      </p>
+      <ul>
+        <li>Azure DevOps: The big picture</li>
+        <li>Features</li>
+        <li>The Extensions Marketplace</li>
+        <li>Introducing GitHub</li>
+        <li>LAB: Register for an Azure DevOps Account</li>
+      </ul>
+
+      <h4>Azure DevOps Team Projects</h4>
+      <p>
+        Azure DevOps is the collaboration hub for everyone in the development
+        team, including project managers, testers, architects, developers and
+        end-users. Here we will create a team project and configure it.
+      </p>
+      <ul>
+        <li>Development Processes</li>
+        <li>Team Projects and Process Templates</li>
+        <li>Using GitHub Projects</li></lki>
+        <li>LAB: Creating and configuring your team project</li>
+        <li>LAB: Customizing your process</li>
+      </ul>
+
+      <h4>Using Git</h4>
+      <p>
+        Sources are probably the most important part in any software project and
+        we need a way to keep track of all sources and all changes. Azure Repos
+        gives you the choice between TFVS and Git for storing your source history,
+        branching, merging and everything else required. Here we discuss Git source control.
+      </p>
+      <ul>
+        <li>Version Control concepts</li>
+        <li>Distributed Source Control with Git</li>
+        <li>Git Clients: Command Line, Visual Studio or Visual Studio Code</li>
+        <li>Creating a local repository</li>
+        <li>Configuring your git repository</li>
+        <li>Checking the status of your repo</li>
+        <li>Staging files</li>
+        <li>Committing files, and then amending it</li>
+        <li>Comparing changes in files</li>
+        <li>Reverting commits</li>
+        <li>Using Git Hooks</li>
+        <li>Using Aliases to Customize your Experience</li>
+        <li>Finding the bad change using git bisect</li>
+        <li>LAB: Working with a local repository</li>
+      </ul>
+
+      <h4>Team collaboration with remote repositories</h4>
+      <p>
+        Multiple developers working on the same code base requires a central 
+        place for all your team's code and changes. In Git these are known as remote 
+        repositories. Here we discuss team collaboration with Git.
+      </p>
+      <ul>     
+        <li>Team collaboration with remote repositories</li>
+        <li>Cloning a remote repository</li>
+        <li>Synchronizing with a remote repository</li>
+        <li>Resolving Git Pull conflicts</li>
+        <li>LAB: Working with remote repositories</li>
+      </ul>
+
+      <h4>Working in isolation with branches</h4>
+      <p>
+        How can we avoid code changes from one developer interfering with code 
+        from others? Branching has always been used to allow developers to complete 
+        their changes before integrating them with others.
+      </p>
+      <ul>
+        <li>Adding branches to your workflow</li>
+        <li>Branching Strategies - Using GitFlow</li>
+        <li>Merge vs. Rebase - keeping a linear history</li>
+        <li>Different Merge Strategies, i.e. Squash Merge</li>
+        <li>Managing your branches</li>
+        <li>LAB: Working with branches in git</li>
+      </ul>
+
+      <h4>Team Collaboration with Pull Requests</h4>
+      <p>
+        Working as a team on the same codebase comes with its own challenges. 
+        Factors like false cognates, code conventions, SOLID principles, etc., 
+        could result in good or bad code quality. Pull requests allow you to 
+        ensure that your code maintains its high quality.
+      </p>
+      <ul>
+        <li>Protecting your branches with pull requests</li>
+        <li>Ensuring high quality code with Pull Requests</li>
+        <li>Versioning with Git Tags</li>
+        <li>Using Forks</li>
+        <li>LAB: Team collaboration with Pull Requests</li>
+      </ul>
+
+      <h4>Project Management with Azure Boards</h4>
+      <p>
+        The project backlog contains all the features that users have 
+        requested. This does not mean we will immediately add this feature; 
+        for this, we have backlog planning where we try to identify the 
+        features we want to build next.      
+      </p>
+      <ul>
+        <li>Iterative Development</li>
+        <li>Creating the project backlog</li>
+        <li>Work Items and Queries</li>
+        <li>Velocity and Forecasting</li>
+        <li>LAB: Create your project backlog</li>
+      </ul>
+
+      <h4>Planning a sprint</h4>
+      <p>
+        Once we have decided which features we will build next, we will 
+        identify the various tasks that need to be completed to build that 
+        feature. We will look at balancing product, schedule, and cost.
+      </p>
+      <ul>
+        <li>Sprint Planning</li>
+        <li>Identifying user stores for the next sprint</li>
+        <li>Capacity planning</li>
+        <li>Defining tasks to complete a user story</li>
+        <li>Adjust work to fit team capacity</li>
+        <li>Sharing a sprint with stakeholders</li>
+        <li>LAB: Planning the next sprint</li>
+      </ul>
+
+      <h4>Running the sprint</h4>
+      <p>
+        Ready? Set? Go! During the sprint the whole team builds the next features.
+        Communication here is essential, so we will look at the daily standup
+        meeting and how VSTS can help. We will also look at reporting in DevOps.
+      </p>
+      <ul>
+        <li>Running a sprint</li>
+        <li>The daily standup meeting</li>
+        <li>Burndown chart</li>
+        <li>Team dashboard</li>
+        <li>Task integration with source control</li>
+        <li>LAB: Starting the sprint</li>
+      </ul>
+
+      <h4>Continuous Integration with Azure Pipelines and GitHub Actions</h4>
+      <p>
+        To build quality software and to avoid integration problems at the 
+        end of the project, continuous integration builds are considered a 
+        best practice. Azure DevOps simplifies continuous integration through 
+        its pipeline system. Here, you will author build pipelines to ensure 
+        the quality of your project.
+      </p>
+      <ul>
+        <li>Doing Continuous integration</li>
+        <li>Introduction to YAML</li>
+        <li>Authoring a build using the designer and YAML pipelines</li>
+        <li>What are stages, jobs, tasks?</li>
+        <li>What are build agents?</li>
+        <li>Setting up a build agent in your enterprise network</li>
+        <li>Using GitHub Actions and Runners</li>
+        <li>LAB: Setting up and running a build definition</li>
+      </ul>
+      
+      <h4>Continuous Deployment with Azure Pipelines </h4>
+      <p>
+        With continuous deployment, you can automatically deploy your project. 
+        By utilizing stages, you can verify the quality of your deployment 
+        through manual and/or automatic steps before deploying to production.
+      </p>  
+      <ul>
+        <li>Release management and continuous deployment</li>
+        <li>Release definitions</li>
+        <li>Integrating with other systems (such as Azure and GitHub) using Service Connections</li>
+        <li>Approving releases with release gates</li>
+        <li>LAB: Continous Deployment with a release definition</li>
+      </ul>
+
+      <h4>Deployment Patterns</h4>
+      <p>
+        Continuous Delivery is more than release management. Here we will 
+        discuss different deployment patterns and when to use them.
+      </p>
+      <ul>
+        <li>Deployment is more than deploying to QA and PROD environments</li>
+        <li>Explore Microservices Architecture</li>
+        <li>Minimize Deployment Downtime using Blue/Green Deployment</li>
+        <li>Using Canary Releases</li>
+        <li>Optimize performance using A/B Testing</li>
+        <li>Using Progressive Exposure (aka Ring-Based Deployment)</li>
+        <li>Exposing New Features using Feature Toggles</li>
+        <li>Choosing between deployment patterns</li>
+        <li>LAB: Implementing a Canary Release with Traffic Manager</li>
+      </ul>
+
+      <h4>Configuration and Keeping Secrets Safe</h4>
+      <p></p>
+      <ul>
+        <li>Application Configuration Options</li>
+        <li>Using Azure Key Vault</li>
+        <li>Centralize your settings using Azure App Configuration</li>
+        <li>Feature Toggles with Azure App Configuration</li>
+        <li>Managing Secrets in GitHub</li>
+        <li>LAB: Using Azure Key Vault with CI/CD</li>
+      </ul>
+
+      <h4>Implement Secure Continuous Deployment</h4>
+      <p>
+        How do you ensure your applications are secure and stay secure 
+        with continuous integration and delivery? How can you find and 
+        fix security issues early in the process? It begins with practices 
+        commonly referred to as DevSecOps.
+      </p>
+      <ul>
+        <li>Explore Continous Security Validation</li>
+        <li>Key Validation Points</li>
+        <li>Scanning your Code Base for Security</li>
+        <li>Avoid Packages with Vulnerabilities</li>
+      </ul>
+    
+      <h4>Infrastructure as Code</h4>
+      <p>
+        The cloud enables you to easily provision computing infrastructure, 
+        such as servers, networks, storage, and other resources. With 
+        'infrastructure as code,' you use machine-readable definition files, 
+        such as ARM or Bicep, to deploy your infrastructure.
+      </p>
+      <ul>
+        <li>What is Infrastructure as Code?</li>
+        <li>Authoring Bicep Templates</li>
+        <li>Deploying Bicep using Azure CLI</li>
+        <li>Using Desired State Configuration</li>
+        <li>Using Continuous Deployment to create your infrastructure</li>
+        <li>LAB: Deploying your application's infrastructure</li>
+      </ul>
+
+      <h4>Azure Artifacts</h4>
+      <p>
+        Modern development utilizes packages like NuGet, NPM, or others. With 
+        Azure Artifacts, you can create your own private or public package feeds.
+      </p>
+      <ul>
+        <li>Understanding Azure Artifacts</li>
+        <li>Creating a Package Feed</li>
+        <li>Pushing a Package</li>
+        <li>Understanding Upstream Sources</li>
+        <li>Versioning Packages</li>
+        <li>Using Artifacts in Azure Pipelines</li></lu>
+      </ul>
+  </body>
+</html>

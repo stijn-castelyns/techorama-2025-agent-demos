@@ -1,0 +1,86 @@
+﻿@page "/"
+@using System.ComponentModel
+@using AgentDemos.Agents
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.Agents
+@using Microsoft.SemanticKernel.ChatCompletion
+@inject CourseRecommendationAgent CourseRecommendationAgent
+@inject NavigationManager Nav
+@implements IDisposable
+
+<PageTitle>Chat</PageTitle>
+
+<ChatHeader OnNewChat="@ResetConversationAsync" />
+
+<ChatMessageList Messages="@chatThread.ChatHistory" InProgressMessage="@currentResponseMessage">
+  <NoMessagesContent>
+    <div>To get started, try asking about these example documents. You can replace these with your own data and replace this message.</div>
+    <ChatCitation File="Example_Emergency_Survival_Kit.pdf" />
+    <ChatCitation File="Example_GPS_Watch.pdf" />
+  </NoMessagesContent>
+</ChatMessageList>
+
+<div class="chat-container">
+  @* <ChatSuggestions OnSelected="@AddUserMessageAsync" @ref="@chatSuggestions" /> *@
+  <ChatInput OnSend="@AddUserMessageAsync" @ref="@chatInput" />
+</div>
+
+@code {
+  private ChatHistoryAgentThread chatThread = new();
+  private CancellationTokenSource? currentResponseCancellation;
+  private ChatMessageContent? currentResponseMessage;
+  private ChatInput? chatInput;
+  private ChatSuggestions? chatSuggestions;
+
+  protected override void OnInitialized()
+  {
+    chatThread = new ChatHistoryAgentThread(new ChatHistory());
+  }
+
+  private async Task AddUserMessageAsync(ChatMessageContent userMessage)
+  {
+    CancelAnyCurrentResponse();
+
+    // Add the user message to the conversation
+    chatThread.ChatHistory.Add(userMessage);
+    chatSuggestions?.Clear();
+    await chatInput!.FocusAsync();
+
+    // var responseText = new TextContent("");
+    currentResponseMessage = new ChatMessageContent(AuthorRole.Assistant, "");
+    currentResponseCancellation = new();
+
+    await foreach (var response in CourseRecommendationAgent._courseRecommendationAgent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token))
+    {
+      ChatMessageItem.NotifyChanged(currentResponseMessage);
+    }
+
+    // Store the final response in the conversation, and begin getting suggestions
+    currentResponseMessage = null;
+    // chatSuggestions?.Update(messages);
+  }
+
+  private void CancelAnyCurrentResponse()
+  {
+    // If a response was cancelled while streaming, include it in the conversation so it's not lost
+    if (currentResponseMessage is not null)
+    {
+      chatThread.ChatHistory.Add(currentResponseMessage);
+    }
+
+    currentResponseCancellation?.Cancel();
+    currentResponseMessage = null;
+  }
+
+  private async Task ResetConversationAsync()
+  {
+    CancelAnyCurrentResponse();
+    chatThread.ChatHistory.Clear();
+    chatSuggestions?.Clear();
+    await chatInput!.FocusAsync();
+  }
+
+  public void Dispose()
+      => currentResponseCancellation?.Cancel();
+}
+

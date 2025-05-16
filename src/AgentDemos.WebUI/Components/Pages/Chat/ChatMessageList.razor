@@ -1,0 +1,44 @@
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.ChatCompletion
+@inject IJSRuntime JS
+
+<div class="message-list-container">
+  <chat-messages class="page-width message-list" in-progress="@(InProgressMessage is not null)">
+    @foreach (var message in Messages)
+    {
+      <ChatMessageItem @key="@message" Message="@message" />
+    }
+
+    @if (InProgressMessage is not null)
+    {
+      <ChatMessageItem Message="@InProgressMessage" InProgress="true" />
+      <LoadingSpinner />
+    }
+    else if (IsEmpty)
+    {
+      <div class="no-messages">@NoMessagesContent</div>
+    }
+  </chat-messages>
+</div>
+
+@code {
+  [Parameter]
+  public required ChatHistory Messages { get; set; }
+
+  [Parameter]
+  public ChatMessageContent? InProgressMessage { get; set; }
+
+  [Parameter]
+  public RenderFragment? NoMessagesContent { get; set; }
+
+  private bool IsEmpty => !Messages.Any(m => (m.Role == AuthorRole.User || m.Role == AuthorRole.Assistant) && !string.IsNullOrEmpty(m.Content));
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+      // Activates the auto-scrolling behavior
+      await JS.InvokeVoidAsync("import", "./Components/Pages/Chat/ChatMessageList.razor.js");
+    }
+  }
+}

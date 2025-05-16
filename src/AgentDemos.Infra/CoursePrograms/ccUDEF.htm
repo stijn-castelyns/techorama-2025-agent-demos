@@ -1,0 +1,262 @@
+<html
+  xmlns:mso="urn:schemas-microsoft-com:office:office"
+  xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+>
+  <head>
+    <title>Domain Driven Design with Entity Framework Core</title>
+    <meta name="NumberOfDays" content="3" />
+    <!--[if gte mso 9
+      ]><xml>
+        <mso:CustomDocumentProperties>
+          <mso:ContentTypeId msdt:dt="string"
+            >0x0101009C33340F38E14D1EABEAC83093A8F17200CC4EDD6B6BFD0C4EADC836B510B92464</mso:ContentTypeId
+          >
+        </mso:CustomDocumentProperties>
+      </xml><!
+    [endif]-->
+  </head>
+
+  <body>
+    <h2>Learning Goals</h2>
+    <p>
+      When architecting and developing applications, various approaches warrant consideration. 
+      Among these, Domain-Driven Design (DDD) stands prominent. The core idea of Domain-Driven 
+      Design is to base the software development process on the business domain itself, 
+      ensuring that business experts and developers are aligned in their understanding 
+      and objectives. In the realm of business applications, the necessity for a data access 
+      layer to interface with databases is common. Enter Entity Framework Core (EF Core), 
+      a tool that seamlessly integrates with DDD principles. This course delves into the 
+      fundamentals of Domain-Driven Design and illustrates how EF Core can be instrumental 
+      in applying these principles effectively.
+    </p>
+
+    <h2>Target Audience</h2>
+    <p>
+      Attendees are required to have prior knowledge of C# and .NET.
+      Participants in this course will explore modern architecture principles and engage 
+      in a hands-on project to construct a website using C#, DDD, EF Core, and Unit Testing.
+    </p>
+
+    <h2>Course Outline</h2>
+
+    <h4>Introduction to Domain Driven Design</h4>
+    <p>
+      Ensuring that software meets its intended objectives can be challenging. 
+      Misalignment between business stakeholders and developers often arises 
+      due to differences in communication. Domain-Driven Design (DDD) aims 
+      to bridge this gap by establishing a common language between them.
+    </p>
+    <ul>
+      <li>What is Domain Driven Design?</li>
+      <li>Advantages of using Domain Driven Design</li>
+      <li>Ubiquitous Language</li>
+      <li>When is Domain Driven Design a bad option?</li>
+      <li>DDD and Persistance Ignorance</li>
+      <li>EF Core and DDD: A Good Match?</li>
+    </ul>
+
+    <h4>Architecting Modern Web Applications</h4>
+    <p>
+      What defines a modern web application? Is it one built with Angular and 
+      TypeScript? In the rapidly evolving landscape of web development, there's 
+      a risk that your website might utilize 'outdated' technology by the time 
+      it's completed. However, "Clean" architecture stands the test of time. As 
+      a wise saying goes, 'If you think good architecture is expensive, try bad architecture.'
+    </p>
+    <ul>
+      <li>
+        "Clean" Architecture: put the business and application model at the
+        center
+      </li>
+      <li>Understanding the Core, Infrastructure and Presentation layer</li>
+      <li>Testing everything with Clean Architecture</li>
+      <li>
+        LAB: Build the application structure using Clean Architecture principles
+      </li>
+    </ul>
+
+    <h4>Modeling your database with EF Core</h4>
+    <p>
+      Mapping in EF Core utilizes conventions, attributes, or the Fluent API. You'll 
+      learn how to leverage these tools to model your database in EF Core and implement 
+      the changes using Code-first Migrations.
+    </p>
+    <ul>
+      <li>Methods of configuration</li>
+      <li>Creating and applying migrations</li>
+      <li>Table and column mapping</li>
+      <li>Modeling properties</li>
+      <li>Mapping Value generated properties</li>
+      <li>Handling Concurrent updates</li>
+      <li>Modeling relationships</li>
+      <li>Mapping inheritance</li>
+      <li>LAB: Mapping your entities to the database with EF Core</li>
+    </ul>
+
+    <h4>Tactical Design</h4>
+    <p>
+      When constructing the domain model, there are several approaches. 
+      Tactical Design provides a set of technical resources and patterns 
+      used in the construction of the domain model. The goal is to enrich 
+      your domain model by correctly applying these patterns. When done effectively, 
+      it will reflect your business model with greater clarity and enable 
+      better communication and design.
+    </p>
+    <ul>
+      <li>What is tactical design?</li>
+      <li>Entities, Services, Aggregates, etc...</li>
+      <li>Applying Tactical Design to a real world business case</li>
+    </ul>
+
+    <h4>Entities and Value Objects with DDD</h4>
+    <p>
+      Domain-Driven Design introduces a crucial distinction between Entities 
+      and Value Objects. But how does one effectively implement these concepts 
+      in practical software development using C# and .NET?
+    </p>
+    <ul>
+      <li>Differentiating between Entities and Value Objects</li>
+      <li>Designing Entities their Identity</li>
+      <li>Designing immutable Value Objects</li>
+      <li>Implementing Value Objects Equality efficiently</li>
+      <li>C# 9 records</li>
+      <li>Modelling Entities with EF Core</li>
+      <li>Implementing Value Objects with Owned Properties</li>
+      <li>Using Shadow Properties to Avoid 'Leaky Abstractions'</li>
+      <li>LAB: Adding the Entities and Value Objects to the game store</li>
+    </ul>
+
+    <h4>Domain Services and Modules</h4>
+    <p>
+      Some behaviors may not neatly align with existing Entities or Value Objects. 
+      In such instances, we encapsulate this behavior within a Domain Service. 
+      Now, how should we organize our business objects into Modules?
+    </p>
+    <ul>
+      <li>Providing domain specific operations with Domain Services</li>
+      <li>Domain, Infrastructure and Application Services</li>
+      <li>Testing your Services</li>
+      <li>Segregating concepts using Modules</li>
+      <li>LAB: Adding some Domain Services to the game store</li>
+    </ul>
+
+    <h4>Strategic Design</h4>
+    <p>
+      One of the core pillars of Domain-Driven Design is Strategic Modeling. 
+      Strategic modeling assists in defining the Bounded Contexts, the Ubiquitous 
+      Language, and Context Maps.
+    </p>
+    <ul>
+      <li>Anti-Pattern: Big Ball of Mud</li>
+      <li>The linguistic delimitation that are Bounded Contexts</li>
+      <li>Identifying the terms and concepts with the Ubiquitous Language</li>
+      <li>Relating Bounded Contexts with Context Maps</li>
+    </ul>
+
+    <h4>
+      Aggregates, Factories, Repositories and Specifications in DDD
+    </h4>
+    <p>
+      Grouping your entities into Aggregates can streamline development and 
+      mitigate the 'Death by a Thousand Dots' anti-pattern. Entities have lifecycles, 
+      but how do you create complex hierarchies of entities? Moreover, how do we 
+      abstract away the details of interacting with databases?
+    </p>
+    <ul>
+      <li>Clustering Entities and Value Objects with Aggregates</li>
+      <li>Understanding the Importance of Using Aggregate Roots</li>
+      <li>Anti-Pattern: Death by a Thousand Dots</li>
+      <li>Abstracting the creation of business objects with Factories</li>
+      <li>Data storage by using Repositories</li>
+      <li>Abstracting queries using Specifications</li>
+      <li>LAB: Implementing the life-cycle of your aggregates</li>
+      <li>Building Repository and Specification classes</li>
+      <li>Testing your Specifications</li>
+      <li>Entity Validation</li>
+      <li>LAB: Using EF Core for Repositories and Specifications</li>
+    </ul>
+
+    <h4>Advanced EF: Mapping DDD to EF Core.</h4>
+    <p>
+      Domain-Driven Design is an excellent approach to begin designing your 
+      applications. Entity Framework Core is a powerful framework for accessing and 
+      manipulating your data stored in databases. Now, can we integrate Domain-Driven 
+      Design concepts into Entity Framework Core? Yes, indeed!
+    </p>
+    <ul>
+      <li>Optimizing EF Core Queries</li>
+      <li>Performing Bulk Updates</li>
+      <li>Using IN queries</li>
+      <li>Access to Tracked Entities</li>
+      <li>Using JSON Columns</li>
+      <li>New and Improved Interceptors and Events</li>
+    </ul>
+
+    <h4>Domain Events</h4>
+    <p>
+      When building larger applications, you aim to maintain low coupling 
+      and high cohesion. So, how do you implement changes that need to be 
+      handled by different subsystems?
+    </p>
+    <ul>
+      <li>What are Domain Events?</li>
+      <li>Publishing significant domain changes with Domain Events</li>
+      <li>Using MediatR with Domain Events</li>
+      <li>LAB: Adding Domain Events to the game store application</li>
+    </ul>
+
+    <h4>Unit testing in .NET 8</h4>
+    <p>
+      Every developer aspires to write code that is not only clean but also 
+      functional. However, achieving code that is easily maintainable and 
+      consistently operational poses a significant challenge. How does one 
+      navigate the complexities of software development to ensure that the code 
+      remains robust and reliable in the long run? In this context, we will 
+      explore the role of unit testing in verifying the correctness of our 
+      code and ensuring its continued functionality..
+    </p>
+    <ul>
+      <li>
+        What every developer wants: Quality code that works; and keeps on
+        working
+      </li>
+      <li>
+        Finding bugs: not just in code. - Or how NASA lost a 125.000.000$ Mars
+        orbiter
+      </li>
+      <li>What is unit testing? And what is a good unit test?</li>
+      <li>
+        Understanding the difference between a unit test and an integration test
+      </li>
+      <li>Test Driven Development - Should you be doing it?</li>
+      <li>Role-playing: Marge, Homer and Bart</li>
+      <li>
+        The Triple-A of unit testing - and what has cooking to do with this?
+      </li>
+      <li>Given-When-Then</li>
+    </ul>
+
+    <h4>Unit testing with Visual Studio with xUnit</h4>
+    <p>
+      When it comes to Unit Testing, you will need to choose frameworks. 
+      There are several options available, so which one do you need? 
+      Visual Studio comes with a built-in framework called MSTest, 
+      but you also have others, such as the popular xUnit. In this module, 
+      we will discuss the pros and cons of these frameworks and delve into 
+      some best practices. How can you determine if you have tested enough? 
+      Code coverage allows you to see which paths in your code you have tested 
+      and easily identify untested conditional logic.
+    </p>
+    <ul>
+      <li>Unit Testing best practices with XUnit</li>
+      <li>Facts and Theories</li>
+      <li>Using the Test Explorer Window</li>
+      <li>Live unit testing with Visual Studio</li>
+      <li>Running tests in parallel, or not</li>
+      <li>Measuring and improving Code Coverage</li>
+      <li>Replacing dependencies using Fakes, Stubs and Mocks</li>
+      <li>Building Stubs and Mocks using NSubstitute</li>
+      <li>Testing data access, such as Repositories and Specifications</li>
+    </ul>
+  </body>
+</html>

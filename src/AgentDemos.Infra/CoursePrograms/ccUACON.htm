@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <title>Managing Containers with Kubernetes and Microsoft Azure</title>
+	<meta name="NumberOfDays" content="3" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ContentTypeId msdt:dt="string">0x0101009C33340F38E14D1EABEAC83093A8F1720056AF8418A86DA34384F354D0D045D644</mso:ContentTypeId>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+    <title></title>
+</head>
+<body>
+    <h2>
+        Learning Goals</h2>
+	<p>
+		Containers provide a very useful platform to host applications. They are light-weight and performant and can easily be redeployed across different environments.
+		Once you have a bunch of containers to manage, you will need an orchestration tool to simplify the deployment and configuration of your containers. That is where Kubernetes comes into play.
+		In this course you will learn how to use docker and Kubernetes to manage containers, both on-premises and in the Azure Cloud platform.
+		</p>
+    <h2>
+        Target Audience</h2>
+    <p>
+        This course is intended for experienced IT professionals who are interested in container technology and want to learn about Docker and Kubernetes.
+		The technologies learned in the course can be useful for both on-prem deployments or environments that operate in the Azure Cloud.</p>
+    <h2>
+        Course Outline</h2>
+    <h4>Containers</h4>
+	<p>A container is a standard unit of software that packages code and all its dependencies so the application runs quickly and reliably from one computing environment to another. 
+	A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
+	In this module, you will learn about Container fundamentals.</p>
+    <ul>
+        <li>Containers Overview</li> 
+		<li>Containers versus Virtual Machines</li>
+		<li>Container Fundamentals</li>
+		<li>Docker Editions</li>
+    </ul>
+	<h4>Windows and Linux Containers</h4>
+	<p>Container technology is supported in both Windows and Linux. In this module you will learn how to prepare a Windows and a Linux host to run containers.</p>
+    <ul>
+        <li>Windows Containers</li> 
+		<li>Linux Containers</li>
+		<li>Linux Containers on Windows</li>
+		<li>LAB: Windows and Linux Containers</li>
+    </ul>
+    <h4>Docker</h4>
+	<p>Docker is the leader in container software and provides the platform for you to run your containers. In this module, you will learn 
+	how to create and run containers with Docker.
+	You will also take a look at other technologies provided by Docker to help you with container management: Docker Hub, Docker Compose and Docker Swarm.</p>
+    <ul>
+        <li>Docker Overview</li> 
+		<li>Docker Commands</li>
+		<li>Container Networking</li>
+		<li>Dockerfile</li>
+		<li>Docker Hub</li>
+		<li>Docker Compose</li>
+		<li>Docker Swarm</li>
+		<li>LAB: Docker</li>
+    </ul>
+    <h4>Applications in Containers</h4>
+	<p>Even though this course does not target developers, even for IT Pros it is important to understand applications and their architecture,
+	especially when working with containers. This module gives you an overview of the evolution of software architecture and what an ideal container application looks like.</p>
+    <ul>
+        <li>Software Architecture Evolution</li>
+		<li>Microservices</li>
+		<li>.NET Core versus .NET Framework</li>
+		<li>Migrate Existing Applications</li>
+		<li>Databases and Containers</li>	
+    </ul>
+    <h4>Kubernetes</h4>
+	<p>Kubernetes is an open-source orchestration tool that will help you deploy and manage your containers across several different hosts.
+	Kubernetes uses a declarative approach that lets you specify what you want to deploy. Kubernetes then creates all the necessary objects for you.
+	In this module you will learn about the various components within a Kubernetes cluster and the different methods to run your cluster.
+	You will also take a look at basic Kubernetes resources like pods and volumes.</p>
+    <ul>
+        <li>Kubernetes Overview</li> 
+		<li>Kubernetes Cluster</li>
+		<li>Cluster Hosting Options</li>
+		<li>Azure Kubernetes Service</li>
+		<li>Kubernetes Building Blocks: Pods, Volumes</li>
+		<li>LAB: Kubernetes</li>
+    </ul>
+    <h4>Container Deployment with Kubernetes</h4>
+	<p>Once your cluster is up and running, you need to manage your containers. Deployments guarantee that the necessary pods are always available. They provide an easy update method and let
+	you scale your deployment by adding replicas. Services make sure you can easily communicate with the applications in your cluster, no matter what pods are active.</p>
+    <ul>
+		<li>Deployments</li>
+		<li>Deployment Rolling Updates</li>
+		<li>Scaling</li>
+		<li>Networking in Kubernetes</li>
+		<li>AKS Networking Options</li>
+		<li>Services</li>
+		<li>LAB: Container Deployment with Kubernetes</li>
+    </ul>
+	<h4>Container Management with Kubernetes</h4>
+	<p>An Ingress Controller allows you to setup a load balancing solution to forward external traffic to your Kubernetes services. Sensitive information can be provided to a container through the use of secrets.
+	With namespaces you can group resources in your cluster for extra security or to control network traffic routing.</p> 
+    <ul>
+		<li>Ingress: Application Routing Add-On, Azure Application Gateway</li>
+		<li>Secrets and ConfigMaps</li>
+		<li>Namespaces</li>
+		<li>Network Policies</li>
+		<li>Container Health Monitoring</li>
+		<li>Kubernetes Cluster Monitoring</li>
+		<li>LAB: Container Management with Kubernetes</li>
+    </ul>
+	<h4>Container Technology in Azure</h4>
+	<p> Azure provides a whole infrastructure for managing and hosting containers. From simple basic containers that can be deployed without any configuration,
+	to advanced services that build and manage entire Kubernetes clusters for you.
+    <ul>
+        <li>Azure Container Registry</li>
+		<li>Azure Container Instances</li>
+		<li>Web App for Containers</li>
+		<li>Azure Container Apps</li>
+		<li>LAB: Container Technology in Azure</li>
+    </ul>
+</body>
+</html>

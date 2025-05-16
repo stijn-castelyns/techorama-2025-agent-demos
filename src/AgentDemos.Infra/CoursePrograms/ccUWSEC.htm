@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:mso="urn:schemas-microsoft-com:office:office"
+  xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+>
+  <head>
+    <title>Web Security Development Techniques</title>
+    <meta name="NumberOfDays" content="3" />
+    <!--[if gte mso 9
+      ]><xml>
+        <mso:CustomDocumentProperties>
+          <mso:ContentTypeId msdt:dt="string"
+            >0x0101009C33340F38E14D1EABEAC83093A8F17200A06F8C64409B7D43B4DEA2E4E0563418</mso:ContentTypeId
+          >
+        </mso:CustomDocumentProperties>
+      </xml><!
+    [endif]-->
+  </head>
+
+  <body>
+    <h2>Learning Goals</h2>
+    <p>
+      Cyber security is becoming an increasingly important topic for
+      organizations. The quantity and importance of data entrusted to web
+      applications is growing, and defenders need to learn how to secure them.
+      Imagine your organization making the news, not because of some new
+      world-changing product, but because of a data leak containing all your
+      customers' data, including personal information and credit card details!
+      As a modern web developer mastering these skills is important because you
+      cannot afford not to!
+    </p>
+    <p>
+      This course takes you through the different security threats and defences
+      and teaches you hands-on how to apply them to ASP.NET Core. Among others,
+      you will learn how to authenticate with OpenID Connect and Entra ID,
+      protect your API with OAuth2 and secure your company data with proper
+      encryption techniques. This course provides in-depth, hands-on experience
+      securing your web-based applications.
+    </p>
+    <h2>Target Audience</h2>
+    <p>
+      This course is meant for developers that have experience with ASP.NET Core
+      and want to make the world a safer place through applied security best
+      practices.
+    </p>
+    <h2>Course Outline</h2>
+
+    <h4>Security: a Many Pronged Word</h4>
+    <p>
+      Security. This word has many meanings, depending on how you look at
+      things. For some people security means that others should not be able to
+      see the data you are sending or storing. For others this means making sure
+      you know who is using your system and determining what actions they can
+      perform with it. Sometimes it means ensuring the data cannot be changed in
+      transit. Here we will look at all the different meanings of security and
+      discuss 10 rules you should always adhere to.
+    </p>
+    <ul>
+      <li>Non-disclosure</li>
+      <li>Authentication</li>
+      <li>Authorization</li>
+      <li>Data-tampering</li>
+      <li>Security Testing is Different</li>
+      <li>Applying STRIDE</li>
+      <li>The Ten Immutable Laws of Security</li>
+    </ul>
+
+    <h4>Encryption, Hashing and Signing</h4>
+    <p>
+      How do you keep prying eyes away from your data? Encrypting data ensures
+      that only the intended receiver of the data can understand it. So how does
+      this work? We will look at symetric keys versus asymtric ones. We will
+      also look at the most used encryption algorithms, what they offer, and how
+      to use them correctly.
+    </p>
+    <ul>
+      <li>What is Encryption?</li>
+      <li>Understanding Symmetric Keys</li>
+      <li>And what about Asymmetric Keys</li>
+      <li>Hybrid Encryption</li>
+      <li>Hashing</li>
+      <li>Properly store Passwords with Hashing and Salts</li>
+      <li>What are Digital Signatures?</li>
+      <li>LAB: Encryption</li>
+    </ul>
+
+    <h4>Secure Communication with HTTPS</h4>
+    <p>
+      HTTPS encrypts communication between clients and servers, but how does it
+      work, and how do you enable it for your application? In this chapter, we
+      will look at the TLS handshake, how to get a certificate, and learn how to
+      enforce HTTPS with HSTS.
+    </p>
+    <ul>
+      <li>TLS Handshake</li>
+      <li>Certificates</li>
+      <li>Certification Authorities</li>
+      <li>Getting a Certificate</li>
+      <li>HSTS</li>
+    </ul>
+
+    <h4>Content Security Policy</h4>
+    <p>
+      OWASP defined a couple of special security headers which allow you some
+      control over what the browser will do with your content. In this chapter
+      we will discuss two of these headers.
+    </p>
+    <ul>
+      <li>Understanding HTTP headers and their role in security</li>
+      <li>Setting headers in IIS and ASP.NET Core</li>
+      <li>HTTP Strict Transport Security header</li>
+      <li>HSTS options</li>
+    </ul>
+
+    <h4>Understanding Claims-Based Security</h4>
+    <p>
+      What is a given user allowed to do in your application? This most-likely
+      depends on the role that user has in your organisation. This role is now
+      represented with claims. In this chapter you will get a better
+      understanding why claims are better than roles, and how claims are
+      transmitted in a secure way as tokens.
+    </p>
+    <ul>
+      <li>Representing the User</li>
+      <li>Introducing Claims Based Security</li>
+      <li>Understanding Tokens</li>
+      <li>Using Claims in .NET</li>
+      <li>LAB: Authenticating a Website with Claims</li>
+    </ul>
+
+    <h4>Mastering OAuth2 and OpenID Connect</h4>
+    <p>
+      In the modern web we all want to share stuff. But how do you safely allow
+      one web site to access resources from another web site? With OpenID
+      Connect you can delegate authentication to an identity provider (such as
+      Facebook, Entra ID, Identity Server and others).
+    </p>
+    <ul>
+      <li>The Internet and a Way of Sharing</li>
+      <li>Introducing OAuth2 and OpenID Connect</li>
+      <li>
+        OAuth Fundamentals: Authorization Code Grant, PKCE and Client Credential
+        Grant
+      </li>
+      <li>Implementing OpenID Connect Web Sign-in with Entra ID</li>
+    </ul>
+
+    <h4>Protecting a Web-API with OpenID Connect and Entra ID</h4>
+    <p>
+      Modern web sites and mobile apps often consume REST services. You can use
+      OpenID Connect to authenticate users, after which you can use claims to
+      authorize access to resources stored in a web API.
+    </p>
+    <ul>
+      <li>Protecting a Web API's resources</li>
+      <li>Adding permissions to the server side</li>
+      <li>Requesting permissions at the client side</li>
+      <li>Using the Microsoft Authentication Library (MSAL)</li>
+      <li>User consent</li>
+      <li>LAB: Getting an access token and passing it to the server</li>
+    </ul>
+
+    <h4>Automated Security Checks in DevSecOps</h4>
+    <p>
+      Checking the security of your applications every step of the way can be
+      very tedious. Luckily, you can employ some automated tools to do the heavy
+      lifting for you. In this chapter, we'll take a look at what tools are
+      available, and how to integrate them into your CI/CD pipeline.
+    </p>
+    <ul>
+      <li>Recognizing Insecure Code</li>
+      <li>Static Analysis Security Tools</li>
+      <li>Dynamic Analysis Security Tools</li>
+      <li>Setting up CI/CD Pipelines for DevSecOps</li>
+    </ul>
+
+    <h4>OWASP - Top 10</h4>
+    <p>
+      To better protect yourself against attacks, you should first learn what
+      kind of attacks are common. Once you understand these attacks we can look
+      at defending against them.
+    </p>
+    <ul>
+      <li>What is the OWASP Top 10?</li>
+      <li>Broken Access Control</li>
+      <li>Cryptographic Failures</li>
+      <li>Injection</li>
+      <li>Insecure Design</li>
+      <li>Security Misconfiguration</li>
+      <li>Vulnerable and Outdated Components</li>
+      <li>Indentification and Authentication Failures</li>
+      <li>Software and Data Integrity Failures</li>
+      <li>Security Logging and Monitoring Failures</li>
+      <li>Server-Side Request Forgery</li>
+      <li>Extra: Denial of Service</li>
+    </ul>
+
+    <h4>Offensive Testing: Finding Vulnerabilities in a Web App</h4>
+    <p>
+      The best defence is a good offence. In this hands-on module, you are going
+      to put on your black hat and try to exploit as many vulnerabilities as you
+      can in a web application made just for that.
+    </p>
+    <ul>
+      <li>Introducing the OWASP Juice Shop</li>
+      <li>LAB: Finding vulnerabilities in a webshop</li>
+    </ul>
+  </body>
+</html>

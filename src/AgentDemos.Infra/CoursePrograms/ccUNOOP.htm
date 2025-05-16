@@ -1,0 +1,325 @@
+<html
+  xmlns:mso="urn:schemas-microsoft-com:office:office"
+  xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+>
+  <head>
+    <title>Advanced Object-Oriented Programming Techniques in .NET</title>
+    <meta name="NumberOfDays" content="5" />
+
+    <!--[if gte mso 9
+      ]><xml>
+        <mso:CustomDocumentProperties>
+          <mso:ContentTypeId msdt:dt="string"
+            >0x0101009C33340F38E14D1EABEAC83093A8F17200DA8DAD11A14AC34892AB879D349C469B</mso:ContentTypeId
+          >
+        </mso:CustomDocumentProperties>
+      </xml><!
+    [endif]-->
+  </head>
+
+  <body>
+    <h2>Learning Goals</h2>
+    <p>
+      Today's applications must be more responsive, scalable, and
+      high-performing. Therefore, modern .NET developers need to be familiar
+      with the advanced features of .NET and understand how things work under
+      the hood. This course delves into advanced concepts of the framework, such
+      as async programming, parallel computing, and Reactive Extensions.
+      Furthermore, with the rise of AI, GitHub Copilot has become an essential
+      tool in any developer's toolbelt. Join this training to enhance your
+      existing .NET programming skills.
+    </p>
+
+    <h2>Target Audience</h2>
+    <p>
+      This in-depth course is meant for experienced developers who have a solid
+      understanding of the .NET platform. All examples and labs are based on the
+      latest LTS version of .NET and Visual Studio.
+    </p>
+
+    <h2>Course Outline</h2>
+
+    <h4>Generics</h4>
+    <p>
+      C# generics provide a powerful way to create reusable code components that
+      can work with any data type. They enable you to define classes,
+      interfaces, methods, and delegates with placeholder types, allowing you to
+      specify the actual types when you use them. This flexibility enhances code
+      readability, reusability, and type safety.
+    </p>
+    <ul>
+      <li>Using Generics</li>
+      <li>Creating Generics</li>
+      <li>Constraints</li>
+      <li>Understanding Covariance and Contravariance</li>
+      <li>LAB: Building a Generic Graph</li>
+    </ul>
+
+    <h4>Delegates and Events</h4>
+    <p>
+      In C#, a delegate is a type that represents references to methods with a
+      particular signature. Delegates provide a way to encapsulate and pass
+      around methods as first-class objects. They are particularly useful in
+      scenarios where you want to treat methods as data, such as callback
+      mechanisms, event handling, multi-threading, asynchronous programming, and
+      implementing functionality similar to function pointers in other
+      programming languages.
+    </p>
+    <ul>
+      <li>Creating Delegates</li>
+      <li>Using Delegates</li>
+      <li>Multicast Delegates</li>
+      <li>Creating Events</li>
+      <li>Using Events in a UI</li>
+      <li>Understanding Closures and static lambda functions</li>
+      <li>LAB: Applying Top-down Actions on a Hierarchy</li>
+    </ul>
+
+    <h4>LINQ Fundamentals</h4>
+    <p>
+      LINQ (Language Integrated Query) is a feature of .NET that provides a
+      consistent query syntax to query and manipulate data from different data
+      sources, such as collections, arrays, databases, XML, and more. It allows
+      developers to write queries directly within C# or other .NET languages,
+      providing a more natural and intuitive way to work with data.
+    </p>
+    <ul>
+      <li>What is LINQ?</li>
+      <li>LINQ to Objects, SQL, Entity Framework and XML</li>
+      <li>LINQ's Enumerable Class</li>
+      <li>Query Syntax vs. Method Syntax</li>
+      <li>Deferred Query Evaluation with Yield Return</li>
+      <li>LINQ Operators</li>
+      <li>LINQ Internals</li>
+      <li>Extending LINQ with your own Operators</li>
+      <li>LAB: Exploring LINQ Features</li>
+    </ul>
+    <h4>AI Assisted Development</h4>
+    <p>
+      In this modern age of AI, developers don't just have to incorporate AI in
+      their applications, they can also use it to create these very
+      applications. Find out how to get the most out of GitHub Copilot by
+      discovering all of its features, asking the right questions, and learning
+      its strengths and weaknesses.
+    </p>
+    <ul>
+      <li>Introduction to Large Language Models</li>
+      <li>GitHub Copilot: Features and Limitations</li>
+      <li>Prompting your Assistant</li>
+      <li>Improving your Assistant with Copilot Extensions</li>
+      <li>Copilot Best Practices</li>
+    </ul>
+    <h4>Modern C# Language Features</h4>
+    <p>
+      The C# language itself has evolved dramatically over the last couple of
+      years. If you have been struggling to keep up with all the details of
+      these language features, this module is for you.
+    </p>
+    <ul>
+      <li>Nullable Reference Types</li>
+      <li>Value Tuples and discards</li>
+      <li>Pattern Matching</li>
+      <li>Global and Implicit Usings</li>
+      <li>Required and Init-Only Properties</li>
+      <li>Records</li>
+      <li>File-Scoped Types and Namespaces</li>
+      <li>Using Raw String Literals</li>
+      <li>Required Members</li>
+      <li>Generic Attributes</li>
+      <li>Specifying the Return Type for Lambda Functions</li>
+      <li>Primary constructors</li>
+      <li>Collection expressions, inline arrays and the spread operator</li>
+      <li>Aliasing types</li>
+      <li>LAB: Using ValueTuples with LINQ</li>
+    </ul>
+
+    <h4>Garbage Collection</h4>
+    <p>
+      When you create an object in .NET, the framework handles memory management
+      for you. But what exactly happens with objects when .NET decides to remove
+      them from memory? This is where Garbage Collection comes into play. In
+      this module, we'll explore the significance of understanding Garbage
+      Collection and why it's crucial to grasp its concepts accurately.
+    </p>
+    <ul>
+      <li>Allocating classes and structs - Heap vs. Call stack</li>
+      <li>The Lifecycle of a Class Instance</li>
+      <li>GC Class and Members</li>
+      <li>Forcing a Garbage Collection</li>
+      <li>Garbage Collection for Unmanaged Resources</li>
+      <li>The Dispose Pattern</li>
+      <li>Resurrection</li>
+      <li>Weak References</li>
+    </ul>
+
+    <h4>Reference Semantics with Value Types</h4>
+    <p>
+      Writing super-efficient code requires leveraging specific language
+      features, which C# now offers. How can you efficiently pass value types?
+      What strategies can you employ to avoid placing transient objects on the
+      heap, opting instead to pass them on the stack? And, importantly, how do
+      you measure the performance gain or loss?
+    </p>
+    <ul>
+      <li>Understanding Reference Semantics</li>
+      <li>How Value Types allow you to write faster code</li>
+      <li>Passing value types by reference with new access modifiers</li>
+      <li>Understanding Span&lt;T&gt; and related classes</li>
+      <li>Measuring performance using BenchmarkDotNet</li>
+      <li>LAB: Boosting Performance by using Reference Semantics</li>
+    </ul>
+
+    <h4>Concurrency</h4>
+    <p>
+      How does your machine handle multiple processes? How can a single process
+      perform multiple tasks simultaneously? In this module, we'll explore the
+      advantages and challenges associated with concurrency.
+    </p>
+    <ul>
+      <li>What is Concurrency?</li>
+      <li>Understanding Processes and Threads</li>
+      <li>Different Kinds of Concurrency</li>
+      <li>Scheduling Threads</li>
+    </ul>
+
+    <h4>Multithreading in .NET</h4>
+    <p>
+      Everyone begins by mastering the fundamentals. The Thread class represents
+      the most fundamental approach to implementing concurrency. It's crucial to
+      grasp this class's concepts to fully comprehend and appreciate the
+      subsequent libraries and frameworks.
+    </p>
+    <ul>
+      <li>The Thread Class</li>
+      <li>Using the ThreadStatic attribute</li>
+      <li>Exceptions and Threads</li>
+      <li>Understanding Thread Pooling</li>
+      <li>Debugging Multi-Threaded Code</li>
+    </ul>
+
+    <h4>Thread Synchronization</h4>
+    <p>
+      Using shared memory in a multi-threaded environment can be dangerous and
+      confusing. In this module, we'll explain what can go wrong and how to
+      avoid it using different locking mechanisms.
+    </p>
+    <ul>
+      <li>Race Conditions and Dead Locks</li>
+      <li>Avoiding Race Conditions</li>
+      <li>Synchronizing Threads: Locks, Monitors, Signals, ...</li>
+      <li>Synchronization Guidelines</li>
+      <li>Thread Safety in .NET</li>
+      <li>LAB: Horse Race</li>
+    </ul>
+
+    <h4>Tasks</h4>
+    <p>
+      Using threads directly is quite complicated. Instead, we can make use of
+      tasks to do our bidding. A Task represents an asynchronous operation or a
+      unit of work that can be executed concurrently with other tasks. It's part
+      of the Task Parallel Library (TPL) in .NET and provides a higher-level
+      abstraction for asynchronous programming compared to using threads
+      directly. There are again advantages and disadvantages to using this
+      library, and we'll explore them in this module.
+    </p>
+    <ul>
+      <li>What are Tasks?</li>
+      <li>Task continuation</li>
+      <li>Waiting Asynchronously</li>
+      <li>Dealing with Exceptions</li>
+      <li>Task Cancellation</li>
+      <li>ThreadLocal&lt;T&gt; vs. AsyncLocal&lt;T&gt;</li>
+      <!--https://goatreview.com/execution-context-asynclocal-threadlocal-dotnet/?ref=dailydev-->
+    </ul>
+
+    <h4>The Async and Await Syntax Explained</h4>
+    <p>
+      The async and await keywords are among the most commonly used language
+      constructs in .NET. However, surprisingly few people understand their
+      inner workings.
+    </p>
+    <ul>
+      <li>What is Asynchronous Programming?</li>
+      <li>Comparing async/await to other Asynchronous Constructs</li>
+      <li>Diving into the async and await Keywords</li>
+      <li>Understanding ValueTask and its advantages and uses</li>
+      <li>LAB: using Async and Await</li>
+    </ul>
+
+    <h4>Asynchronous Programming in .NET</h4>
+    <p>
+      After grasping the async and await keywords, you can delve into handling
+      exceptions, managing cancellations, and tracking the progress of an async
+      task. This module covers these topics in detail.
+    </p>
+    <ul>
+      <li>A History of Asynchronous Programming in .NET</li>
+      <li>Understanding SynchronizationContext</li>
+      <li>Cancellation, Progress and Exception Handling</li>
+      <li>ConfigureAwait</li>
+      <li>IAsyncEnumerable</li>
+      <li>Async Guidelines</li>
+      <li>LAB: Async and Await in a Library</li>
+    </ul>
+
+    <h4>Parallel Computing</h4>
+    <p>
+      In a multi-core environment, the ability to divide data so that each core
+      can handle a separate task is incredibly valuable. This module delves into
+      the functionality of Task Parallel Library (TPL) designed to facilitate
+      this process.
+    </p>
+    <ul>
+      <li>What is Parallel Programming?</li>
+      <li>Writing Parallel Loops</li>
+      <li>Concurrent Collections</li>
+      <li>Parallel LINQ</li>
+      <li>LAB: Parallel Calculations, Parallel API calls</li>
+    </ul>
+
+    <h4>Reactive Extensions</h4>
+    <p>
+      Have you ever encountered Reactive Programming? This significant
+      advancement teaches you to harness Observables for programming. Through
+      this approach, you'll learn to address common challenges that traditional
+      Object-Oriented Programming finds difficult to solve. Additionally, we
+      will delve into the Fluxor/Redux pattern, further expanding our toolkit
+      for managing complex application states.
+    </p>
+    <ul>
+      <li>Push vs. Pull</li>
+      <li>Understanding IObservable&lt;T&gt; and IObserver&lt;T&gt;</li>
+      <li>Hot and Cold Observables</li>
+      <li>IAsyncEnumerable versus Rx</li>
+      <li>What are Subjects?</li>
+      <li>Using LINQ with Rx</li>
+      <li>Combining Observables</li>
+      <li>What about timing?</li>
+      <!-- <li>Building your own Rx Extensions</li> -->
+      <li>LAB: Search Suggestions</li>
+    </ul>
+
+    <h4>Meta Programming in .NET</h4>
+    <p>
+      In this module, we'll take a look at how to add metadata, new features,
+      and even new code to your application dynamically. We'll see how we can
+      create custom attributes and interpret them using reflection, use
+      expressions and static reflection to interpret our own code, and modify it
+      on the fly, and use source generators to automatically add code to our
+      applications.
+    </p>
+    <ul>
+      <li>Dynamic Code Generation, Why, What, How and When?</li>
+      <li>Using built-in Attributes</li>
+      <li>Building and Applying our own Attributes</li>
+      <li>Reflection</li>
+      <li>What are Expressions, and How do they Work?</li>
+      <li>Static Reflection</li>
+      <li>Dynamically Generating Code with Expressions</li>
+      <li>What are Source Generators?</li>
+      <li>Implementing an incremental Source Generator</li>
+      <li>LAB: Task Scheduler</li>
+      <li>LAB: Incremental Source Generators</li>
+    </ul>
+  </body>
+</html>

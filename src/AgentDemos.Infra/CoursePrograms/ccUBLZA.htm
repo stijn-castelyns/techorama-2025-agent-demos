@@ -1,0 +1,167 @@
+<html
+  xmlns:mso="urn:schemas-microsoft-com:office:office"
+  xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+>
+  <head>
+    <title>Mastering Blazor: Architecture & Performance</title>
+    <meta name="NumberOfDays" content="3" />
+    <!--[if gte mso 9
+      ]><xml>
+        <mso:CustomDocumentProperties>
+          <mso:ContentTypeId msdt:dt="string"
+            >0x0101009C33340F38E14D1EABEAC83093A8F17200CC4EDD6B6BFD0C4EADC836B510B92464</mso:ContentTypeId
+          >
+        </mso:CustomDocumentProperties>
+      </xml><!
+    [endif]-->
+  </head>
+
+  <body>
+    <h2>Learning Goals</h2>
+    <p></p>
+    <h2>Target Audience</h2>
+    <p></p>
+
+    <h2>Course Outline</h2>
+
+    <h4>Blazor Architecture</h4>
+    <p>
+      Applications grow larger, code bases become unmanageable. Unless you
+      structure them right.
+    </p>
+    <ul>
+      <li>Architecture: Monolithic, Layered, Microservices?</li>
+      <li>Vertical or Horizontal Slicing in Software</li>
+      <li>Structuring your Blazor Application</li>
+      <li>Using Clean Architecture with Blazor</li>
+    </ul>
+
+    <h4>Scalable State Management with Fluxor</h4>
+    <p>
+      As Single Page Applications gain more and more features, they need to
+      handle more and more state. Using a state management pattern can help us
+      keep things neat and tidy. Redux introduces a pattern to manage this state
+      in a convenient way, while keeping your UI up to date as well. Fluxor is
+      the favorable implementation of Redux for Blazor.
+    </p>
+    <ul>
+      <li>The need for Scalable State Management</li>
+      <li>The Redux Pattern</li>
+      <li>Using Redux Effects</li>
+      <li>Working with Fluxor</li>
+      <li>LAB: Building an Application with Redux</li>
+    </ul>
+
+    <h4>Unit Testing Blazor Applications using bUnit</h4>
+    <p>
+      Unit testing is viewed by many companies as a fundamental approach to
+      building stable software. Let’s explore this concept and see how we can
+      unit test our Blazor components?
+    </p>
+    <ul>
+      <li>Unit Testing Overview</li>
+      <li>Introducing BUnit</li>
+      <li>Understanding and Customizing Semantic Compare</li>
+      <li>Writing Unit Tests using C#</li>
+      <li>Using Razor Unit Tests</li>
+      <li>Testing Services and Redux</li>
+      <li>Lab: Testing your Components</li>
+    </ul>
+
+    <h4>Security and Identity</h4>
+    <p>
+      We won’t always create websites that are accessible to everyone; some
+      parts of the application need to be restricted. To achieve this, we can
+      use authorization in Blazor. However, before determining what a user can
+      or cannot access, we must first identify them, a process known as
+      authentication. In this chapter, we’ll explore how to configure
+      authentication and authorization in Blazor, discuss the differences
+      between Blazor Server and Blazor WASM, and briefly touch on OpenID Connect
+      in Blazor.
+    </p>
+    <ul>
+      <li>Representing the User: Claims-Based Security</li>
+      <li>Get the current User with AuthenticationState</li>
+      <li>Authorization</li>
+      <li>Blazor with OIDC</li>
+      <li>Consuming Secured Web APIs</li>
+      <li>LAB: Protecting your Blazor application</li>
+    </ul>
+
+    <h4>Deploying a Blazor Application</h4>
+    <p>
+      Enough of all this localhost development. We want to go into production!
+      But how do we do this? This chapter will guide you through the process of
+      deploying your Blazor applications.
+    </p>
+    <ul>
+      <li>Deploying a Blazor Server Project</li>
+      <li>Blazor Standalone WASM as a Static Web App</li>
+    </ul>
+
+    <h4>JavaScript Interoperability</h4>
+    <p>
+      Sometimes, there's simply no avoiding JavaScript 😊. For instance, Blazor
+      utilizes JavaScript to update the browser's Document Object Model (DOM)
+      from within your Blazor components—and you can do the same. In this
+      chapter, we'll delve into interoperability with JavaScript. As a practical
+      example, we will construct a Blazor Component Library designed to display
+      geographic maps.
+    </p>
+    <ul>
+      <li>Why do we still need JavaScript in Blazor?</li>
+      <li>Calling JavaScript from C#</li>
+      <li>Calling .NET Methods from JavaScript</li>
+      <li>Using ECMAScript Modules</li>
+      <!-- <li>The new way?</li> -->
+      <li>LAB: Add a map to show the location of the resto and customer</li>
+    </ul>
+
+    <h4>Blazor Rendering</h4>
+    <p>
+      We also look at the process of prerendering, which can improve Search
+      Engine Optimization (SEO), and its implications.
+    </p>
+    <ul>
+      <li>Render Modes</li>
+      <li>Static Server with Streamed Rendering and Enhanced Navigation</li>
+      <li>How to handle Sleeping Tabs in Blazor Server</li>
+      <li>Change Detection and how to Suppress it</li>
+      <li>Prerendering</li>
+      <li>Persisting Prerendered State</li>
+      <li>Customizing Client-Side Loading Screen</li>
+      <li>Lab: Persisting Prerendered State</li>
+    </ul>
+
+    <h4>Performance</h4>
+    <p>
+      Performance is a key aspect of any application. In this chapter, we will
+      look at how we can improve the performance of our Blazor application.
+    </p>
+    <ul>
+      <li>Optimize Showing a List of Items with Virtualization and @key</li>
+      <li>Speed up Rendering using Razor Templates</li>
+      <li>Guidelines for Input Parameters</li>
+      <li>Cancellation of Async Operations</li>
+      <li>Throttle Browser Events with JS Interop</li>
+      <li>Lazy Loading WASM Components</li>
+      <li>AOT for Blazor WASM</li>
+      <li>Lab: Gradually Improving Performance in Blazor Components</li>
+    </ul>
+
+    <h4>Blazor Everywhere</h4>
+    <p>
+      You build a cool Blazor component for your website, NICE! But now you want
+      to also use it in a mobile or desktop application. With Blazor Hybrid, you
+      can use Blazor coponents in .NET MAUI, WPF and WinForms. It is also
+      possible to add a Blazor Component in a MVC view. This chapter is an
+      overview of how Razor components can be used in other parts of the .NET
+      world.
+    </p>
+    <ul>
+      <li>Configuring Blazor Hybrid for mobile and desktop development</li>
+      <li>Using Blazor as a Progressive Web App (PWA)</li>
+      <li>Razor Component Integration in MVC</li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <title>Implementing Azure SQL Databases</title>
+    <meta name="NumberOfDays" content="4" />
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ContentTypeId msdt:dt="string">0x0101009C33340F38E14D1EABEAC83093A8F17200A07B1920AB415341A60688A110B33B2A</mso:ContentTypeId>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+    <h2>Learning Goals</h2>
+    <p>
+        Participants of this course will learn from both a DBA and database developer's perspective how to setup and implement Azure SQL databases. 
+        The complete database lifecycle from creating and configuring your servers and databases, developing new database objects or migrating existing databases and client applications will be covered.
+    </p>
+    <h2>Target audience</h2>
+    <p>
+        This 4-day course is intended for database administrators and database developers who want to create and manage Azure SQL databases or managed instances. 
+        Also those considering migrating on-premises solutions to the cloud will benefit from this training.
+        Participants of this course are advised to have a basic understanding of relational databases.
+    </p>
+    <h2>Course Outline</h2>
+
+    <h4>Introduction to Azure SQL</h4>
+    <p>
+        Azure SQL is a relational database service in the Microsoft cloud based on Microsoft SQL Server. 
+        In this introduction module, participants are introduced to the Azure SQL offering and concepts like Service Tiers, DTU's and the pricing of Azure SQL.
+    </p>
+    <ul>
+        <li>What is Azure SQL?</li>
+        <li>Azure SQL Architecture</li>
+        <li>Azure SQL Pricing</li>
+        <li>Azure SQL Service Tiers and DTU's</li>
+        <li>Limitations of Azure SQL</li>
+        <li>Differences between Azure SQL Databases and Azure SQL Managed Instances</li>
+        <li>Working with the Azure Management Portal</li>
+        <li>LAB: Introduction to Azure SQL</li>
+    </ul>
+
+    <h4>Provisioning Azure SQL Databases</h4>
+    <p>
+        In this module, participants will learn how to create Azure SQL Servers and Databases. 
+        Once the Azure SQL Server and Azure SQL Databases are up and running, Firewall rules must be configured to allow client applications to connect to the Azure SQL Databases.
+    </p>
+    <ul>
+        <li>Creating and configuring a Server in Azure SQL</li>
+        <li>Creating and configuring an Azure SQL Database</li>
+        <li>Implementing Firewall Rules</li>
+        <li>Azure SQL networking overview</li>
+        <li>Overview of the Azure SQL Management Tools</li>
+        <li>LAB: Creating Azure SQL Databases</li>
+    </ul> 
+
+    <h4>Provisioning Azure SQL Managed Instances</h4>
+    <p>
+        Azure SQL Managed Instance is a cloud database service that combines the broadest SQL Server database engine compatibility. 
+        Students will learn about the key differences between an On-Premises SQL Server and and Azure SQL Managed Instance, how to provision and configure an Azure SQL Managed Instance,....
+    </p>
+    <ul>
+        <li>Azure SQL Managed Instance overview</li>
+        <li>Differences between an On-Premises SQL Server and an Azure SQL Managed Instance</li>
+        <li>Virtual Networks and Azure SQL Managed Instances</li>
+        <li>Provisioning and configuring an Azure SQL Managed Instance</li>
+        <li>Accessing Azure SQL Managed Instances</li>
+        <li>Optional LAB: creating an Azure SQL Managed Instance</li>
+    </ul> 
+
+    <h4>Azure SQL Data Storage</h4>
+    <p>
+        Before you can create and manage databases, you should understand how data is stored in them, know about the different types of files that SQL Server can utilize.
+    </p>
+    <ul>
+        <li>Introduction to Data Storage with SQL Server</li>
+        <li>The structure of Data Files</li>
+        <li>Working with Transaction Log files</li>
+        <li>Working with Filegroups</li>
+        <li>LAB: Azure SQL Data Storage</li>
+    </ul>
+
+    <h4>Creating and Migrating Azure SQL Databases</h4>
+    <p>
+        In this module students will learn how on-premises SQL Server databases can be migrated to Azure SQL. 
+    </p>
+    <ul>
+        <li>Creating tables, views, stored procedures, ...</li>
+        <li>Migrate an existing SQL Server database to Azure SQL</li>
+        <li>The Data Migration Assistant</li>
+        <li>Exporting and Importing BACPAC files of a SQL Database</li>
+        <li>The Azure Database Migration Service</li>
+        <li>Copy an Azure SQL Database</li>
+        <li>LAB: Migrating Azure SQL Databases</li>
+    </ul>
+
+    <h4>Azure SQL Database Client Connectivity</h4>
+    <ul>
+        <li>Connectivity Overview</li>
+        <li>Available Connectivity Libraries</li>
+        <li>Azure SQL Database Connection Strings</li>
+    </ul>
+
+    <h4>Elastic Databases and Pools</h4>
+    <p>
+        A common application pattern in building SaaS applications is to provision a single database for each customer. 
+        But different customers often have varying usage patterns making it difficult to predict the resource requirements for each individual database. 
+        Elastic Database Pools solve this problem by allowing you to purchase resources for a pool of databases. 
+        Within a Database Pool, each database can then request resources between specified minimum and maximum parameters. 
+    </p>
+    <ul>
+        <li>Introducing Elastic Database Pools</li>
+        <li>Implementing Elastic Database Pools and working with eDTU's</li>          
+        <li>Creating Elastic Database Pools</li>
+        <li>Configuring Elastic Databases</li>   
+        <li>Monitoring Elastic Database Pools</li>
+        <li>Creating Elastic Jobs</li>
+        <li>Introducing instance pools in SQL Managed Instance</li>
+        <li>LAB: Working with Elastic Database Pools and Elastic Jobs</li>
+    </ul>
+
+    <h4>Securing user access to Azure SQL</h4>
+    <p>
+        Authentication requires that users must prove their identity before they can login to an Azure SQL Server or Database. 
+        Authorization is used to control what users can do and see inside an Azure SQL Database. 
+        Participants will learn how they can work Logins and Users to configure the security of Azure SQL
+    </p>
+    <ul>
+        <li>Authentication overview</li>
+        <li>Configuring Authentication</li>
+        <li>Configuring Authorization</li>
+        <li>Creating Logins and Users</li>
+        <li>Working with contained databases</li>
+        <li>LAB: Securing user access to Azure SQL databases</li>
+    </ul>
+
+    <h4>Securing Azure SQL</h4>
+    <p>
+        Azure SQL Database and Azure SQL Managed Instance secure customer data by providing auditing and threat detection capabilities.
+        This module covers how you can secure your data using features like Always Encrypted, Azure Defender for SQL,... 
+        You will also learn how you can audit user access to Azure SQL
+    </p>
+    <ul>
+        <li>Network security</li>
+        <li>Auditing in Azure SQL</li>
+        <li>Azure Defender for SQL</li>
+        <li>Advanced Thread Protection</li>
+        <li>Always Encrypted</li>
+        <li>Data Discovery and Classification</li>
+        <li>Dynamic Data Masking</li>
+        <li>LAB: Auditing and securing Azure SQL</li>
+    </ul>
+
+    <h4>Monitoring and Tuning in Azure SQL</h4>
+    <p>
+        Azure SQL provides several ways for you to monitor your databases for issues, as well as look for ways to improve performance. 
+        You can create alerts using Microsoft Azure Monitor with metrics such as DTU, Database size percentage, and Deadlocks. 
+        You can also help improve your performance by using tools such as Query Performance Insight.
+    </p>
+    <ul>
+        <li>Working with Extended Events</li>
+        <li>The SQL Server Query Store</li>
+        <li>Query Performance Insight in Azure SQL Databases</li>
+        <li>Azure SQL Analytics</li>
+        <li>Automatic tuning in Azure SQL</li>
+        <li>Monitoring using DMVs</li>
+        <li>Monitor Azure SQL workloads with Database Watcher</li>
+        <li>LAB: Monitoring Azure SQL databases</li>
+    </ul>
+    
+    <h4>Backup and Restore in Azure SQL</h4>
+    <p>
+        This chapter will introduce you to backup and restore with Azure SQL Databases and Azure SQL Managed Instances. 
+        You'll learn about automated and manual backups, explore automated backup features, and perform the manual backup of an Azure SQL Managed Instance
+    </p>
+    <ul>
+        <li>Automatic backups in Azure SQL</li>
+        <li>Backup retention and storage</li>
+        <li>Configure Long-term backup retention</li>
+        <li>Perform manual backups with Azure SQL Managed Instances</li>
+        <li>Perform a Point-in-time restore</li>
+        <li>Long-term database restore</li>
+        <li>Geo-restoring databasesL</li>
+        <li>LAB: Backup and restore databases</li>
+    </ul>
+  
+    <h4>High availability and disaster recovery</h4>
+    <p>
+        This module describes the capabilities that Azure SQL Database provides for business continuity and disaster recovery. 
+        Students will learn about the backup and restore features of an Azure SQL Database, how to setup geo-replication of Azure SQL Databases.
+    </p>
+    <ul>
+        <li>Business Continuity overview</li>
+        <li>High Availability in the Basic, Standard and General-Purpose service tiers</li>
+        <li>High Availability in the Premium and Business Critical service tiers</li>
+        <li>Active geo-replication</li>
+        <li>Auto-failover groups</li>
+        <li>LAB: High Availability</li>
+    </ul>
+
+</body>
+</html>

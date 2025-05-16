@@ -1,0 +1,187 @@
+﻿<html
+  xmlns:mso="urn:schemas-microsoft-com:office:office"
+  xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+>
+  <head>
+    <title>Effective Unit Testing</title>
+    <meta name="NumberOfDays" content="2" />
+    <!--[if gte mso 9
+      ]><xml>
+        <mso:CustomDocumentProperties>
+          <mso:ContentTypeId msdt:dt="string"
+            >0x0101009C33340F38E14D1EABEAC83093A8F17200CC4EDD6B6BFD0C4EADC836B510B92464</mso:ContentTypeId
+          >
+        </mso:CustomDocumentProperties>
+      </xml><!
+    [endif]-->
+  </head>
+
+  <body>
+    <h2>Learning Goals</h2>
+    <p>
+      Writing solid, maintainable code that works is the goal of every developer. 
+      This course guides you into the art of unit testing, where you learn to build 
+      testable code and various techniques to ensure its quality. 
+      By the end of this course, you will gain a solid and practical understanding 
+      of unit testing and its real-life applications. U2U is renowned for its hands-on 
+      approach to training, and each chapter is accompanied by a practical lab. 
+    </p>
+    <h2>Target Audience</h2>
+    <p>
+      This course is intended for experienced programmers who are very familiar
+      with C# and have a working experience with .NET 6/8.
+      All examples and labs utilize the latest LTS version of .NET and Visual Studio.
+    </p>
+    <h2>Course Outline</h2>
+    <h4>Unit testing in .NET</h4>
+    <p>
+      Every developer aspires to write code that is not only clean but also 
+      functional. However, achieving code that is easily maintainable and 
+      consistently operational poses a significant challenge. How does one 
+      navigate the complexities of software development to ensure that the code 
+      remains robust and reliable in the long run? In this context, we will 
+      explore the role of unit testing in verifying the correctness of our 
+      code and ensuring its continued functionality..
+    </p>
+    <ul>
+      <li>
+        What every developer wants: Quality code that works; and keeps on
+        working
+      </li>
+      <li>
+        Finding bugs: not just in code. - Or how NASA lost a 125.000.000$ Mars
+        orbiter
+      </li>
+      <li>What is unit testing? And what is a good unit test?</li>
+      <li>
+        Understanding the difference between a unit test and an integration test
+      </li>
+      <li>Test Driven Development - Should you be doing it?</li>
+      <li>Role-playing: Marge, Homer and Bart</li>
+      <li>
+        The Triple-A of unit testing - and what has cooking to do with this?
+      </li>
+      <li>Given-When-Then</li>
+    </ul>
+
+    <h4>Unit testing with Visual Studio with MSTest and xUnit</h4>
+    <p>
+      When it comes to Unit Testing, you will need to choose frameworks. 
+      There are several options available, so which one do you need? 
+      Visual Studio comes with a built-in framework called MSTest, 
+      but you also have others, such as the popular xUnit. In this module, 
+      we will discuss the pros and cons of these frameworks and delve into 
+      some best practices. How can you determine if you have tested enough? 
+      Code coverage allows you to see which paths in your code you have tested 
+      and easily identify untested conditional logic.
+    </p>
+    <ul>
+      <li>MSUnit - Built-in into Visual Studio</li>
+      <li>Building and running Unit Tests with MSUnit</li>
+      <li>Using the Test Explorer Window</li>
+      <li>Using Test Settings</li>
+      <li>Live unit testing with Visual Studio</li>
+      <li>Unit Testing best practices with xUnit</li>
+      <li>Facts and Theories</li>
+      <li>Running Unit tests in parallel, or not</li>
+      <li>Measuring and improving Code Coverage</li>
+      <li>LAB: Implementing a library with testing</li>
+    </ul>
+
+    <h4>More loose coupling using the art of Dependency Injection</h4>
+    <p>
+      When writing code, it's crucial to minimize unnecessary dependencies on other 
+      objects. Dependencies can increase maintenance overhead, reduce testability, 
+      and limit flexibility. If you must rely on another object, consider depending 
+      on an interface. Interfaces describe the dependency without enforcing specific 
+      implementations. However, you should avoid hardcoding these dependencies. This 
+      is where dependency injection (DI) comes in handy.
+      Dependency injection allows you to dynamically determine which implementations 
+      to inject into dependencies at runtime, providing greater flexibility and 
+      decoupling within your codebase.
+    </p>
+    <ul>
+      <li>What is tight coupling and how to prevent it?</li>
+      <li>Using Inversion of Control (IoC) containers</li>
+      <li>Constructor and Property injection</li>
+      <li>Microsoft.Extensions.DependencyInjection as an example</li>
+    </ul>
+
+    <h4>Writing testable code</h4>
+    <p>
+      If you aim to make your code testable, you must design it with 
+      testing in mind. In this course, you'll discover the concepts 
+      of stubs and mocks, and you'll master techniques for substituting 
+      dependencies that could disrupt your testing process.
+    </p>
+    <ul>
+      <li>Testing dependencies - and the art of writing testable code</li>
+      <li>The difference between a Fake, a Stub and a Mock</li>
+      <li>How to replace dependencies with stub and mock objects</li>
+      <li>The Extract and Override pattern</li>
+      <li>How the MVVM pattern facilitates UI testing</li>
+      <li>Replacing configuration in tests</li>
+      <li>LAB: Use Extract and Override to test legacy code</li>
+    </ul>
+
+    <h4>Isolation Frameworks: NSubstitute and Microsoft Fakes</h4>
+    <p>
+      Building stubs and mocks can be laborious without an Isolation 
+      Framework. NSubstitute is one such framework that simplifies the 
+      creation of fake and stub objects required for robust testing. 
+      But what about testing "untestable" code? Code where dependencies 
+      are tightly coupled to the class under test? For such scenarios, 
+      you need a bit of magic: Microsoft Fakes. This tool enables you to 
+      substitute any class's implementation, easing the testing of legacy 
+      and otherwise challenging-to-test code.
+    </p>
+    <ul>
+      <li>Understanding Isolation Frameworks</li>
+      <li>Building Stubs and Mocks with NSubstitute</li>
+      <li>Checking arguments and return values</li>
+      <li>What makes Microsoft Fakes so special</li>
+      <li>Faking time with TimeProvider and ITimer</li>
+      <li>Testing legacy/untestable code</li>
+      <li>Building Stubs and Mocks with Fakes</li>
+      <li>LAB: Using NSubstitute</li>
+    </ul>
+
+    <h4>Unit Testing ASP.NET Applications</h4>
+    <p>
+      When creating modern web applications with ASP.NET Core MVC, unit 
+      testing the Controllers and Views isn't straightforward. How does 
+      one validate whether the ActionResult returned by the Controller 
+      action is the expected one, and whether the View is correct? How do 
+      we replace dependencies during testing with MVC? How do we perform end-to-end testing?
+    </p>
+    <ul>
+      <li>Challenges when unit testing ASP.NET applications</li>
+      <li>Writing unit test for your MVC controllers</li>
+      <li>Unit testing your views</li>
+      <li>Unit testing ApiControllers</li>
+      <li>Faking data access</li>
+      <li>Using the ASP.NET Core testing framework</li>
+      <li>End-to-end testing with Microsoft Playwright</li>
+      <li>LAB: Implementing integration and end-to-end tests</li>
+    </ul>
+
+    <!-- Unit testing best practices -->
+    <!-- https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices -->
+
+    <h4>Automatic Regression Testing</h4>
+    <p>
+      So your software works! Great! But how do you know if it will work next week, 
+      or next month? Did you break something while adding a new cool feature? Test 
+      everything again? Of course, but now we will automate it, making a machine do 
+      it automatically every time a team member makes a change.
+    </p>
+    <ul>
+      <li>What is a regression?</li>
+      <li>Using an automated build system</li>
+      <li>Continuous integration</li>
+      <li>Running integration tests</li>
+      <li>Automatic regression tests</li>
+      <li>Automatically running your regression tests using GitHub Actions</li>
+    </ul>
+  </body>
+</html>

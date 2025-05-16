@@ -1,0 +1,271 @@
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <title>Analyzing your data with Power BI for BI Professionals</title>
+    <meta name="NumberOfDays" content="5" />
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ContentTypeId msdt:dt="string">0x0101009C33340F38E14D1EABEAC83093A8F17200AFD79DD8FC63B34F94558FF26C7440DA</mso:ContentTypeId>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+
+    <h2>Learning Goals</h2>
+    <p>
+        Power BI is a business analytics service that enables users to visualize and share insights from their data through interactive dashboards and reports. It allows you to connect to various data sources and create visually compelling reports that can be accessed across different devices.    </p>
+    <p>
+        This course will teach you all aspects of connecting to data sources and transforming data using Power Query, creating Power BI Semantic Models and reports, and publishing and maintaining them on the Power BI Service. The course also covers more technical topics on Power Query and DAX. Additionally, it explains how to configure a Data Gateway to connect the Power BI service to your on-premises data sources and how row-level security can be used to secure Semantic Models.
+    </p>
+
+    <h2>Target audience</h2>
+    <p>
+        This course is intended for BI or IT professionals who have a technical background. No prior knowledge of Power BI is required. 
+        U2U also offers a 3-day course <a href="/cc/ubipbe">Analyzing your data with Power BI for Business Users</a> targeted at business users without a technical background.
+    </p>
+
+    <h2>Course Outline</h2>
+
+    <h4>Introduction to Power BI</h4>
+    <p>
+        Power BI is a service that covers multiple things: Power BI Desktop, the Power BI cloud service, ... . In
+        this introduction we set the scene for the rest of the training, introducing the different aspects of Power BI.
+    </p>
+    <ul>
+        <li>The Need for Business Intelligence</li>
+        <li>Self-Service BI versus Enterprise BI</li>
+        <li>Core concepts of Power BI</li>
+        <li>Introducing Power BI Desktop</li>
+        <li>Introducing the Power BI Service</li>
+        <li>Power BI Service Tiers and Features</li>
+    </ul>
+
+
+    <h4>Creating Queries using Power BI Desktop</h4>
+    <p>
+      In this chapter you will learn how to create queries in Power BI Desktop to extract data from source systems like SQL Server, Oracle,
+      Excel files, CSV files, and so on. Applying transformations that can filter, sort and clean the extracted data will also be covered.
+    </p>
+    <ul>
+      <li>Core Concepts of Power Query</li>
+      <li>Loading Data from Excel, Web, Databases...</li>
+      <li>Applying Basic Transformations</li>
+      <li>Loading Data via DirectQuery</li>
+      <li>Performance Tuning with Query Folding</li>
+      <li>LAB - Creating Queries with Power BI Desktop</li>
+    </ul>
+
+
+    <h4>Writing Advanced Queries in Power BI Desktop</h4>
+    <p>
+        Often, your data sources contain data that requires extra processing. 
+        In this module, you will learn about more advanced transformations that Power BI offers,
+         such as Pivot, Unpivot, error handling, and more. 
+         This chapter will also cover combining data from multiple sources, 
+         query parameters, query functions, and how to manage data source credentials.
+    </p>
+    <ul>
+        <li>Loading Data from Relational Databases & Folders</li>
+        <li>Advanced Power Query Transformations</li>
+        <li>Appending and Merging Queries</li>
+        <li>Working with Query Steps & Parameters</li>
+        <li>Working with Query Functions</li>
+        <li>Managing Data Source Security</li>
+        <li>LAB: Writing Advanced Queries in Power BI Desktop</li>
+    </ul>
+
+    <h4>Building a Data Model in Power BI Desktop</h4>
+    <p>
+      You will gain insights into enhancing a data model by constructing hierarchies within tables and assigning columns meaningful 
+      names and appropriate data types. You will discover how to employ measures and calculated columns,
+       thus enhancing your model. Additionally, the significance of establishing accurate relationships between tables will also be covered.
+    </p>
+    <ul>
+      <li>Renaming & Hiding Columns and Tables</li>
+      <li>Column Data Types and Formatting</li>
+      <li>Working with Numerical Columns</li>
+      <li>Sorting Columns</li>
+      <li>Data Categorization</li>
+      <li>Creating Hierarchies inside Tables</li>
+      <li>Defining Calculated Columns and Measures using DAX</li>
+      <li>Creating Measures using Microsoft Copilot</li>
+      <li>Working with Quick Measures</li>
+      <li>Defining Relationships between Tables</li>
+      <li>LAB - Enhancing a Data Model in Power BI Desktop</li>
+    </ul>
+
+    <h4>Relationships</h4>
+    <p>
+        Participants will learn about the different types of relationships available in Power BI, including 1:N, 1:1 and N:M relationships.
+        We will see the limitations of relationships, including the fact that there can only be one active relationship between two tables and how to overcome this
+        limitation. Finally, we will discuss the concept of filter direction, and have a look at single- and cross filter directions.
+    </p>
+
+    <ul>
+        <li>Cardinality of Relationships</li>
+        <li>Relationship Limitations</li>
+        <li>Role-playing Dimensions</li>
+        <li>The Cross-Filter Direction of Relationships</li>
+        <li>LAB: Working with Relationships</li>
+    </ul>
+
+    <h4>Semantic Models and Storage Modes</h4>
+    <p>
+        We will have a look at the different storage modes of a Power BI Semantic Model (Import, DirectQuery, Dual and Live). We will discuss a solution for the problem that in this era
+        of big data, we often face data sources that are too big to be imported and too slow to be queried directly. The solution for this dilemma is a combination of Import and Direct Query, called aggregation tables.
+    </p>
+
+    <ul>
+        <li>Import Mode</li>
+        <li>DirectQuery Mode</li>
+        <li>Dual Mode</li>
+        <li>Live Connection</li>
+        <li>Aggregation Tables</li>
+        <li>LAB: Working with Storage Modes</li>
+    </ul>
+
+    <h4>Data Analysis Expressions (DAX)</h4>
+    <p>
+        DAX (Data Analysis Expressions) is the formula language used in Power BI Semantic Models, Excel Power Pivot Semantic Models, and in Analysis Services Tabular.
+        Among other things, it's used to create calculated columns, measures and tables. In this chapter, we will introduce the basic concepts of DAX.
+        If students are interested in a deeper dive into this language, we refer them to the three-day course <a href="/cc/udax">Mastering DAX</a>
+    </p>
+
+    <ul>
+        <li>DAX Introduction</li>
+        <li>Creating Calculated Columns</li>
+        <li>Creating Tables</li>
+        <li>Creating Measures</li>
+        <li>CALCULATE-Function</li>
+        <li>Time-Intelligence Functions</li>
+        <li>LAB: Introduction to DAX</li>
+    </ul>
+
+    <h4>Creating Reports in Power BI Desktop</h4>
+    <p>
+      After fine-tuning the model, we can use it to create our reports. 
+      Power BI enables the creation of impressive reports, and in this module, 
+      you will explore various visualizations and the interactive behavior of these reports. 
+    </p>
+    <ul>
+      <li>Overview of the Report Canvas</li>
+      <li>Adding Text Boxes, Shapes and Images</li>
+      <li>Using built-in Visualizations</li>
+      <li>Custom Theming</li>
+      <li>Printing a Power BI Report</li>
+      <li>Power BI Templates</li>
+      <li>LAB - Designing Reports in Power BI Desktop</li>
+    </ul>
+
+    <h4>Enhancing Reports Pages in Power BI Desktop</h4>
+    <p>
+      Sometimes a static report just isn't enough. In this module you'll learn how to make interactive reports which are easy to use for any type of end user. 
+      Take your reports to the next level!
+    </p>
+    <ul>
+      <li>Slicers and Filters</li>
+      <li>Visual Hierarchies and Drill-down Behaviour</li>
+      <li>Grouping and Binning</li>
+      <li>Dynamic Behaviour with Parameters</li>
+      <li>Optimize Visuals with Visual Calculations</li>
+      <li>Custom Visuals</li>
+      <li>LAB - Enhancing Reports in Power BI Desktop</li>
+    </ul>
+  
+    <h4>Creating Interactive Multi-Page Reports</h4>
+    <p>
+      In this chapter, you'll learn how to take your reports even further by adding multiple pages and interacting with them seamlessly. Explore how to create comprehensive, dynamic, and user-friendly multi-page reports.
+    </p>
+    <ul>
+      <li>Drill Through Pages</li>
+      <li>Custom Tooltips</li>
+      <li>Bookmarks for Storytelling</li>
+      <li>Page Navigation</li>
+      <li>Report Mobile Design</li>
+      <li>LAB - Building Multi-Page reports</li>
+    </ul> 
+
+    <h4>Introduction to the Power BI Service</h4>
+    <p>
+        If you want to share models and reports with you co-workers, you should upload them to the Power BI Service. 
+        In this module you will learn about the general features of the Power BI service, the next modules dive into the details.
+    </p>
+    <ul>
+        <li>Power BI Service Overview</li>
+        <li>Microsoft Fabric Introduction</li>
+        <li>Power BI Service Tiers and Features</li>
+        <li>Working with Semantic Models and Reports</li>
+        <li>Creating and Using Workspaces</li>
+        <li>LAB - Introduction to the Power BI Service</li>
+    </ul>
+
+    <h4>Creating Semantic Models and Reports in Power BI Service</h4>
+    <p>
+        For some reports, you may not want to go through the hassle of creating or recreating a Semantic Model in Power BI Desktop. 
+    That's why you can immediately create or connect to existing Semantic Models in the Power BI Service. 
+    In this chapter you will learn how, combined with a deeper dive into the Semantic Model and Report configurations.
+    </p>
+    <ul>
+        <li>Creating Semantic Models in the Power BI Service</li>
+        <li>Connecting to Semantic Models in Power BI Desktop</li>
+        <li>Semantic Model Configuration and Permissions</li>
+        <li>Creating Reports in the Power BI Service</li>
+        <li>Configuring and Exporting Reports</li>
+        <li>LAB - Creating Semantic Models and Reports in Power BI Service</li>
+    </ul>
+
+    <h4>Creating Dashboards and Analyzing Data with Power BI Service</h4>
+    <p>
+        Dashboards enable you to integrate visuals from various reports onto a single page for swift access. 
+        This module instructs you on constructing and customizing these dashboards within the Power BI Service. 
+        You will also learn how to connect Semantic Models in Excel Pivot Tables and keep track of important KPIs using Scorecards.
+    </p>
+    <ul>
+        <li>Creating & Configuring Dashboards</li>
+        <li>Working with Power BI Q&amp;A</li>
+        <li>Analyze Semantic Models in Excel</li>
+        <li>Metrics and Scorecards for KPI tracking</li>
+        <li>LAB - Creating Dashboards</li>
+    </ul>
+
+    <h4>Sharing Content in the Power BI Service</h4>
+    <p>
+        Power BI has different mechanisms to share content with other users: Sometimes you want to share in order to develop something together, or you want others to customize something, or maybe you want others to have read-only permissions on the shared object. 
+        In this module you'll learn how to accomplish this with the different sharing options in the Power BI Service.
+    </p>
+    <ul>
+        <li>Sharing Reports and Dashboards with Internal and External Users</li>
+        <li>Sharing Content inside a Workspace</li>
+        <li>Creating & Consuming Power BI Apps</li>
+        <li>Publishing Reports to the Web</li>
+        <li>Subscribing to Reports</li>
+        <li>Embedding Reports in SharePoint Online or Microsoft Teams</li>
+        <li>Report Usage Metrics</li>
+        <li>LAB - Sharing Content in the Power BI Service</li>   </ul>
+
+    <h4>Managing Data Refresh in Power BI</h4>
+    <p>
+        Semantic Models that are uploaded to the Power BI Service need to have their data refreshed from time to time. This module shows
+        the different options to configure the data refresh, for cloud data as well as data which is stored on-premises.
+    </p>
+    <ul>
+        <li>Scheduling Semantic Model Refreshes</li>
+        <li>Online vs. On-Prem Data Sources</li>
+        <li>The Need for a Data Gateway</li>
+        <li>Configuring a Data Gateway</li>
+        <li>Incremental Refresh</li>
+      </ul>
+
+    <h4>Securing a Semantic Model</h4>
+    <p>
+        Security roles can be defined in Power BI Desktop. In the Power BI Service, we can enforce row level security by assigning (groups of) people to the different security roles.
+        We will see how to set up Row Level Security in Power BI Desktop, including Dynamic Row Level Security, and how to enforce it in the Power BI Service.
+    </p>
+    <ul>
+        <li>Enhancing a Semantic Model with Row Level Security</li>
+        <li>Configuring Row Level Security</li>
+        <li>Implementing Dynamic Security</li>
+        <li>Security and Relationships</li>
+    </ul>
+</body>
+</html>

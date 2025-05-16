@@ -1,0 +1,129 @@
+<HTML>
+
+<head>
+	<TITLE>Designing data models for Power BI</TITLE>
+	<meta name="NumberOfDays" content="2" />
+</head>
+
+
+<BODY>
+	<H2>Learning Goals</H2>
+
+	<p>Data modeling is an essential step in Business Intelligence, when data is stored centrally to be used by multiple
+		reports and analytical tools.
+		This becomes an essential skill when building Power BI Data Flows, Power BI Data Sets, Analysis Tabular Models
+		or
+		other Analytical Data Storage Solutions on top of a Data Warehouse.
+		In this training you will learn how to design such models according to the popular dimensional modeling
+		techniques of Star Schemas.
+	</p>
+
+	<H2>Target Audience</H2>
+	<P>This course is intended for Business Intelligence developers responsible for designing Power BI
+		Data Models. The course assumes participants are already familiar with Power BI Desktop, and have
+		some familiarity with DAX.
+	</P>
+
+	<H2>Course Outline</H2>
+	<H4>The need for Data Modeling</H4>
+	<p>
+		When building a business intelligence solution, data has different modeling requirements than what is needed for
+		operational applications.
+		This module describes the challenges that can arise when storing data, and how good data models can overcome
+		these.
+		It presents the data model as an abstraction layer
+		between the operational part and the analytical part of the corporate IT stack.
+	</p>
+	<ul>
+		<li>Data Model Definitions and Terminology</li>
+		<li>Advantages and Disadvantages of Normalizing Data</li>
+		<li>Issues when Reporting on Operational Databases</li>
+		<li>Differences between Data Warehouse, Data Flow, and Data Set</li>
+		<li>Data Model Advantages</li>
+		<li>Conducting User Interviews</li>
+		<li>Prioritizing the Requirements</li>
+		<li>Documenting the Requirements</li>
+		<li>LAB: Compare Different Data Models</li>
+	</ul>
+
+	<H4>Modeling Dimensional Tables</H4>
+	<p>Dimensional modeling is based on the idea of splitting data in the things that are (dimensions) and the things
+		that happen (facts). This module describes the properties of dimension tables: Keys, attributes, hierarchies,
+		... .</p>
+	<ul>
+		<li>Introducing Dimensional Modeling</li>
+		<li>The Need for Dimension Tables</li>
+		<li>Properties of Dimension Tables</li>
+		<li>Surrogate Keys</li>
+		<li>Star versus Snowflake Dimensions</li>
+		<li>LAB: Building Dimensional Tables</li>
+	</ul>
+
+	<H4>Modeling Factual Tables</H4>
+	<p>Dimensional modeling is based on the idea of splitting data in the things that are (dimensions) and the things
+		that happen (facts). This module describes the most common types of fact tables</p>
+	<ul>
+		<li>Properties of Fact Tables</li>
+		<li>Additive, Semi-Additive and Non-Additive Measures</li>
+		<li>Transactional Fact Table</li>
+		<li>Snapshot Fact Table</li>
+		<li>Accumulating Snapshot Fact Table</li>
+		<li>Inspecting the Size of the Fact Tables in Power BI</li>
+		<li>LAB: Building Fact Tables</li>
+	</ul>
+
+	<H4>Designing the Date Dimension</H4>
+	<p>Everybody wants to analyze over time, so this is the most common dimension in data models. Based on the
+		principles introduced in the previous module a date dimension is built.</p>
+	<ul>
+		<li>Why do we need a Date Dimension</li>
+		<li>The Danger of the Auto-Generated Date Tables in Power BI</li>
+		<li>Designing the date dimension</li>
+		<li>Working with Time</li>
+		<li>Multiple Time Zones</li>
+		<li>Useful Tools and Scripts</li>
+		<li>LAB: Building a Date Dimension in Power BI</li>
+	</ul>
+
+	<H4>Working with Slowly Changing Dimensions (SCD)</H4>
+	<p>Since the dimension tables describe the things that are, they don't change as often as fact tables. Yet also
+		properties of products, customers and other dimensions change over time as well. The different ways to register
+		this in the data warehouse are discussed in this module.</p>
+	<ul>
+		<li>Why do we need Slowly Changing Dimensions</li>
+		<li>Type I, II and III Slowly Changing Dimensions</li>
+		<li>Designing for SCD</li>
+		<li>Advanced SCD Types</li>
+		<li>LAB: Working with Slowly Changing Dimensions</li>
+	</ul>
+
+	<H4>Advanced Dimensional Modeling</H4>
+	<p>
+		The previous chapters covered the regular, most common scenario of modeling data. In this module some of the
+		more special scenarios are covered, such as data arriving out of chronological order, parent-child relationships
+		etc.
+	</p>
+	<ul>
+		<li>Early Arriving Facts</li>
+		<li>Late Arriving Fcts</li>
+		<li>Dealing with Currency Conversion</li>
+		<li>Dealing with Hierarchies</li>
+		<li>Role Playing Dimensions</li>
+		<li>Modeling Many to Many Relations</li>
+		<li>LAB: Advanced Dimensional Modeling</li>
+	</ul>
+
+	<H4>Physical Data Model Design</H4>
+	<p>When implementing a data model in Power BI, a few choices
+		need to be made regarding the physical implementation of the model. These are discussed in this module.</p>
+	<ul>
+		<li>Staging Tables in Power Query</li>
+		<li>Impact of Modeling on Model Size</li>
+		<li>Data Flows</li>
+		<li>Aggregation Tables</li>
+		<li>LAB: Implementing a Dimensional Model</li>
+	</ul>
+
+</BODY>
+
+</HTML>
