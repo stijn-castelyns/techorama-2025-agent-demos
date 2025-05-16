@@ -5,11 +5,9 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 namespace AgentDemos.Agents;
 
-public class CourseRecommendationAgent
+public static class U2UAgentFactory
 {
-  public ChatCompletionAgent _courseRecommendationAgent;
-  private readonly Kernel _kernel;
-  private readonly string _courseRecommendationPrompt = """
+  private const string COURSE_RECOMMENDATION_PROMPT = """
     <purpose>
       You are an IT-training catalogue specialist.  
       Your task is to propose the most relevant U2U courses.
@@ -103,14 +101,14 @@ public class CourseRecommendationAgent
       * Retries capped at three search calls per user request.  
     </performance-rules>
     """;
-  public CourseRecommendationAgent(Kernel kernel)
+
+  public static ChatCompletionAgent CreateCourseRecommendationAgent(Kernel kernel)
   {
-    this._kernel = kernel;
-    _courseRecommendationAgent = new ChatCompletionAgent()
+    ChatCompletionAgent courseRecommendationAgent = new ChatCompletionAgent()
     {
       Name = "CourseRecommendationAgent",
-      Instructions = _courseRecommendationPrompt,
-      Kernel = _kernel,
+      Instructions = COURSE_RECOMMENDATION_PROMPT,
+      Kernel = kernel,
       Arguments = new KernelArguments(
           new PromptExecutionSettings()
           {
@@ -118,5 +116,7 @@ public class CourseRecommendationAgent
           }),
       InstructionsRole = AuthorRole.System
     };
+
+    return courseRecommendationAgent;
   }
 }

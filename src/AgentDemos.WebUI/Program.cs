@@ -31,14 +31,12 @@ builder.Services.AddDbContext<U2UTrainingDb>(options =>
 
 builder.Services.AddScoped<CourseRecommendationPlugin>();
 
-builder.Services.AddScoped(serv =>
+builder.Services.AddKeyedScoped<Kernel>("CourseRecommendationAgentKernel", (serv, key) =>
 {
   KernelPluginCollection kernelFunctions = new KernelPluginCollection([KernelPluginFactory.CreateFromType<CourseRecommendationPlugin>(serviceProvider: serv)]);
   Kernel kernel = new Kernel(serv, kernelFunctions);
   return kernel;
 });
-
-builder.Services.AddScoped<CourseRecommendationAgent>();
 
 var app = builder.Build();
 

@@ -43,7 +43,7 @@ builder.Plugins.AddFromType<CourseRecommendationPlugin>();
 
 Kernel kernel = builder.Build();
 
-CourseRecommendationAgent courseRecommendationAgent = new CourseRecommendationAgent(kernel);
+ChatCompletionAgent courseRecommendationAgent = U2UAgentFactory.CreateCourseRecommendationAgent(kernel);
 
 ChatHistory chat = [];
 ChatHistoryAgentThread chatThread = new ChatHistoryAgentThread(chat);
@@ -70,7 +70,7 @@ while (true)
   chat.Add(new ChatMessageContent(AuthorRole.User, userInput));
 
   // Generate the agent response(s)
-  await foreach (ChatMessageContent response in courseRecommendationAgent._courseRecommendationAgent.InvokeAsync(chatThread))
+  await foreach (ChatMessageContent response in courseRecommendationAgent.InvokeAsync(chatThread))
   {
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("AI > " + response.ToString());
