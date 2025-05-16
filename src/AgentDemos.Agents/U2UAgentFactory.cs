@@ -1,7 +1,21 @@
-﻿using Microsoft.SemanticKernel;
+﻿using AgentDemos.Agents.Plugins.CourseRecommendation;
+using AgentDemos.Agents.Plugins.SQL;
+using AgentDemos.Infra.Infra;
+using Azure.AI.OpenAI;
+using Azure.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
+using Microsoft.SemanticKernel.Agents.OpenAI;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using OpenAI.Assistants;
+using OpenAI.Files;
+using System.ClientModel;
+using static Dapper.SqlMapper;
 
 namespace AgentDemos.Agents;
 
@@ -101,9 +115,11 @@ public static class U2UAgentFactory
       * Retries capped at three search calls per user request.  
     </performance-rules>
     """;
-
   public static ChatCompletionAgent CreateCourseRecommendationAgent(Kernel kernel)
   {
+    ThrowIfKernelHasPlugins(kernel);
+    CourseRecommendationPlugin courseRecommendationPlugin = kernel.GetRequiredService<CourseRecommendationPlugin>();
+    kernel.Plugins.AddFromObject(courseRecommendationPlugin);
     ChatCompletionAgent courseRecommendationAgent = new ChatCompletionAgent()
     {
       Name = "CourseRecommendationAgent",
@@ -118,5 +134,146 @@ public static class U2UAgentFactory
     };
 
     return courseRecommendationAgent;
+  }
+
+  public static IServiceCollection AddCourseRecommendationAgentServices(this IServiceCollection services)
+  {
+    var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+    services.AddDbContext<U2UTrainingDb>(options =>
+    {
+      options.UseSqlServer(configuration.GetConnectionString("U2UTrainingDb"), opts =>
+      {
+        opts.UseVectorSearch();
+      });
+    });
+    services.AddAzureOpenAITextEmbeddingGeneration(endpoint: configuration["AzureOpenAIAIF:Endpoint"]!,
+                                              apiKey: configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
+                                              deploymentName: "text-embedding-3-small");
+    services.AddScoped<CourseRecommendationPlugin>();
+
+    return services;
+  }
+
+  private const string SQL_PROMPT = """
+      **Database Query Expert System**
+      <purpose>
+          You are a specialized SQL Server query architect with deep knowledge of Microsoft T-SQL syntax.
+          Your primary function is to construct precise, optimized SQL queries through systematic exploration
+          of database schema and data patterns.
+      </purpose>
+
+      <operational-protocol>
+          1. **Schema Analysis First**
+          - Begin every task by calling DescribeDatabase to understand tables, columns, and relationships
+          - Identify primary/foreign keys, data types, and constraints before query construction
+
+          2. **Data Pattern Exploration**
+          - Use SampleTableData to examine actual data values and distributions
+          - Verify date formats, string patterns, and numeric ranges through sampling
+
+          3. **Iterative Validation**
+          - Always test queries with RunTestSqlQuery before final execution
+          - Analyze error messages carefully and modify approach accordingly
+          - Validate result structure matches user requirements
+
+          4. **Precision Execution**
+          - Only use RunFinalSqlQuery when:
+            * Schema understanding is complete
+            * Test queries return expected results
+            * SQL syntax is validated
+            * Result set matches request parameters
+
+          5. **Tool Usage Requirements**
+          - Always populate 'reasoning' parameter with detailed justification
+          - Specify exact database/schema/table names from schema analysis
+          - Handle NULLs and type conversions explicitly
+          - Prefer CTEs over nested subqueries for readability
+      </operational-protocol>
+
+      <error-protocol>
+          * On SQL errors:
+            1. Analyze error message structure
+            2. Check object names against DescribeDatabase results
+            3. Verify data type compatibility
+            4. Test problematic subqueries in isolation
+            5. Report error details in reasoning before retrying
+      </error-protocol>
+
+      <performance-rules>
+          * Use appropriate indexing hints from schema analysis
+          * Prefer EXISTS over IN for subqueries
+          * Limit result sets through WHERE clauses
+          * Use pagination for large datasets
+          * Avoid SELECT * in final queries
+      </performance-rules>
+      """;
+  public static ChatCompletionAgent CreateSqlAgent(Kernel kernel)
+  {
+    ThrowIfKernelHasPlugins(kernel);
+    SqlPlugin sqlPlugin = kernel.GetRequiredService<SqlPlugin>();
+    kernel.Plugins.AddFromObject(sqlPlugin);
+
+    ChatCompletionAgent sqlAgent = new()
+    {
+      Name = "SqlAgent",
+      Instructions = SQL_PROMPT,
+      Kernel = kernel,
+      Arguments = new KernelArguments(
+          new OpenAIPromptExecutionSettings()
+          {
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
+            Temperature = 0  // Reduce creativity for precise SQL generation
+
+          }),
+      InstructionsRole = AuthorRole.System
+    };
+
+    return sqlAgent;
+  }
+
+  public static IServiceCollection AddSqlAgentServices(this IServiceCollection services)
+  {
+    services.AddSingleton<DapperConnectionProvider>();
+    services.AddScoped<SqlPlugin>();
+    return services;
+  }
+
+  public static async Task<OpenAIAssistantAgent> CreateDataAnalysisAgent(Kernel kernel)
+  {
+    var config = kernel.GetRequiredService<IConfiguration>();
+    
+    AzureOpenAIClient client = OpenAIAssistantAgent
+      .CreateAzureOpenAIClient(apiKey: new ApiKeyCredential(config["AzureOpenAIAIF:AzureKeyCredential"]!), 
+                               endpoint: new Uri(config["AzureOpenAIAIF:Endpoint"]!));
+
+    //OpenAIFileClient fileClient = client.GetOpenAIFileClient();
+    
+    //OpenAIFile fileDataCountryList = await fileClient.UploadFileAsync(@"https://people.sc.fsu.edu/~jburkardt/data/csv/crash_catalonia.csv", FileUploadPurpose.Assistants);
+    
+    AssistantClient assistantClient = client.GetAssistantClient();
+    Assistant assistant =
+        await assistantClient.CreateAssistantAsync(
+            "gpt-4.1",
+            name: "SampleAssistantAgent",
+            instructions:
+                    """
+                        Analyze the available data to provide an answer to the user's question.
+                        Always format response using markdown.
+                        Always include a numerical index that starts at 1 for any lists or tables.
+                        Always sort lists in ascending order.
+                        """,
+            enableCodeInterpreter: true);
+
+    OpenAIAssistantAgent agent = new(assistant, assistantClient);
+
+    return agent;
+  }
+
+  private static void ThrowIfKernelHasPlugins(Kernel kernel)
+  {
+    if(!(kernel is not null && kernel.Plugins.IsNullOrEmpty()))
+    {
+      throw new ArgumentException("Kernel should not have any plugins when an agent.");
+    }
   }
 }

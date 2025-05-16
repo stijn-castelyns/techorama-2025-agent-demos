@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Text;
 
 
-namespace AgentDemos.Agents.Plugins;
+namespace AgentDemos.Agents.Plugins.CourseRecommendation;
 public class CourseRecommendationPlugin
 (
   U2UTrainingDb _trainingDb,

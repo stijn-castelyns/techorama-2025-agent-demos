@@ -1,5 +1,5 @@
 ﻿using AgentDemos.Agents;
-using AgentDemos.Agents.Plugins;
+using AgentDemos.Agents.Plugins.CourseRecommendation;
 using AgentDemos.Infra.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +22,7 @@ IConfigurationRoot config = new ConfigurationBuilder()
                                 .Build();
 
 IKernelBuilder builder = Kernel.CreateBuilder();
-
+builder.Services.AddSingleton<IConfiguration>(config);
 builder.Services.AddAzureOpenAIChatCompletion(endpoint: config["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: config["AzureOpenAIAIF:AzureKeyCredential"]!,
                                               deploymentName: "gpt-4.1");
@@ -31,19 +31,12 @@ builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: config["AzureOp
                                               apiKey: config["AzureOpenAIAIF:AzureKeyCredential"]!,
                                               deploymentName: "text-embedding-3-small");
 
-builder.Services.AddDbContext<U2UTrainingDb>(options =>
-{
-  options.UseSqlServer(config.GetConnectionString("U2UTrainingDb"), opts =>
-  {
-    opts.UseVectorSearch();
-  });
-});
-
-builder.Plugins.AddFromType<CourseRecommendationPlugin>();
+builder.Services.AddCourseRecommendationAgentServices();
 
 Kernel kernel = builder.Build();
 
-ChatCompletionAgent courseRecommendationAgent = U2UAgentFactory.CreateCourseRecommendationAgent(kernel);
+ChatCompletionAgent agent = U2UAgentFactory.CreateCourseRecommendationAgent(kernel);
+//Agent agent = await U2UAgentFactory.CreateDataAnalysisAgent(kernel);
 
 ChatHistory chat = [];
 ChatHistoryAgentThread chatThread = new ChatHistoryAgentThread(chat);
@@ -70,7 +63,7 @@ while (true)
   chat.Add(new ChatMessageContent(AuthorRole.User, userInput));
 
   // Generate the agent response(s)
-  await foreach (ChatMessageContent response in courseRecommendationAgent.InvokeAsync(chatThread))
+  await foreach (ChatMessageContent response in agent.InvokeAsync(chatThread))
   {
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("AI > " + response.ToString());

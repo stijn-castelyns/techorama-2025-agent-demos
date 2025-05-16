@@ -4,12 +4,16 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <NoWarn>SKEXP0001</NoWarn>
+    <NoWarn>SKEXP0001,SKEXP0010,OPENAI001</NoWarn>
+    <UserSecretsId>32c6a146-80d8-4b58-807d-f405f19b1dc8</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ConsoleTables" Version="2.6.2" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.50.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.50.0" />
+    <PackageReference Include="Microsoft.SemanticKernel.Agents.OpenAI" Version="1.50.0-preview" />
   </ItemGroup>
 
   <ItemGroup>

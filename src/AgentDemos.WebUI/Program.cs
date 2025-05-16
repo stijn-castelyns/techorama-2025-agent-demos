@@ -1,5 +1,5 @@
 using AgentDemos.Agents;
-using AgentDemos.Agents.Plugins;
+using AgentDemos.Agents.Plugins.CourseRecommendation;
 using AgentDemos.Infra.Infra;
 using AgentDemos.WebUI.Components;
 using Microsoft.EntityFrameworkCore;
@@ -21,20 +21,12 @@ builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: builder.Configu
                                               apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
                                               deploymentName: "text-embedding-3-small");
 
-builder.Services.AddDbContext<U2UTrainingDb>(options =>
-{
-  options.UseSqlServer(builder.Configuration.GetConnectionString("U2UTrainingDb"), opts =>
-  {
-    opts.UseVectorSearch();
-  });
-});
+builder.Services.AddSqlAgentServices();
+builder.Services.AddCourseRecommendationAgentServices();
 
-builder.Services.AddScoped<CourseRecommendationPlugin>();
-
-builder.Services.AddKeyedScoped<Kernel>("CourseRecommendationAgentKernel", (serv, key) =>
+builder.Services.AddScoped<Kernel>((serv) =>
 {
-  KernelPluginCollection kernelFunctions = new KernelPluginCollection([KernelPluginFactory.CreateFromType<CourseRecommendationPlugin>(serviceProvider: serv)]);
-  Kernel kernel = new Kernel(serv, kernelFunctions);
+  Kernel kernel = new Kernel(serv);
   return kernel;
 });
 
