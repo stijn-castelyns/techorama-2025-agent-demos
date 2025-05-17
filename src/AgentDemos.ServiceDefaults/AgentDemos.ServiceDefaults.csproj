@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsAspireSharedProject>true</IsAspireSharedProject>
+    <NoWarn>SKEXP0001,SKEXP0010</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

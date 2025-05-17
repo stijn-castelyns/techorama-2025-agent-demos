@@ -257,7 +257,6 @@ public static class U2UAgentFactory
             name: "SampleAssistantAgent",
             instructions:
                     """
-                        Analyze the available data to provide an answer to the user's question.
                         Always format response using markdown.
                         Always include a numerical index that starts at 1 for any lists or tables.
                         Always sort lists in ascending order.
