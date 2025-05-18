@@ -77,7 +77,9 @@ while (true)
   }
   Console.ResetColor();
 }
+await agentThread.DeleteAsync();
 
+await agent.Client.DeleteAssistantAsync(agent.Id);
 Console.ResetColor();
 Console.WriteLine("Conversation ended.");
 
@@ -112,6 +114,7 @@ async Task DownloadResponseImageAsync(ChatMessageContent message)
 async Task DownloadFileContentAsync(OpenAIFileClient fileClient, string fileId, bool launchViewer = false)
 {
   OpenAIFile fileInfo = fileClient.GetFile(fileId);
+
   if (fileInfo.Purpose == FilePurpose.AssistantsOutput)
   {
     string filePath = Path.Combine(Path.GetTempPath(), Path.GetFileName(fileInfo.Filename));
