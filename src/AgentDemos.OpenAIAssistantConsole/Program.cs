@@ -33,7 +33,7 @@ builder.Services.AddAzureOpenAIChatCompletion(endpoint: config["AzureOpenAIAIF:E
                                               apiKey: config["AzureOpenAIAIF:AzureKeyCredential"]!,
                                               deploymentName: "gpt-4.1");
 
-builder.Services.AddCourseRecommendationAgentServices();
+builder.Services.AddDataAnalysisAgentServices();
 
 Kernel kernel = builder.Build();
 

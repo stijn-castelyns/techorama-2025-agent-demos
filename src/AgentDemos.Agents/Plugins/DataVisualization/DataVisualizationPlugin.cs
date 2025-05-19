@@ -2,6 +2,7 @@
 using Azure.Storage.Blobs; // Added for Blob Storage
 using Azure.Storage.Blobs.Models;
 using HandlebarsDotNet;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using OpenAI.Files; // Added for FileUploadPurpose and OpenAIFile
@@ -24,10 +25,10 @@ public class DataVisualizationPlugin
     _blobContainerClient = blobContainerClient ?? throw new ArgumentNullException(nameof(blobContainerClient));
   }
 
-  [KernelFunction, Description("Call this function whenever images were generated using code interpreter")]
+  [KernelFunction, Description("Call this function whenever the user asks to persist images that were generated using code interpreter")]
   public async Task<string> PersistImagesAsync([Description("Descriptions of generated images")] List<string> imageDescriptions, ChatHistory? chatHistory = null)
   {
-    ChatMessageContent lastAssistantMessage = chatHistory!.Last(m => m.Role == AuthorRole.Assistant);
+    ChatMessageContent lastAssistantMessage = chatHistory!.Last(m => m.Role == AuthorRole.Assistant && !m.Content.IsNullOrEmpty());
     List<string> imageUrls = await DownloadResponseImageAsync(lastAssistantMessage);
 
     return $"URLS: {string.Join(", ", imageUrls)}\nDESCRIPTIONS: {string.Join(", ", imageDescriptions)}";

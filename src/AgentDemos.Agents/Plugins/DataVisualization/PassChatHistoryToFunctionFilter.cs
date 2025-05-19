@@ -17,7 +17,7 @@ public class PassChatHistoryToFunctionFilter : IAutoFunctionInvocationFilter
 {
   public async Task OnAutoFunctionInvocationAsync(AutoFunctionInvocationContext context, Func<AutoFunctionInvocationContext, Task> next)
   {
-    if (context.Function.Name == nameof(DataVisualizationPlugin.GetImageDescriptionsAsync))
+    if (context.Function.Name == "PersistImages")
     {
       context.Arguments["chatHistory"] = context.ChatHistory;
     }
