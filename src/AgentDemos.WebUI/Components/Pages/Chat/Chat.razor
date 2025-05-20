@@ -37,7 +37,7 @@
   {
     chatThread = new ChatHistoryAgentThread(new ChatHistory());
     // CourseRecommendationAgent = U2UAgentFactory.CreateCourseRecommendationAgent(Kernel);
-    CourseRecommendationAgent = U2UAgentFactory.CreateSqlAgent(Kernel);
+    CourseRecommendationAgent = U2UAgentFactory.CreateReportingAgent(Kernel);
   }
 
   private async Task AddUserMessageAsync(ChatMessageContent userMessage)

@@ -12,9 +12,11 @@
     <PackageReference Include="Azure.Storage.Blobs" Version="12.24.0" />
     <PackageReference Include="ConsoleTables" Version="2.6.2" />
     <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.Extensions.Azure" Version="1.11.0" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.52.1" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.52.1" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.OpenAI" Version="1.52.1-preview" />
+    <PackageReference Include="Microsoft.SemanticKernel.Agents.Orchestration" Version="1.52.1-preview" />
     <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.52.1-preview" />
   </ItemGroup>
 

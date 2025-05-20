@@ -19,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\NewFolder\" />
+    <Folder Include="wwwroot\query_images\" />
+    <Folder Include="wwwroot\query_results\" />
   </ItemGroup>
 
 </Project>

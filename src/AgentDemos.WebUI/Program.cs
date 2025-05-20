@@ -15,7 +15,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddAzureOpenAIChatCompletion(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
-                                              deploymentName: "gpt-4.1");
+                                              deploymentName: "gpt-4.1-mini");
 
 builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
@@ -23,6 +23,7 @@ builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: builder.Configu
 
 builder.Services.AddSqlAgentServices();
 builder.Services.AddCourseRecommendationAgentServices();
+builder.Services.AddDataAnalysisAgentCCServices();
 
 builder.Services.AddScoped<Kernel>((serv) =>
 {

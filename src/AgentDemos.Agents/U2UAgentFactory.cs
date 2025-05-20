@@ -190,6 +190,7 @@ public static class U2UAgentFactory
             * Test queries return expected results
             * SQL syntax is validated
             * Result set matches request parameters
+            * If the user asks to persist the results, make sure to output the unaltered full path where the data is stored.
 
           5. **Tool Usage Requirements**
           - Always populate 'reasoning' parameter with detailed justification
@@ -225,6 +226,7 @@ public static class U2UAgentFactory
     {
       Name = "SqlAgent",
       Instructions = SQL_PROMPT,
+      Description = "An agent specialized in querying a Microsoft SQL Server Database",
       Kernel = kernel,
       Arguments = new KernelArguments(
           new OpenAIPromptExecutionSettings()
@@ -286,15 +288,22 @@ public static class U2UAgentFactory
     SessionsPythonPlugin ciPlugin = kernel.GetRequiredService<SessionsPythonPlugin>();
 
     kernel.Plugins.AddFromObject(ciPlugin);
-    
+    kernel.AutoFunctionInvocationFilters.Add(new PersistImageToWWWWRoot());
+
     ChatCompletionAgent agent = new()
     {
-      Name = "DataAnalysisCCAgent",
+      Name = "DataAnalysisAgent",
+      Description = "An agent specialized in csv dataset analysis and plot generation",
       Instructions = """
         <purpose>
           You are a specialized data analysis assistant.
           Your primary function is to analyze data and provide insights.
         </purpose>
+        <operational-protocol>
+          - Make sure to always download images/plots you generate
+          - Make sure to always create an appropriate plot based on the data you are analyzing
+          - After downloading, always report the url where the user can find the image
+          </DataAnalysis>
         """,
       Kernel = kernel,
       Arguments = new KernelArguments(
@@ -376,6 +385,49 @@ public static class U2UAgentFactory
     return services;
   }
 
+  public static ChatCompletionAgent CreateReportingAgent(Kernel kernel)
+  {
+    ThrowIfKernelHasPlugins(kernel);
+
+    var agentsPlugin = KernelPluginFactory.CreateFromFunctions("AgentPlugin",
+    [
+        AgentKernelFunctionFactory.CreateFromAgent(CreateSqlAgent(kernel.Clone())),
+        AgentKernelFunctionFactory.CreateFromAgent(CreateDataAnalysisCCAgent(kernel.Clone()))
+    ]);
+
+    kernel.Plugins.Add(agentsPlugin);
+
+    ChatCompletionAgent reportingAgent = new()
+    {
+      Name = "ReportingAgent",
+      Description = "An agent specialized in generating reports",
+      Instructions = """
+        <purpose>
+          You are a specialized reporting assistant.
+          Your primary function is to generate reports based on data analysis and SQL queries.
+        </purpose>
+        <operational-protocol>
+          Delegate work appropriately to the SQL and Data Analysis agents.
+          When delegating work to the Sql agent, make sure to mention that data needs to be persisted.
+          When requesting the analysis from the Data Analysis agent, make sure to provide the absolute path to the dataset that needs to be analysed.
+          This absolute path should normally be reported by the sql agent.
+          Make sure to output markdown image links when the Data Analysis agent with url to online hosted image
+          Make sure to always ask the sql agent to return the retrieved data in markdown format as well
+        </operational-protocol>
+        """,
+      Kernel = kernel,
+      Arguments = new KernelArguments(
+          new OpenAIPromptExecutionSettings()
+          {
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
+            Temperature = 0  // Reduce creativity for precise report generation
+          }),
+      InstructionsRole = AuthorRole.System
+    };
+
+    return reportingAgent;
+  }
+  
   private static void ThrowIfKernelHasPlugins(Kernel kernel)
   {
     if(!(kernel is not null && kernel.Plugins.IsNullOrEmpty()))

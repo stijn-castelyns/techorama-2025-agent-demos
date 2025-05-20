@@ -658,10 +658,11 @@ public class SqlPlugin(DapperConnectionProvider connectionProvider, ILogger<SqlP
     }
   }
 
-  [KernelFunction, Description("Executes the final SQL query and returns all results")]
+  [KernelFunction, Description("Executes the final SQL query and returns all results. Optionally persists results to a CSV file.")]
   public string RunFinalSqlQuery(
-      [Description("The final SQL query to execute")] string sqlQuery,
-      [Description("Reason why the final query is necessary")] string reasoning)
+    [Description("The final SQL query to execute")] string sqlQuery,
+    [Description("Reason why the final query is necessary")] string reasoning,
+    [Description("True if user requests to persist final query results to a CSV file")] bool persistResults)
   {
     using IDbConnection db = _connectionProvider.Connect();
     try
@@ -669,16 +670,84 @@ public class SqlPlugin(DapperConnectionProvider connectionProvider, ILogger<SqlP
       _logger.LogInformation($"FINAL QUERY: {reasoning}");
 
       Console.WriteLine($"\nExecuting Final Query:\n{sqlQuery}");
-      IEnumerable<dynamic> result = db.Query(sqlQuery);
+      // Execute the query and buffer the results in a list, as IEnumerable<dynamic> might be deferred execution.
+      // This is important if we need to iterate over it multiple times (once for CSV, once for table formatting).
+      List<dynamic> result = db.Query(sqlQuery).AsList();
       PrintTable(result);
 
-      return FormatResultAsTable(result);
+      string formattedResult = FormatResultAsTable(result);
+      string persistMessage = "";
+
+      if (persistResults)
+      {
+        if (result.Any())
+        {
+          try
+          {
+            string filePath = Path.Combine("C:\\Users\\StijnCastelyns\\Documents\\Techorama\\2025\\techorama-2025-agent-demos\\src\\AgentDemos.WebUI\\wwwroot\\query_results\\", $"query_results_{DateTime.Now:yyyyMMddHHmmssfff}.csv");
+            SaveResultsToCsv(result, filePath);
+            persistMessage = $"\nResults also saved to: {filePath}";
+            _logger.LogInformation($"Query results successfully saved to {filePath}");
+          }
+          catch (Exception ex)
+          {
+            _logger.LogError(ex, "Failed to save query results to CSV.");
+            persistMessage = "\nFailed to save results to CSV: " + ex.Message;
+          }
+        }
+        else
+        {
+          persistMessage = "\nNo results to save to CSV.";
+        }
+      }
+
+      return formattedResult + persistMessage;
     }
     catch (Exception ex)
     {
       _logger.LogError(ex, "Final query failed");
       return $"Final query execution failed: {ex.Message}";
     }
+  }
+
+  private void SaveResultsToCsv(IEnumerable<dynamic> queryResult, string filePath)
+  {
+    if (queryResult == null || !queryResult.Any())
+    {
+      return;
+    }
+
+    var sb = new StringBuilder();
+    var firstRow = (IDictionary<string, object>)queryResult.First();
+    var columnNames = firstRow.Keys;
+
+    // Add header row
+    sb.AppendLine(string.Join(",", columnNames.Select(EscapeCsvValue)));
+
+    // Add data rows
+    foreach (var row in queryResult)
+    {
+      var rowDict = (IDictionary<string, object>)row;
+      var values = rowDict.Values.Select(val => EscapeCsvValue(val?.ToString() ?? ""));
+      sb.AppendLine(string.Join(",", values));
+    }
+
+    File.WriteAllText(filePath, sb.ToString());
+  }
+
+  private string EscapeCsvValue(string value)
+  {
+    if (string.IsNullOrEmpty(value))
+    {
+      return "";
+    }
+    // If the value contains a comma, double quote, or newline, enclose it in double quotes.
+    if (value.Contains(',') || value.Contains('"') || value.Contains('\n') || value.Contains('\r'))
+    {
+      // Escape existing double quotes by doubling them up.
+      return $"\"{value.Replace("\"", "\"\"")}\"";
+    }
+    return value;
   }
 
   private string FormatResultAsTable(IEnumerable<dynamic> queryResult)

@@ -25,7 +25,7 @@ IKernelBuilder builder = Kernel.CreateBuilder();
 builder.Services.AddSingleton<IConfiguration>(config);
 builder.Services.AddAzureOpenAIChatCompletion(endpoint: config["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: config["AzureOpenAIAIF:AzureKeyCredential"]!,
-                                              deploymentName: "gpt-4.1");
+                                              deploymentName: "gpt-4.1-mini");
 
 builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: config["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: config["AzureOpenAIAIF:AzureKeyCredential"]!,
@@ -33,11 +33,14 @@ builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: config["AzureOp
 
 builder.Services.AddCourseRecommendationAgentServices();
 builder.Services.AddDataAnalysisAgentCCServices();
+builder.Services.AddSqlAgentServices();
 
 Kernel kernel = builder.Build();
 
-ChatCompletionAgent agent = U2UAgentFactory.CreateDataAnalysisCCAgent(kernel);
+//ChatCompletionAgent agent = U2UAgentFactory.CreateDataAnalysisCCAgent(kernel);
 //ChatCompletionAgent agent = U2UAgentFactory.CreateCourseRecommendationAgent(kernel);
+//ChatCompletionAgent agent = U2UAgentFactory.CreateSqlAgent(kernel);
+ChatCompletionAgent agent = U2UAgentFactory.CreateReportingAgent(kernel);
 //Agent agent = await U2UAgentFactory.CreateDataAnalysisAgent(kernel);
 
 ChatHistory chat = [];
