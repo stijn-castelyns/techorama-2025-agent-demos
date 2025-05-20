@@ -331,7 +331,7 @@ public static class U2UAgentFactory
     var settings = new SessionsPythonSettings(
             sessionId: Guid.NewGuid().ToString(),
             endpoint: new Uri(config["ACASessionsPool:Endpoint"]!));
-
+    
     services.AddSingleton((sp)
         => new SessionsPythonPlugin(
             settings,
