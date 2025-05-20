@@ -18,4 +18,8 @@
     <ProjectReference Include="..\AgentDemos.ServiceDefaults\AgentDemos.ServiceDefaults.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\NewFolder\" />
+  </ItemGroup>
+
 </Project>
