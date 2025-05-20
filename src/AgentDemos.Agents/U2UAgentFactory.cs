@@ -1,9 +1,12 @@
 ﻿using AgentDemos.Agents.Plugins.CourseRecommendation;
+using AgentDemos.Agents.Plugins.DataVisualization;
 using AgentDemos.Agents.Plugins.SQL;
 using AgentDemos.Infra.Infra;
 using Azure.AI.OpenAI;
 using Azure.Identity;
+using Azure.Storage.Blobs;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -242,49 +245,63 @@ public static class U2UAgentFactory
 
   public static async Task<OpenAIAssistantAgent> CreateDataAnalysisAgent(Kernel kernel)
   {
+    ThrowIfKernelHasPlugins(kernel);
+
+    kernel.AutoFunctionInvocationFilters.Add(new PassChatHistoryToFunctionFilter());
+    
     var config = kernel.GetRequiredService<IConfiguration>();
     
     AzureOpenAIClient client = OpenAIAssistantAgent
       .CreateAzureOpenAIClient(apiKey: new ApiKeyCredential(config["AzureOpenAIAIF:AzureKeyCredential"]!), 
                                endpoint: new Uri(config["AzureOpenAIAIF:Endpoint"]!));
 
-    //OpenAIFileClient fileClient = client.GetOpenAIFileClient();
-    
-    //OpenAIFile fileDataCountryList = await fileClient.UploadFileAsync(@"https://people.sc.fsu.edu/~jburkardt/data/csv/crash_catalonia.csv", FileUploadPurpose.Assistants);
-    
     AssistantClient assistantClient = client.GetAssistantClient();
     Assistant assistant =
         await assistantClient.CreateAssistantAsync(
-            "gpt-4.1",
+            modelId: "gpt-4.1",
             name: "SampleAssistantAgent",
             instructions:
                     """
-                        Analyze the available data to provide an answer to the user's question.
                         Always format response using markdown.
-                        Always include a numerical index that starts at 1 for any lists or tables.
-                        Always sort lists in ascending order.
+                        Always persist images using the provided function after generating them using code interpreter.
                         """,
             enableCodeInterpreter: true);
 
-    OpenAIAssistantAgent agent = new(assistant, assistantClient);
-
+    DataVisualizationPlugin dataVisualizationPlugin = kernel.GetRequiredService<DataVisualizationPlugin>();
+    
+    OpenAIAssistantAgent agent = new(assistant, assistantClient, plugins: [KernelPluginFactory.CreateFromObject(dataVisualizationPlugin)]);
+    agent.Kernel.AutoFunctionInvocationFilters.Add(new PassChatHistoryToFunctionFilter());
     return agent;
   }
 
-  public static void CreateAgentGroupChat(Kernel kernel)
+  public static IServiceCollection AddDataAnalysisAgentServices(this IServiceCollection services)
   {
-    // Define the orchestration
-    //GroupChatOrchestration orchestration =
-    //    new(new RoundRobinGroupChatManager()
-    //    {
-    //      MaximumInvocationCount = 5
-    //    },
-    //    writer,
-    //    editor)
-    //    {
-    //      ResponseCallback = (a) => ,
-    //      LoggerFactory = this.LoggerFactory,
-    //    };
+    var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+    
+    services.AddAzureClients(config =>
+    {
+      config.AddBlobServiceClient(configuration["BlobStorage:ConnectionString"]);
+    });
+
+    services.AddSingleton<BlobContainerClient>(provider =>
+    {
+      var configuration = provider.GetRequiredService<IConfiguration>();
+      var blobServiceClient = provider.GetRequiredService<BlobServiceClient>();
+      var blobContainerClient = blobServiceClient.GetBlobContainerClient("code-interpreter-images");
+      return blobContainerClient;
+    });
+
+    services.AddSingleton<AzureOpenAIClient>(provider =>
+    {
+      var configuration = provider.GetRequiredService<IConfiguration>();
+      var blobContainerClient = provider.GetRequiredService<BlobContainerClient>();
+      return new AzureOpenAIClient(new Uri(configuration["AzureOpenAIAIF:Endpoint"]!),
+                                   new ApiKeyCredential(configuration["AzureOpenAIAIF:AzureKeyCredential"]!));
+    });
+
+    services.AddScoped<DataVisualizationPlugin>();
+
+    return services;
   }
 
   private static void ThrowIfKernelHasPlugins(Kernel kernel)

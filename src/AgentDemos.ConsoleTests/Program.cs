@@ -63,7 +63,14 @@ while (true)
   chat.Add(new ChatMessageContent(AuthorRole.User, userInput));
 
   // Generate the agent response(s)
-  await foreach (ChatMessageContent response in agent.InvokeAsync(chatThread))
+  await foreach (ChatMessageContent response in agent.InvokeAsync(chatThread, new AgentInvokeOptions()
+  {
+    OnIntermediateMessage = (message) =>
+    {
+      
+      return Task.CompletedTask;
+    },
+  }))
   {
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("AI > " + response.ToString());
