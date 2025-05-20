@@ -32,10 +32,12 @@ builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: config["AzureOp
                                               deploymentName: "text-embedding-3-small");
 
 builder.Services.AddCourseRecommendationAgentServices();
+builder.Services.AddDataAnalysisAgentCCServices();
 
 Kernel kernel = builder.Build();
 
-ChatCompletionAgent agent = U2UAgentFactory.CreateCourseRecommendationAgent(kernel);
+ChatCompletionAgent agent = U2UAgentFactory.CreateDataAnalysisCCAgent(kernel);
+//ChatCompletionAgent agent = U2UAgentFactory.CreateCourseRecommendationAgent(kernel);
 //Agent agent = await U2UAgentFactory.CreateDataAnalysisAgent(kernel);
 
 ChatHistory chat = [];

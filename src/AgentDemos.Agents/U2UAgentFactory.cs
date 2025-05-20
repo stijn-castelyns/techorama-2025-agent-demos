@@ -9,17 +9,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel.Agents.OpenAI;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.SemanticKernel.Plugins.Core.CodeInterpreter;
 using Microsoft.SemanticKernel.Agents.Orchestration;
 using Microsoft.SemanticKernel.Agents.Orchestration.GroupChat;
 using OpenAI.Assistants;
 using OpenAI.Files;
 using System.ClientModel;
+using System.Net;
 using static Dapper.SqlMapper;
 
 namespace AgentDemos.Agents;
@@ -272,6 +275,75 @@ public static class U2UAgentFactory
     OpenAIAssistantAgent agent = new(assistant, assistantClient, plugins: [KernelPluginFactory.CreateFromObject(dataVisualizationPlugin)]);
     agent.Kernel.AutoFunctionInvocationFilters.Add(new PassChatHistoryToFunctionFilter());
     return agent;
+  }
+
+  public static ChatCompletionAgent CreateDataAnalysisCCAgent(Kernel kernel)
+  {
+    ThrowIfKernelHasPlugins(kernel);
+
+    var config = kernel.GetRequiredService<IConfiguration>();
+
+    SessionsPythonPlugin ciPlugin = kernel.GetRequiredService<SessionsPythonPlugin>();
+
+    kernel.Plugins.AddFromObject(ciPlugin);
+    
+    ChatCompletionAgent agent = new()
+    {
+      Name = "DataAnalysisCCAgent",
+      Instructions = """
+        <purpose>
+          You are a specialized data analysis assistant.
+          Your primary function is to analyze data and provide insights.
+        </purpose>
+        """,
+      Kernel = kernel,
+      Arguments = new KernelArguments(
+          new OpenAIPromptExecutionSettings()
+          {
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
+            Temperature = 0  // Reduce creativity for precise data analysis
+          }),
+      InstructionsRole = AuthorRole.System
+    };
+
+    return agent;
+  }
+
+  public static IServiceCollection AddDataAnalysisAgentCCServices(this IServiceCollection services)
+  {
+    var config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+    
+    services.AddHttpClient();
+
+    string? cachedToken = null;
+
+    async Task<string> TokenProvider(CancellationToken cancellationToken)
+    {
+      if (cachedToken is null)
+      {
+        string resource = "https://dynamicsessions.io/.default";
+        var credential = new DefaultAzureCredential();
+
+        // Attempt to get the token
+        var accessToken = await credential.GetTokenAsync(new Azure.Core.TokenRequestContext([resource]), cancellationToken).ConfigureAwait(false);
+
+        cachedToken = accessToken.Token;
+      }
+
+      return cachedToken;
+    }
+
+    var settings = new SessionsPythonSettings(
+            sessionId: Guid.NewGuid().ToString(),
+            endpoint: new Uri(config["ACASessionsPool:Endpoint"]!));
+    
+    services.AddSingleton((sp)
+        => new SessionsPythonPlugin(
+            settings,
+            sp.GetRequiredService<IHttpClientFactory>(),
+            TokenProvider,
+            sp.GetRequiredService<ILoggerFactory>()));
+    return services;
   }
 
   public static IServiceCollection AddDataAnalysisAgentServices(this IServiceCollection services)
