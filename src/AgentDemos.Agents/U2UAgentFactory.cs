@@ -12,6 +12,8 @@ using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel.Agents.OpenAI;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.SemanticKernel.Agents.Orchestration;
+using Microsoft.SemanticKernel.Agents.Orchestration.GroupChat;
 using OpenAI.Assistants;
 using OpenAI.Files;
 using System.ClientModel;
@@ -267,6 +269,22 @@ public static class U2UAgentFactory
     OpenAIAssistantAgent agent = new(assistant, assistantClient);
 
     return agent;
+  }
+
+  public static void CreateAgentGroupChat(Kernel kernel)
+  {
+    // Define the orchestration
+    //GroupChatOrchestration orchestration =
+    //    new(new RoundRobinGroupChatManager()
+    //    {
+    //      MaximumInvocationCount = 5
+    //    },
+    //    writer,
+    //    editor)
+    //    {
+    //      ResponseCallback = (a) => ,
+    //      LoggerFactory = this.LoggerFactory,
+    //    };
   }
 
   private static void ThrowIfKernelHasPlugins(Kernel kernel)
