@@ -1,84 +1,39 @@
-﻿@page "/"
-@using System.ComponentModel
+﻿@using System.ComponentModel
 @using AgentDemos.Agents
 @using Microsoft.SemanticKernel
 @using Microsoft.SemanticKernel.Agents
 @using Microsoft.SemanticKernel.ChatCompletion
 @using System.Diagnostics
-@inject NavigationManager Nav
 @implements IDisposable
 
-<PageTitle>Chat</PageTitle>
+<div class="chat-component">
+  <ChatHeader OnNewChat="@ResetConversationAsync" />
 
-<ChatHeader OnNewChat="@ResetConversationAsync" />
+  <ChatMessageList Messages="@chatThread.ChatHistory" InProgressMessage="@currentResponseMessage">
+    <NoMessagesContent>
+    </NoMessagesContent>
+  </ChatMessageList>
 
-<div class="agent-selector">
-  <select @bind="selectedAgentType" @bind:after="OnAgentTypeChanged" class="form-select">
-    @foreach (var agentType in Enum.GetValues<AgentType>())
-    {
-      <option value="@agentType">@GetAgentDisplayName(agentType)</option>
-    }
-  </select>
-</div>
-
-<ChatMessageList Messages="@chatThread.ChatHistory" InProgressMessage="@currentResponseMessage">
-  <NoMessagesContent>
-  </NoMessagesContent>
-</ChatMessageList>
-
-<div class="chat-container">
-  @* <ChatSuggestions OnSelected="@AddUserMessageAsync" @ref="@chatSuggestions" /> *@
-  <ChatInput OnSend="@AddUserMessageAsync" @ref="@chatInput" />
+  <div class="chat-container">
+    <ChatInput OnSend="@AddUserMessageAsync" @ref="@chatInput" />
+  </div>
 </div>
 
 @code {
-  private enum AgentType
-  {
-    CourseRecommendation,
-    Sql,
-    DataAnalysisCC,
-    Reporting
-  }
+  [Parameter]
+  public required ChatCompletionAgent Agent { get; set; }
+
+  [Parameter]
+  public string Title { get; set; } = "Chat";
 
   private ChatHistoryAgentThread chatThread = new();
   private CancellationTokenSource? currentResponseCancellation;
   private ChatMessageContent? currentResponseMessage;
   private ChatInput? chatInput;
-  private ChatSuggestions? chatSuggestions;
-  private AgentType selectedAgentType = AgentType.Reporting;
-  private Dictionary<AgentType, ChatCompletionAgent> agents = new();
-
-  [Inject]
-  public Kernel Kernel { get; set; }
 
   protected override void OnInitialized()
   {
     chatThread = new ChatHistoryAgentThread(new ChatHistory());
-
-    // Initialize all available agents
-    agents[AgentType.CourseRecommendation] = U2UAgentFactory.CreateCourseRecommendationAgent(Kernel.Clone());
-    agents[AgentType.Sql] = U2UAgentFactory.CreateSqlAgent(Kernel.Clone());
-    agents[AgentType.DataAnalysisCC] = U2UAgentFactory.CreateDataAnalysisCCAgent(Kernel.Clone());
-    agents[AgentType.Reporting] = U2UAgentFactory.CreateReportingAgent(Kernel.Clone());
-  }
-
-  private string GetAgentDisplayName(AgentType agentType)
-  {
-    return agentType switch
-    {
-      AgentType.CourseRecommendation => "Course Recommendation Agent",
-      AgentType.Sql => "SQL Agent",
-      AgentType.DataAnalysis => "Data Analysis Agent (OpenAI Assistant)",
-      AgentType.DataAnalysisCC => "Data Analysis Agent",
-      AgentType.Reporting => "Reporting Agent",
-      _ => agentType.ToString()
-    };
-  }
-
-  private void OnAgentTypeChanged()
-  {
-    // Reset the conversation when switching agents
-    ResetConversationAsync();
   }
 
   private async Task AddUserMessageAsync(ChatMessageContent userMessage)
@@ -87,27 +42,22 @@
 
     // Add the user message to the conversation
     chatThread.ChatHistory.Add(userMessage);
-    chatSuggestions?.Clear();
     await chatInput!.FocusAsync();
 
     using var parentActivity = new Activity("AgentInvocation")
-     .SetTag("agent.type", selectedAgentType.ToString())
-     .SetTag("chat.thread.id", chatThread.Id)
-     .Start();
+        .SetTag("agent.name", Agent.Name)
+        .SetTag("chat.thread.id", chatThread.Id)
+        .Start();
 
     currentResponseMessage = new ChatMessageContent(AuthorRole.Assistant, "");
     currentResponseCancellation = new();
 
-    // Get the currently selected agent
-    var currentAgent = agents[selectedAgentType];
-
-    await foreach (var response in currentAgent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token))
+    await foreach (var response in Agent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token))
     {
       ChatMessageItem.NotifyChanged(currentResponseMessage);
     }
 
-
-    // Store the final response in the conversation
+    // Clear the in-progress response
     currentResponseMessage = null;
   }
 
@@ -127,11 +77,9 @@
   {
     CancelAnyCurrentResponse();
     chatThread.ChatHistory.Clear();
-    chatSuggestions?.Clear();
     await chatInput!.FocusAsync();
   }
 
   public void Dispose()
       => currentResponseCancellation?.Cancel();
 }
-
