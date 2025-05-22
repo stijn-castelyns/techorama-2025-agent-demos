@@ -1,12 +1,18 @@
 ﻿.message-list-container {
-    margin: 2rem 1.5rem;
-    flex-grow: 1;
+    margin: 0.5rem 1.5rem; /* Reduced top/bottom margin */
+    flex: 1;
+    overflow-y: auto;
+    /* Remove max-height constraint to let flexbox parent control sizing */
+    display: flex;
+    flex-direction: column;
 }
 
 .message-list {
     display: flex; 
     flex-direction: column; 
-    gap: 1.25rem; 
+    gap: 1.25rem;
+    flex: 1; /* Allow message list to grow */
+    width: 100%;
 }
 
 .no-messages {
@@ -16,7 +22,14 @@
     margin-top: calc(40vh - 18rem);
 }
 
+chat-messages {
+    flex: 1; /* Make the custom element take available space */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Enable scrolling at this level too */
+}
+
 chat-messages > ::deep div:last-of-type {
-    /* Adds some vertical buffer to so that suggestions don't overlap the output when they appear */
+    /* Adds some vertical buffer so that suggestions don't overlap the output when they appear */
     margin-bottom: 2rem;
 }

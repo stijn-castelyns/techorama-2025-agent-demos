@@ -1,8 +1,8 @@
 .chat-component {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Take up full viewport height */
-    width: 100%; /* Take up full width */
+    height: 100%; /* Changed from 100vh to 100% to work within parent container */
+    width: 100%;
     overflow: hidden; /* Prevent scrollbars on the component itself */
 }
 
@@ -16,13 +16,22 @@
     border-top-width: 1px;
     background-color: #F3F4F6;
     border-color: #E5E7EB;
-    width: 100%; /* Ensure full width */
-    z-index: 10; /* Ensure it stays on top */
+    width: 100%;
+    z-index: 10;
+    flex-shrink: 0; /* Prevent input container from shrinking */
 }
 
-/* Make the message list take up all available space */
-::deep .chat-message-list {
-    flex: 1;
-    overflow-y: auto; /* Allow scrolling for messages */
-    padding: 1rem;
+/* Make sure header doesn't shrink */
+::deep .chat-header-container {
+    flex-shrink: 0;
+}
+
+/* Ensure the message list container flexes correctly and allows scrolling */
+::deep .message-list-container {
+    flex: 1 1 auto;
+    min-height: 0; /* Critical for nested flexbox to allow scrolling */
+    overflow-y: auto; /* Enable scrolling */
+    position: relative; /* Establish positioning context */
+    display: flex;
+    flex-direction: column;
 }

@@ -26,6 +26,9 @@
   [Parameter]
   public string Title { get; set; } = "Chat";
 
+  [Parameter]
+  public string ModelId { get; set; } = "gpt-4.1-mini";
+
   private ChatHistoryAgentThread chatThread = new();
   private CancellationTokenSource? currentResponseCancellation;
   private ChatMessageContent? currentResponseMessage;
@@ -53,7 +56,16 @@
     currentResponseMessage = new ChatMessageContent(AuthorRole.Assistant, "");
     currentResponseCancellation = new();
 
-    await foreach (var response in Agent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token))
+    // Get the currently selected agent
+
+    await foreach (var response in Agent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token, options: new AgentInvokeOptions()
+      {
+        KernelArguments = new KernelArguments(new PromptExecutionSettings()
+        {
+          ModelId = this.ModelId,
+          FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
+        })
+      }))
     {
       ChatMessageItem.NotifyChanged(currentResponseMessage);
     }
@@ -78,7 +90,7 @@
   {
     CancelAnyCurrentResponse();
     chatThread.ChatHistory.Clear();
-    await chatInput!.FocusAsync();
+    // await chatInput!.FocusAsync();
   }
 
   public void Dispose()
