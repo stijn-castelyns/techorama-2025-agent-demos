@@ -300,6 +300,7 @@ public static class U2UAgentFactory
           Your primary function is to analyze data and provide insights.
         </purpose>
         <operational-protocol>
+          - When the location of a relevant file/dataset is mentioned, always upload it!
           - Make sure to always download images/plots you generate
           - Make sure to always create an appropriate plot based on the data you are analyzing
           - After downloading, always report the url where the user can find the image

@@ -1,0 +1,23 @@
+﻿@page "/data-analysis"
+@using AgentDemos.Agents
+@using AgentDemos.WebUI.Components.Pages.Chat
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.Agents
+
+<PageTitle>Data Analysis</PageTitle>
+
+<h1>Data Analysis Agent</h1>
+
+<Chat Agent="dataAnalysisAgent" Title="Data Analysis" />
+
+@code {
+    [Inject]
+    public Kernel Kernel { get; set; }
+
+    private ChatCompletionAgent dataAnalysisAgent;
+
+    protected override void OnInitialized()
+    {
+        dataAnalysisAgent = U2UAgentFactory.CreateDataAnalysisCCAgent(Kernel.Clone());
+    }
+}

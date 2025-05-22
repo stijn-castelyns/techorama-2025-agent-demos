@@ -1,0 +1,30 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Routing
+
+<PageTitle>Agent Demos</PageTitle>
+
+<div class="agent-selector-container">
+  <h1>Select an Agent</h1>
+
+  <div class="agent-cards">
+    <NavLink class="agent-card" href="/course-recommendation">
+      <h2>Course Recommendation</h2>
+      <p>Find the best courses for your skills and interests</p>
+    </NavLink>
+
+    <NavLink class="agent-card" href="/sql-agent">
+      <h2>SQL Agent</h2>
+      <p>Get help with SQL queries and database operations</p>
+    </NavLink>
+
+    <NavLink class="agent-card" href="/data-analysis">
+      <h2>Data Analysis</h2>
+      <p>Analyze data and create visualizations</p>
+    </NavLink>
+
+    <NavLink class="agent-card" href="/reporting">
+      <h2>Reporting</h2>
+      <p>Generate comprehensive reports using SQL and data analysis</p>
+    </NavLink>
+  </div>
+</div>

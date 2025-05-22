@@ -1,0 +1,23 @@
+﻿@page "/reporting"
+@using AgentDemos.Agents
+@using AgentDemos.WebUI.Components.Pages.Chat
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.Agents
+
+<PageTitle>Reporting</PageTitle>
+
+<h1>Reporting Agent</h1>
+
+<Chat Agent="reportingAgent" Title="Reporting" />
+
+@code {
+    [Inject]
+    public Kernel Kernel { get; set; }
+
+    private ChatCompletionAgent reportingAgent;
+
+    protected override void OnInitialized()
+    {
+        reportingAgent = U2UAgentFactory.CreateReportingAgent(Kernel.Clone());
+    }
+}

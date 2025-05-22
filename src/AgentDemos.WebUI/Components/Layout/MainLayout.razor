@@ -1,9 +1,47 @@
 ﻿@inherits LayoutComponentBase
+@using AgentDemos.WebUI.Components.Shared
 
-@Body
+<div class="main-container">
+  <aside class="sidebar-container">
+    <Sidebar />
+  </aside>
+
+  <section class="content-container">
+    @Body
+  </section>
+</div>
 
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
 </div>
+
+<style>
+.main-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar-container {
+  width: 250px;
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.content-container {
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+/* Sidebar links */
+.sidebar-link {
+  display: block;
+  margin-bottom: 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+.sidebar-link.active {
+  font-weight: bold;
+}
+</style>

@@ -1,11 +1,28 @@
+.chat-component {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Take up full viewport height */
+    width: 100%; /* Take up full width */
+    overflow: hidden; /* Prevent scrollbars on the component itself */
+}
+
 .chat-container {
-    position: sticky; 
-    bottom: 0; 
+    position: sticky;
+    bottom: 0;
     padding-left: 1.5rem;
-    padding-right: 1.5rem; 
-    padding-top: 0.75rem; 
-    padding-bottom: 1.5rem; 
-    border-top-width: 1px; 
-    background-color: #F3F4F6; 
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 1.5rem;
+    border-top-width: 1px;
+    background-color: #F3F4F6;
     border-color: #E5E7EB;
+    width: 100%; /* Ensure full width */
+    z-index: 10; /* Ensure it stays on top */
+}
+
+/* Make the message list take up all available space */
+::deep .chat-message-list {
+    flex: 1;
+    overflow-y: auto; /* Allow scrolling for messages */
+    padding: 1rem;
 }
