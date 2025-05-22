@@ -12,6 +12,15 @@
 
 <ChatHeader OnNewChat="@ResetConversationAsync" />
 
+<div class="agent-selector">
+  <select @bind="selectedAgentType" @bind:after="OnAgentTypeChanged" class="form-select">
+    @foreach (var agentType in Enum.GetValues<AgentType>())
+    {
+      <option value="@agentType">@GetAgentDisplayName(agentType)</option>
+    }
+  </select>
+</div>
+
 <ChatMessageList Messages="@chatThread.ChatHistory" InProgressMessage="@currentResponseMessage">
   <NoMessagesContent>
   </NoMessagesContent>
@@ -23,12 +32,22 @@
 </div>
 
 @code {
+  private enum AgentType
+  {
+    CourseRecommendation,
+    Sql,
+    DataAnalysis,
+    DataAnalysisCC,
+    Reporting
+  }
+
   private ChatHistoryAgentThread chatThread = new();
   private CancellationTokenSource? currentResponseCancellation;
   private ChatMessageContent? currentResponseMessage;
   private ChatInput? chatInput;
   private ChatSuggestions? chatSuggestions;
-  private ChatCompletionAgent CourseRecommendationAgent;
+  private AgentType selectedAgentType = AgentType.Reporting;
+  private Dictionary<AgentType, ChatCompletionAgent> agents = new();
 
   [Inject]
   public Kernel Kernel { get; set; }
@@ -36,8 +55,31 @@
   protected override void OnInitialized()
   {
     chatThread = new ChatHistoryAgentThread(new ChatHistory());
-    // CourseRecommendationAgent = U2UAgentFactory.CreateCourseRecommendationAgent(Kernel);
-    CourseRecommendationAgent = U2UAgentFactory.CreateReportingAgent(Kernel);
+
+    // Initialize all available agents
+    agents[AgentType.CourseRecommendation] = U2UAgentFactory.CreateCourseRecommendationAgent(Kernel.Clone());
+    agents[AgentType.Sql] = U2UAgentFactory.CreateSqlAgent(Kernel.Clone());
+    agents[AgentType.DataAnalysisCC] = U2UAgentFactory.CreateDataAnalysisCCAgent(Kernel.Clone());
+    agents[AgentType.Reporting] = U2UAgentFactory.CreateReportingAgent(Kernel.Clone());
+  }
+
+  private string GetAgentDisplayName(AgentType agentType)
+  {
+    return agentType switch
+    {
+      AgentType.CourseRecommendation => "Course Recommendation Agent",
+      AgentType.Sql => "SQL Agent",
+      AgentType.DataAnalysis => "Data Analysis Agent (OpenAI Assistant)",
+      AgentType.DataAnalysisCC => "Data Analysis Agent",
+      AgentType.Reporting => "Reporting Agent",
+      _ => agentType.ToString()
+    };
+  }
+
+  private void OnAgentTypeChanged()
+  {
+    // Reset the conversation when switching agents
+    ResetConversationAsync();
   }
 
   private async Task AddUserMessageAsync(ChatMessageContent userMessage)
@@ -50,23 +92,24 @@
     await chatInput!.FocusAsync();
 
     using var parentActivity = new Activity("AgentInvocation")
-     .SetTag("agent.type", "CourseRecommendationAgent")
+     .SetTag("agent.type", selectedAgentType.ToString())
      .SetTag("chat.thread.id", chatThread.Id)
      .Start();
 
-
-    // var responseText = new TextContent("");
     currentResponseMessage = new ChatMessageContent(AuthorRole.Assistant, "");
     currentResponseCancellation = new();
 
-    await foreach (var response in CourseRecommendationAgent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token))
+    // Get the currently selected agent
+    var currentAgent = agents[selectedAgentType];
+
+    await foreach (var response in currentAgent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token))
     {
       ChatMessageItem.NotifyChanged(currentResponseMessage);
     }
 
-    // Store the final response in the conversation, and begin getting suggestions
+
+    // Store the final response in the conversation
     currentResponseMessage = null;
-    // chatSuggestions?.Update(messages);
   }
 
   private void CancelAnyCurrentResponse()

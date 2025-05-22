@@ -410,6 +410,7 @@ public static class U2UAgentFactory
           Delegate work appropriately to the SQL and Data Analysis agents.
           When delegating work to the Sql agent, make sure to mention that data needs to be persisted.
           When requesting the analysis from the Data Analysis agent, make sure to provide the absolute path to the dataset that needs to be analysed.
+          When requesting the analysis from the Data Analysis agent, make sure to ask for relevant plots, and instruct the agent to download the plots as well
           This absolute path should normally be reported by the sql agent.
           Make sure to output markdown image links when the Data Analysis agent with url to online hosted image
           Make sure to always ask the sql agent to return the retrieved data in markdown format as well
