@@ -17,6 +17,11 @@ builder.Services.AddAzureOpenAIChatCompletion(endpoint: builder.Configuration["A
                                               apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
                                               deploymentName: "gpt-4.1-mini");
 
+builder.Services.AddAzureOpenAIChatCompletion(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,
+                                              apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
+                                              deploymentName: "gpt-4.1");
+
+
 builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
                                               deploymentName: "text-embedding-3-small");

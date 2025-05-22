@@ -100,7 +100,13 @@
     // Get the currently selected agent
     var currentAgent = agents[selectedAgentType];
 
-    await foreach (var response in currentAgent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token))
+    await foreach (var response in currentAgent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token, options: new AgentInvokeOptions()
+    {
+      KernelArguments = new KernelArguments(new PromptExecutionSettings()
+      {
+        ModelId = "gpt-4.1"
+      })
+    }))
     {
       ChatMessageItem.NotifyChanged(currentResponseMessage);
     }
