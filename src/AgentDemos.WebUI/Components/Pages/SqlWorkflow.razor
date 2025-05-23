@@ -1,0 +1,274 @@
+﻿@page "/sql-workflow"
+@using AgentDemos.Agents
+@using AgentDemos.Agents.Plugins.SQL
+@using AgentDemos.Agents.Services
+@using AgentDemos.WebUI.Components.Pages.Chat
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.Agents
+
+<PageTitle>SQL Workflow</PageTitle>
+
+<div class="page-container">
+  <h1>SQL Workflow</h1>
+  
+  <div class="workflow-container">
+    <div class="input-section">
+      <h3>Enter your question about the database</h3>
+      <EditForm Model="@this" OnValidSubmit="@GenerateSqlAsync">
+        <div class="form-group">
+          <textarea @bind="userQuery" 
+                    placeholder="Example: Show me all customers from Germany with their orders from 2023" 
+                    rows="3" 
+                    class="query-input"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" disabled="@isLoading">
+            @if (isLoading)
+            {
+              <span>Processing...</span>
+            }
+            else
+            {
+              <span>Generate SQL</span>
+            }
+          </button>
+        </div>
+      </EditForm>
+    </div>
+
+    @if (!string.IsNullOrEmpty(sqlResult))
+    {
+      <div class="result-section">
+        <h3>Generated SQL</h3>
+        <div class="sql-result-container">
+          <pre class="sql-code">@sqlResult</pre>
+          @if (!string.IsNullOrEmpty(errorMessage))
+          {
+            <div class="error-message">@errorMessage</div>
+          }
+        </div>
+        <div class="execute-actions">
+          <button class="btn-success" @onclick="ExecuteQueryAsync" disabled="@isExecuting">
+            @if (isExecuting)
+            {
+              <span>Executing...</span>
+            }
+            else
+            {
+              <span>Execute Query</span>
+            }
+          </button>
+        </div>
+      </div>
+    }
+
+    @if (!string.IsNullOrEmpty(queryResult))
+    {
+      <div class="result-section">
+        <h3>Query Results</h3>
+        <div class="query-result-container">
+          @if (!string.IsNullOrEmpty(queryErrorMessage))
+          {
+            <div class="error-message">@queryErrorMessage</div>
+          }
+          else
+          {
+            <div class="markdown-result">
+              <assistant-message markdown="@queryResult"></assistant-message>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<style>
+  .page-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .workflow-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+  }
+
+  .input-section, .result-section {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .query-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+  }
+
+  .form-actions, .execute-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-primary, .btn-success {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-primary {
+    background-color: #0d6efd;
+  }
+
+  .btn-success {
+    background-color: #198754;
+  }
+
+  .btn-primary:hover {
+    background-color: #0b5ed7;
+  }
+  
+  .btn-success:hover {
+    background-color: #157347;
+  }
+
+  .btn-primary:disabled, .btn-success:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+
+  .sql-result-container {
+    background-color: #212529;
+    border-radius: 4px;
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  .sql-code {
+    color: #f8f9fa;
+    font-family: 'Consolas', 'Monaco', monospace;
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .error-message {
+    margin-top: 10px;
+    color: #dc3545;
+    font-weight: 500;
+  }
+  
+  .query-result-container {
+    overflow-x: auto;
+  }
+  
+  .markdown-result {
+    width: 100%;
+  }
+</style>
+
+@code {
+  [Inject]
+  public Kernel Kernel { get; set; }
+
+  [Inject]
+  public SqlPlugin SqlPlugin { get; set; }
+
+  private string userQuery = string.Empty;
+  private string sqlResult = string.Empty;
+  private string errorMessage = string.Empty;
+  private string queryResult = string.Empty;
+  private string queryErrorMessage = string.Empty;
+  private bool isLoading = false;
+  private bool isExecuting = false;
+
+  private async Task GenerateSqlAsync()
+  {
+    if (string.IsNullOrWhiteSpace(userQuery))
+      return;
+      
+    isLoading = true;
+    errorMessage = string.Empty;
+    // Clear previous query results when generating a new SQL query
+    queryResult = string.Empty;
+    queryErrorMessage = string.Empty;
+    
+    try
+    {
+      sqlResult = await Nl2SQL(userQuery);
+    }
+    catch (Exception ex)
+    {
+      errorMessage = $"Error generating SQL: {ex.Message}";
+      // Keep the previous result if there was an error
+    }
+    finally
+    {
+      isLoading = false;
+    }
+  }
+
+  private async Task ExecuteQueryAsync()
+  {
+    if (string.IsNullOrWhiteSpace(sqlResult))
+      return;
+      
+    isExecuting = true;
+    queryErrorMessage = string.Empty;
+    
+    try
+    {
+      // Pass the current query to RunFinalSqlQuery
+      queryResult = SqlPlugin.RunFinalSqlQuery(
+        sqlQuery: sqlResult,
+        reasoning: $"Executing user query: {userQuery}",
+        persistResults: false
+      );
+    }
+    catch (Exception ex)
+    {
+      queryErrorMessage = $"Error executing SQL query: {ex.Message}";
+    }
+    finally
+    {
+      isExecuting = false;
+    }
+  }
+
+  private async Task<string> Nl2SQL(string userQuery)
+  {
+    string schema = await SqlPlugin.ExtractSchemaForLlmAsync();
+    string prompt = $@"
+      <instructions>
+        You are an expert T-SQL developer. Given a users request
+        you will convert this request into a valid T-SQL syntax that can be directly run on the database. 
+        You are stricly forbidden from answering in a markdown code block!
+        The database you will write these queries for has the following table definitions:
+        <tableDefinitions>
+        {schema}
+        </tableDefinitions>
+      </instructions>
+
+      <user-message>Give me all the entries for ProductName</user-message>
+      <assistant-message>SELECT ProductName FROM dbo.Products;</assistant-message>
+
+      <user-message>{userQuery}</message>";
+
+    string result = await Kernel.InvokePromptAsync<string>(prompt);
+    return result;
+  }
+}

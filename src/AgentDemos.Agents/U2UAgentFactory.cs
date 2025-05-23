@@ -24,6 +24,7 @@ using OpenAI.Files;
 using System.ClientModel;
 using System.Net;
 using static Dapper.SqlMapper;
+using Microsoft.SemanticKernel.Connectors.Google;
 
 namespace AgentDemos.Agents;
 
@@ -229,11 +230,12 @@ public static class U2UAgentFactory
       Description = "An agent specialized in querying a Microsoft SQL Server Database",
       Kernel = kernel,
       Arguments = new KernelArguments(
-          new PromptExecutionSettings()
+          new GeminiPromptExecutionSettings()
           {
             FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
-            ModelId = "gpt-4.1",
-            ServiceId = "gpt-4.1-service",
+            ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
+            ModelId = "gemini-2.5-flash-preview-05-20",
+            ServiceId = "gemini-2.5-flash-preview-05-20-service",
           }),
       InstructionsRole = AuthorRole.System
     };

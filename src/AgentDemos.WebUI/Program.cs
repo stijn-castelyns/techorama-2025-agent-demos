@@ -27,6 +27,13 @@ builder.Services.AddAzureOpenAIChatCompletion(endpoint: builder.Configuration["A
                                               deploymentName: "gpt-4.1-mini",
                                               serviceId: "gpt-4.1-mini-service");
 
+builder.Services.AddGoogleAIGeminiChatCompletion(modelId: "gemini-2.5-pro-preview-05-06", 
+                                                 apiKey: builder.Configuration["GoogleGemini:Key"]!, 
+                                                 serviceId: "gemini-2.5-pro-preview-05-06-service");
+
+builder.Services.AddGoogleAIGeminiChatCompletion(modelId: "gemini-2.5-flash-preview-05-20",
+                                                 apiKey: builder.Configuration["GoogleGemini:Key"]!,
+                                                 serviceId: "gemini-2.5-flash-preview-05-20-service");
 
 builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
