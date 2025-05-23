@@ -229,10 +229,9 @@ public static class U2UAgentFactory
       Description = "An agent specialized in querying a Microsoft SQL Server Database",
       Kernel = kernel,
       Arguments = new KernelArguments(
-          new OpenAIPromptExecutionSettings()
+          new PromptExecutionSettings()
           {
-            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
-            Temperature = 0,  // Reduce creativity for precise SQL generation
+            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
             ModelId = "gpt-4.1",
             ServiceId = "gpt-4.1-service",
           }),
@@ -309,10 +308,9 @@ public static class U2UAgentFactory
         """,
       Kernel = kernel,
       Arguments = new KernelArguments(
-          new OpenAIPromptExecutionSettings()
+          new PromptExecutionSettings()
           {
-            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
-            Temperature = 0,
+            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
             ModelId = "gpt-4.1",
           }),
       InstructionsRole = AuthorRole.System
@@ -421,10 +419,9 @@ public static class U2UAgentFactory
         """,
       Kernel = kernel,
       Arguments = new KernelArguments(
-          new OpenAIPromptExecutionSettings()
+          new PromptExecutionSettings()
           {
-            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
-            Temperature = 0  // Reduce creativity for precise report generation
+           FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
           }),
       InstructionsRole = AuthorRole.System
     };
