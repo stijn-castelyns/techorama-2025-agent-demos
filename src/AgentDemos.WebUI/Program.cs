@@ -15,11 +15,17 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddAzureOpenAIChatCompletion(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
-                                              deploymentName: "gpt-4.1-mini");
+                                              deploymentName: "gpt-4.1");
 
 builder.Services.AddAzureOpenAIChatCompletion(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
-                                              deploymentName: "gpt-4.1");
+                                              deploymentName: "gpt-4.1",
+                                              serviceId: "gpt-4.1-service");
+
+builder.Services.AddAzureOpenAIChatCompletion(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,
+                                              apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
+                                              deploymentName: "gpt-4.1-mini",
+                                              serviceId: "gpt-4.1-mini-service");
 
 
 builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,

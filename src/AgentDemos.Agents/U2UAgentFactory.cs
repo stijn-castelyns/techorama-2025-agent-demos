@@ -232,8 +232,9 @@ public static class U2UAgentFactory
           new OpenAIPromptExecutionSettings()
           {
             ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
-            Temperature = 0  // Reduce creativity for precise SQL generation
-
+            Temperature = 0,  // Reduce creativity for precise SQL generation
+            ModelId = "gpt-4.1",
+            ServiceId = "gpt-4.1-service",
           }),
       InstructionsRole = AuthorRole.System
     };

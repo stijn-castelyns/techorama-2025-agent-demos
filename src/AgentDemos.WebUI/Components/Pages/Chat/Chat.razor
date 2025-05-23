@@ -58,14 +58,7 @@
 
     // Get the currently selected agent
 
-    await foreach (var response in Agent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token, options: new AgentInvokeOptions()
-      {
-        KernelArguments = new KernelArguments(new PromptExecutionSettings()
-        {
-          ModelId = this.ModelId,
-          FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
-        })
-      }))
+    await foreach (var response in Agent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token))
     {
       ChatMessageItem.NotifyChanged(currentResponseMessage);
     }
