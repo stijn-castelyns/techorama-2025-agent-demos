@@ -14,7 +14,7 @@ This demo application includes:
 
 ## Prerequisites
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or later
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) or later
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - Azure subscription
 - Google AI API key (for Gemini models)
