@@ -12,12 +12,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.0" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AgentDemos.ConsoleTests\AgentDemos.ConsoleTests.csproj" />
     <ProjectReference Include="..\AgentDemos.WebUI\AgentDemos.WebUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Databases\Northwind.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

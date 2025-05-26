@@ -9,19 +9,15 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel.ChatCompletion;
 
-var appBuilder = Host.CreateApplicationBuilder();
+var builder = Host.CreateApplicationBuilder();
 
-appBuilder.AddServiceDefaults();
-
-var app = appBuilder.Build();
-
-app.Start();
+builder.AddServiceDefaults();
+builder.AddSqlServerClient(connectionName: "northwind");
 
 IConfigurationRoot config = new ConfigurationBuilder()
                                 .AddUserSecrets<Program>()
                                 .Build();
 
-IKernelBuilder builder = Kernel.CreateBuilder();
 builder.Services.AddSingleton<IConfiguration>(config);
 builder.Services.AddAzureOpenAIChatCompletion(endpoint: config["AzureOpenAIAIF:Endpoint"]!,
                                               apiKey: config["AzureOpenAIAIF:AzureKeyCredential"]!,
@@ -35,7 +31,13 @@ builder.Services.AddCourseRecommendationAgentServices();
 builder.Services.AddDataAnalysisAgentCCServices();
 builder.Services.AddSqlAgentServices();
 
-Kernel kernel = builder.Build();
+builder.AddSqlServerClient(connectionName: "northwind");
+
+var app = builder.Build();
+
+app.Start();
+
+Kernel kernel = new Kernel(builder.Services.BuildServiceProvider());
 
 //ChatCompletionAgent agent = U2UAgentFactory.CreateDataAnalysisCCAgent(kernel);
 //ChatCompletionAgent agent = U2UAgentFactory.CreateCourseRecommendationAgent(kernel);

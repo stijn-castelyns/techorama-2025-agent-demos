@@ -39,6 +39,8 @@ builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: builder.Configu
                                               apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
                                               deploymentName: "text-embedding-3-small");
 
+builder.AddSqlServerClient(connectionName: "northwind");
+
 builder.Services.AddSqlAgentServices();
 builder.Services.AddCourseRecommendationAgentServices();
 builder.Services.AddDataAnalysisAgentCCServices();

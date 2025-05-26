@@ -11,9 +11,9 @@ using System.Text.Json;
 
 namespace AgentDemos.Agents.Plugins.SQL;
 
-public class SqlPlugin(DapperConnectionProvider connectionProvider, ILogger<SqlPlugin> logger)
+public class SqlPlugin(SqlConnection sqlConnection, ILogger<SqlPlugin> logger)
 {
-  private readonly DapperConnectionProvider _connectionProvider = connectionProvider;
+  private readonly SqlConnection _sqlConnection = sqlConnection;
   private readonly ILogger<SqlPlugin> _logger = logger;
 
   [KernelFunction, Description("Loads the table definitions and relationships of a specific Microsoft Sql Server database")]
@@ -21,36 +21,37 @@ public class SqlPlugin(DapperConnectionProvider connectionProvider, ILogger<SqlP
   {
     var schema = new DatabaseSchema();
 
-    using (var connection = _connectionProvider.Connect())
+    await _sqlConnection.OpenAsync();
+
+    // Get all tables
+    schema.Tables = await GetTablesAsync(_sqlConnection);
+
+    // Get all columns for each table
+    foreach (var table in schema.Tables)
     {
-      await ((SqlConnection)connection).OpenAsync();
-
-      // Get all tables
-      schema.Tables = await GetTablesAsync((SqlConnection)connection);
-
-      // Get all columns for each table
-      foreach (var table in schema.Tables)
-      {
-        table.Columns = await GetColumnsForTableAsync((SqlConnection)connection, table.Schema, table.Name);
-      }
-
-      // Get all relationships
-      schema.Relationships = await GetRelationshipsAsync((SqlConnection)connection);
-
-      // Get all indexes
-      foreach (var table in schema.Tables)
-      {
-        table.Indexes = await GetIndexesForTableAsync((SqlConnection)connection, table.Schema, table.Name);
-      }
-
-      // Get all stored procedures
-      schema.StoredProcedures = await GetStoredProceduresAsync((SqlConnection)connection);
-
-      // Get all views
-      schema.Views = await GetViewsAsync((SqlConnection)connection);
+      table.Columns = await GetColumnsForTableAsync(_sqlConnection, table.Schema, table.Name);
     }
+
+    // Get all relationships
+    schema.Relationships = await GetRelationshipsAsync(_sqlConnection);
+
+    // Get all indexes
+    foreach (var table in schema.Tables)
+    {
+      table.Indexes = await GetIndexesForTableAsync(_sqlConnection, table.Schema, table.Name);
+    }
+
+    // Get all stored procedures
+    schema.StoredProcedures = await GetStoredProceduresAsync(_sqlConnection);
+
+    // Get all views
+    schema.Views = await GetViewsAsync(_sqlConnection);
+
     string stringSchema = FormatSchemaForLlm(schema);
     Console.WriteLine($"SAMPLING TABLE: \n{stringSchema}");
+
+    await _sqlConnection.CloseAsync();
+
     return stringSchema;
   }
 
@@ -615,14 +616,13 @@ public class SqlPlugin(DapperConnectionProvider connectionProvider, ILogger<SqlP
       [Description("Number of sample rows to retrieve")] int sampleSize,
       [Description("Reason why the sample is necessary")] string reasoning)
   {
-    using IDbConnection db = _connectionProvider.Connect();
     try
     {
       _logger.LogInformation($"SAMPLING TABLE: {reasoning}");
       string query = $"SELECT TOP {sampleSize} * FROM [{databaseName}].[{tableSchema}].[{tableName}]";
 
       Console.WriteLine($"\nExecuting Sample Query:\n{query}");
-      IEnumerable<dynamic> result = db.Query(query);
+      IEnumerable<dynamic> result = _sqlConnection.Query(query);
       PrintTable(result);
 
       return FormatResultAsTable(result);
@@ -640,13 +640,12 @@ public class SqlPlugin(DapperConnectionProvider connectionProvider, ILogger<SqlP
       [Description("Maximum number of rows to return")] int maxRows,
       [Description("Reason why the test query is necessary")] string reasoning)
   {
-    using IDbConnection db = _connectionProvider.Connect();
     try
     {
       _logger.LogInformation($"TESTING QUERY: {reasoning}");
 
       Console.WriteLine($"\nExecuting Test Query:\n{sqlQuery}");
-      IEnumerable<dynamic> result = db.Query(sqlQuery);
+      IEnumerable<dynamic> result = _sqlConnection.Query(sqlQuery);
       PrintTable(result);
 
       return FormatResultAsTable(result);
@@ -664,7 +663,6 @@ public class SqlPlugin(DapperConnectionProvider connectionProvider, ILogger<SqlP
     [Description("Reason why the final query is necessary")] string reasoning,
     [Description("True if user requests to persist final query results to a CSV file")] bool persistResults)
   {
-    using IDbConnection db = _connectionProvider.Connect();
     try
     {
       _logger.LogInformation($"FINAL QUERY: {reasoning}");
@@ -672,7 +670,7 @@ public class SqlPlugin(DapperConnectionProvider connectionProvider, ILogger<SqlP
       Console.WriteLine($"\nExecuting Final Query:\n{sqlQuery}");
       // Execute the query and buffer the results in a list, as IEnumerable<dynamic> might be deferred execution.
       // This is important if we need to iterate over it multiple times (once for CSV, once for table formatting).
-      List<dynamic> result = db.Query(sqlQuery).AsList();
+      List<dynamic> result = _sqlConnection.Query(sqlQuery).AsList();
       PrintTable(result);
 
       string formattedResult = FormatResultAsTable(result);
