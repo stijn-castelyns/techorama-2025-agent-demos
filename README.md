@@ -51,6 +51,9 @@ dotnet user-secrets set "GoogleGemini:Key" "<your-google-gemini-api-key>"
 dotnet user-secrets set "AzureContainerApps:ManagementEndpoint" "<acaDynSessionsManagementEndpoint>"
 ```
 
+## Change WWWRoot path
+Change the path in `src/AgentDemos.Agents/Plugins/DataVisualization/PersistImageToWWWWRoot.cs` to your own path. Ran out of time, this could have been cleaner :(
+
 ## Running the Application
 
 Use .NET Aspire to run the application locally:
@@ -91,6 +94,24 @@ Hoe zijn onze maandelijkse verkoopscijfers geevolueerd over het bestaan van ons 
 
 ```text
 Who is our best sales person in total number of sales?
+```
+
+### SQL Agent
+Sample questions:
+```text
+How have our monthly sales evolved over the lifetime of our company?
+```
+
+```text
+What is the monthly Year-over-Year (YoY) percentage change in gross profit for each product category, and which categories show the most significant growth or decline over the past three full years?
+```
+
+```text
+Which products are most frequently purchased together in the same order? Can we identify top 3 product bundles for each product category that could be promoted?
+```
+
+```text
+How does the performance (average sales, number of orders per employee) of employees correlate with their manager? Are there specific managers whose teams consistently outperform others?
 ```
 
 ## Troubleshooting
