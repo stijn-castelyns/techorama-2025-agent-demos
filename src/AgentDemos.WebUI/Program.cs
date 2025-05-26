@@ -1,8 +1,5 @@
 using AgentDemos.Agents;
-using AgentDemos.Agents.Plugins.CourseRecommendation;
-using AgentDemos.Infra.Infra;
 using AgentDemos.WebUI.Components;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 
@@ -40,14 +37,9 @@ builder.Services.AddGoogleAIGeminiChatCompletion(modelId: "gemini-2.5-flash-prev
                                                  apiKey: builder.Configuration["GoogleGemini:Key"]!,
                                                  serviceId: "gemini-2.5-flash-preview-05-20-service");
 
-builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: builder.Configuration["AzureOpenAIAIF:Endpoint"]!,
-                                              apiKey: builder.Configuration["AzureOpenAIAIF:AzureKeyCredential"]!,
-                                              deploymentName: "text-embedding-3-small");
-
 builder.AddSqlServerClient(connectionName: "northwind");
 
 builder.Services.AddSqlAgentServices();
-builder.Services.AddCourseRecommendationAgentServices();
 builder.Services.AddDataAnalysisAgentServices();
 
 builder.Services.AddScoped<Kernel>((serv) =>
