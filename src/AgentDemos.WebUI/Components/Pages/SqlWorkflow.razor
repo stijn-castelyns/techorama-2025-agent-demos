@@ -15,10 +15,10 @@
       <h3>Enter your question about the database</h3>
       <EditForm Model="@this" OnValidSubmit="@GenerateSqlAsync">
         <div class="form-group">
-          <textarea @bind="userQuery" 
-          placeholder="Example: Show me all customers from Germany with their orders from 2023" 
-          rows="3" 
-          class="query-input"></textarea>
+          <textarea @bind="userQuery"
+                    placeholder="Example: Show me all customers from Germany with their orders from 2023"
+                    rows="3"
+                    class="query-input"></textarea>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn-primary" disabled="@isLoading">
@@ -84,108 +84,108 @@
 
 <style>
   .page-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .workflow-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
   }
 
   .input-section, .result-section {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
 
   .query-input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 16px;
-  font-family: inherit;
-  resize: vertical;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
   }
 
   .form-actions, .execute-actions {
-  margin-top: 15px;
-  display: flex;
-  justify-content: flex-end;
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .btn-primary, .btn-success {
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
   }
 
   .btn-primary {
-  background-color: #0d6efd;
+    background-color: #0d6efd;
   }
 
   .btn-success {
-  background-color: #198754;
+    background-color: #198754;
   }
 
   .btn-primary:hover {
-  background-color: #0b5ed7;
+    background-color: #0b5ed7;
   }
 
   .btn-success:hover {
-  background-color: #157347;
+    background-color: #157347;
   }
 
   .btn-primary:disabled, .btn-success:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
+    background-color: #6c757d;
+    cursor: not-allowed;
   }
 
   .sql-result-container {
-  background-color: #212529;
-  border-radius: 4px;
-  padding: 15px;
-  overflow-x: auto;
+    background-color: #212529;
+    border-radius: 4px;
+    padding: 15px;
+    overflow-x: auto;
   }
 
   .sql-code {
-  color: #f8f9fa;
-  font-family: 'Consolas', 'Monaco', monospace;
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
+    color: #f8f9fa;
+    font-family: 'Consolas', 'Monaco', monospace;
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .error-message {
-  margin-top: 10px;
-  color: #dc3545;
-  font-weight: 500;
+    margin-top: 10px;
+    color: #dc3545;
+    font-weight: 500;
   }
 
   .query-result-container {
-  overflow-x: auto;
+    overflow-x: auto;
   }
 
   .markdown-result {
-  width: 100%;
+    width: 100%;
   }
 </style>
 
 @code {
-    [Inject]
-    public Kernel Kernel { get; set; }
+  [Inject]
+  public Kernel Kernel { get; set; }
 
-    [Inject]
-    public SqlPlugin SqlPlugin { get; set; }
+  [Inject]
+  public SqlPlugin SqlPlugin { get; set; }
 
   private string userQuery = string.Empty;
   private string sqlResult = string.Empty;
@@ -254,11 +254,11 @@
     string prompt = $@"
       <instructions>
         You are an expert T-SQL developer. Given a users request
-        you will convert this request into a valid T-SQL syntax that can be directly run on the database. 
+        you will convert this request into a valid T-SQL syntax that can be directly run on the database.
         You are stricly forbidden from answering in a markdown code block!
         The database you will write these queries for has the following table definitions:
         <tableDefinitions>
-      {schema}
+    {schema}
         </tableDefinitions>
       </instructions>
 
@@ -268,10 +268,10 @@
       <user-message>{userQuery}</message>";
 
     string? result = await Kernel.InvokePromptAsync<string>(prompt, new KernelArguments(new PromptExecutionSettings()
-    {
-      ModelId = "gpt-4.1",
-      ServiceId = "gpt-4.1-service"
-    }));
+      {
+        ModelId = "gpt-4.1",
+        ServiceId = "gpt-4.1-service"
+      }));
     return result;
   }
 }
