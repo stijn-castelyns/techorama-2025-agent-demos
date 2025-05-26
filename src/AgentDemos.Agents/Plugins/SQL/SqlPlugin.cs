@@ -610,7 +610,6 @@ public class SqlPlugin(SqlConnection sqlConnection, ILogger<SqlPlugin> logger)
 
   [KernelFunction, Description("Retrieves a sample of rows from a specific table in the database")]
   public string SampleTableData(
-      [Description("Name of the database containing the table")] string databaseName,
       [Description("Schema of the table (e.g., 'dbo')")] string tableSchema,
       [Description("Name of the table to sample")] string tableName,
       [Description("Number of sample rows to retrieve")] int sampleSize,
@@ -619,7 +618,7 @@ public class SqlPlugin(SqlConnection sqlConnection, ILogger<SqlPlugin> logger)
     try
     {
       _logger.LogInformation($"SAMPLING TABLE: {reasoning}");
-      string query = $"SELECT TOP {sampleSize} * FROM [{databaseName}].[{tableSchema}].[{tableName}]";
+      string query = $"SELECT TOP {sampleSize} * FROM [{tableSchema}].[{tableName}]";
 
       Console.WriteLine($"\nExecuting Sample Query:\n{query}");
       IEnumerable<dynamic> result = _sqlConnection.Query(query);
@@ -630,7 +629,7 @@ public class SqlPlugin(SqlConnection sqlConnection, ILogger<SqlPlugin> logger)
     catch (Exception ex)
     {
       _logger.LogError(ex, "Error sampling table");
-      return $"Error sampling table {databaseName}.{tableSchema}.{tableName}: {ex.Message}";
+      return $"Error sampling table {tableSchema}.{tableName}: {ex.Message}";
     }
   }
 
