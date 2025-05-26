@@ -205,9 +205,22 @@ public static class U2UAgentFactory
           * Avoid SELECT * in final queries
       </performance-rules>
       """;
-  public static ChatCompletionAgent CreateSqlAgent(Kernel kernel)
+  public static ChatCompletionAgent CreateSqlAgent(Kernel kernel, string? modelId = null, string? serviceId = null)
   {
     ThrowIfKernelHasPlugins(kernel);
+
+    var executionSettings = GetPromptExecutionSettings(modelId, serviceId);
+
+    if(executionSettings is null)
+    {
+      executionSettings = new PromptExecutionSettings()
+      {
+        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+        ModelId = "gpt-4.1",
+        ServiceId = "gpt-4.1-service"
+      };
+    }
+
     SqlPlugin sqlPlugin = kernel.GetRequiredService<SqlPlugin>();
     kernel.Plugins.AddFromObject(sqlPlugin);
 
@@ -217,14 +230,7 @@ public static class U2UAgentFactory
       Instructions = SQL_PROMPT,
       Description = "An agent specialized in querying a Microsoft SQL Server Database",
       Kernel = kernel,
-      Arguments = new KernelArguments(
-          new GeminiPromptExecutionSettings()
-          {
-            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
-            ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
-            ModelId = "gemini-2.5-flash-preview-05-20",
-            ServiceId = "gemini-2.5-flash-preview-05-20-service",
-          }),
+      Arguments = new KernelArguments(executionSettings),
       InstructionsRole = AuthorRole.System
     };
 
@@ -237,9 +243,21 @@ public static class U2UAgentFactory
     return services;
   }
 
-  public static ChatCompletionAgent CreateDataAnalysisAgent(Kernel kernel)
+  public static ChatCompletionAgent CreateDataAnalysisAgent(Kernel kernel, string? modelId = null, string? serviceId = null)
   {
     ThrowIfKernelHasPlugins(kernel);
+
+    var executionSettings = GetPromptExecutionSettings(modelId, serviceId);
+
+    if (executionSettings is null)
+    {
+      executionSettings = new PromptExecutionSettings()
+      {
+        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+        ModelId = "gpt-4.1",
+        ServiceId = "gpt-4.1-service"
+      };
+    }
 
     var config = kernel.GetRequiredService<IConfiguration>();
 
@@ -265,12 +283,7 @@ public static class U2UAgentFactory
           </DataAnalysis>
         """,
       Kernel = kernel,
-      Arguments = new KernelArguments(
-          new PromptExecutionSettings()
-          {
-            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
-            ModelId = "gpt-4.1",
-          }),
+      Arguments = new KernelArguments(executionSettings),
       InstructionsRole = AuthorRole.System
     };
 
@@ -314,9 +327,21 @@ public static class U2UAgentFactory
     return services;
   }
 
-  public static ChatCompletionAgent CreateReportingAgent(Kernel kernel)
+  public static ChatCompletionAgent CreateReportingAgent(Kernel kernel, string? modelId = null, string? serviceId = null)
   {
     ThrowIfKernelHasPlugins(kernel);
+
+    var executionSettings = GetPromptExecutionSettings(modelId, serviceId);
+
+    if (executionSettings is null)
+    {
+      executionSettings = new PromptExecutionSettings()
+      {
+        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+        ModelId = "gpt-4.1",
+        ServiceId = "gpt-4.1-service"
+      };
+    }
 
     var agentsPlugin = KernelPluginFactory.CreateFromFunctions("AgentPlugin",
     [
@@ -346,11 +371,7 @@ public static class U2UAgentFactory
         </operational-protocol>
         """,
       Kernel = kernel,
-      Arguments = new KernelArguments(
-          new PromptExecutionSettings()
-          {
-            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
-          }),
+      Arguments = new KernelArguments(executionSettings),
       InstructionsRole = AuthorRole.System
     };
 
@@ -363,5 +384,29 @@ public static class U2UAgentFactory
     {
       throw new ArgumentException("Kernel should not have any plugins when an agent.");
     }
+  }
+
+  private static PromptExecutionSettings? GetPromptExecutionSettings(string? modelId, string? serviceId)
+  {
+    if(modelId is null && serviceId is null)
+    {
+      return null;
+    }
+    if(modelId.StartsWith("gemini"))
+    {
+      return new GeminiPromptExecutionSettings()
+      {
+        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+        ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
+        ModelId = modelId,
+        ServiceId = serviceId,
+      };
+    }
+    return new PromptExecutionSettings()
+    {
+      FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+      ModelId = modelId,
+      ServiceId = serviceId
+    };
   }
 }
