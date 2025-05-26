@@ -26,7 +26,7 @@ This demo application includes:
 
 Click the "Deploy to Azure" button above or deploy using Azure CLI:
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2Fstijn-castelyns%2Ftechorama-2025-agent-demos%2Fblob%2Fmain%2Finfra%2Farm-build%2Fmain.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fstijn-castelyns%2Ftechorama-2025-agent-demos%2Frefs%2Fheads%2Fmain%2Finfra%2Farm-build%2Fmain.json)
 
 ```powershell
 $userPrincipalId = (az ad signed-in-user show --query id -o tsv)
