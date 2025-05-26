@@ -43,7 +43,7 @@ builder.AddSqlServerClient(connectionName: "northwind");
 
 builder.Services.AddSqlAgentServices();
 builder.Services.AddCourseRecommendationAgentServices();
-builder.Services.AddDataAnalysisAgentCCServices();
+builder.Services.AddDataAnalysisAgentServices();
 
 builder.Services.AddScoped<Kernel>((serv) =>
 {

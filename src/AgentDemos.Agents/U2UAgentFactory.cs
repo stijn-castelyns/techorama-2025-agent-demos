@@ -2,29 +2,17 @@
 using AgentDemos.Agents.Plugins.DataVisualization;
 using AgentDemos.Agents.Plugins.SQL;
 using AgentDemos.Infra.Infra;
-using Azure.AI.OpenAI;
 using Azure.Identity;
-using Azure.Storage.Blobs;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
-using Microsoft.SemanticKernel.Agents.OpenAI;
 using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
-using Microsoft.SemanticKernel.Plugins.Core.CodeInterpreter;
-using Microsoft.SemanticKernel.Agents.Orchestration;
-using Microsoft.SemanticKernel.Agents.Orchestration.GroupChat;
-using OpenAI.Assistants;
-using OpenAI.Files;
-using System.ClientModel;
-using System.Net;
-using static Dapper.SqlMapper;
 using Microsoft.SemanticKernel.Connectors.Google;
+using Microsoft.SemanticKernel.Plugins.Core.CodeInterpreter;
 
 namespace AgentDemos.Agents;
 
@@ -245,43 +233,11 @@ public static class U2UAgentFactory
 
   public static IServiceCollection AddSqlAgentServices(this IServiceCollection services)
   {
-    services.AddSingleton<DapperConnectionProvider>();
     services.AddScoped<SqlPlugin>();
     return services;
   }
 
-  public static async Task<OpenAIAssistantAgent> CreateDataAnalysisAgent(Kernel kernel)
-  {
-    ThrowIfKernelHasPlugins(kernel);
-
-    kernel.AutoFunctionInvocationFilters.Add(new PassChatHistoryToFunctionFilter());
-    
-    var config = kernel.GetRequiredService<IConfiguration>();
-    
-    AzureOpenAIClient client = OpenAIAssistantAgent
-      .CreateAzureOpenAIClient(apiKey: new ApiKeyCredential(config["AzureOpenAIAIF:AzureKeyCredential"]!), 
-                               endpoint: new Uri(config["AzureOpenAIAIF:Endpoint"]!));
-
-    AssistantClient assistantClient = client.GetAssistantClient();
-    Assistant assistant =
-        await assistantClient.CreateAssistantAsync(
-            modelId: "gpt-4.1",
-            name: "SampleAssistantAgent",
-            instructions:
-                    """
-                        Always format response using markdown.
-                        Always persist images using the provided function after generating them using code interpreter.
-                        """,
-            enableCodeInterpreter: true);
-
-    DataVisualizationPlugin dataVisualizationPlugin = kernel.GetRequiredService<DataVisualizationPlugin>();
-    
-    OpenAIAssistantAgent agent = new(assistant, assistantClient, plugins: [KernelPluginFactory.CreateFromObject(dataVisualizationPlugin)]);
-    agent.Kernel.AutoFunctionInvocationFilters.Add(new PassChatHistoryToFunctionFilter());
-    return agent;
-  }
-
-  public static ChatCompletionAgent CreateDataAnalysisCCAgent(Kernel kernel)
+  public static ChatCompletionAgent CreateDataAnalysisAgent(Kernel kernel)
   {
     ThrowIfKernelHasPlugins(kernel);
 
@@ -321,10 +277,10 @@ public static class U2UAgentFactory
     return agent;
   }
 
-  public static IServiceCollection AddDataAnalysisAgentCCServices(this IServiceCollection services)
+  public static IServiceCollection AddDataAnalysisAgentServices(this IServiceCollection services)
   {
     var config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-    
+
     services.AddHttpClient();
 
     string? cachedToken = null;
@@ -348,43 +304,13 @@ public static class U2UAgentFactory
     var settings = new SessionsPythonSettings(
             sessionId: Guid.NewGuid().ToString(),
             endpoint: new Uri(config["ACASessionsPool:Endpoint"]!));
-    
+
     services.AddSingleton((sp)
         => new SessionsPythonPlugin(
             settings,
             sp.GetRequiredService<IHttpClientFactory>(),
             TokenProvider,
             sp.GetRequiredService<ILoggerFactory>()));
-    return services;
-  }
-
-  public static IServiceCollection AddDataAnalysisAgentServices(this IServiceCollection services)
-  {
-    var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-    
-    services.AddAzureClients(config =>
-    {
-      config.AddBlobServiceClient(configuration["BlobStorage:ConnectionString"]);
-    });
-
-    services.AddSingleton<BlobContainerClient>(provider =>
-    {
-      var configuration = provider.GetRequiredService<IConfiguration>();
-      var blobServiceClient = provider.GetRequiredService<BlobServiceClient>();
-      var blobContainerClient = blobServiceClient.GetBlobContainerClient("code-interpreter-images");
-      return blobContainerClient;
-    });
-
-    services.AddSingleton<AzureOpenAIClient>(provider =>
-    {
-      var configuration = provider.GetRequiredService<IConfiguration>();
-      var blobContainerClient = provider.GetRequiredService<BlobContainerClient>();
-      return new AzureOpenAIClient(new Uri(configuration["AzureOpenAIAIF:Endpoint"]!),
-                                   new ApiKeyCredential(configuration["AzureOpenAIAIF:AzureKeyCredential"]!));
-    });
-
-    services.AddScoped<DataVisualizationPlugin>();
-
     return services;
   }
 
@@ -395,7 +321,7 @@ public static class U2UAgentFactory
     var agentsPlugin = KernelPluginFactory.CreateFromFunctions("AgentPlugin",
     [
         AgentKernelFunctionFactory.CreateFromAgent(CreateSqlAgent(kernel.Clone())),
-        AgentKernelFunctionFactory.CreateFromAgent(CreateDataAnalysisCCAgent(kernel.Clone()))
+        AgentKernelFunctionFactory.CreateFromAgent(CreateDataAnalysisAgent(kernel.Clone()))
     ]);
 
     kernel.Plugins.Add(agentsPlugin);
@@ -423,17 +349,17 @@ public static class U2UAgentFactory
       Arguments = new KernelArguments(
           new PromptExecutionSettings()
           {
-           FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
           }),
       InstructionsRole = AuthorRole.System
     };
 
     return reportingAgent;
   }
-  
+
   private static void ThrowIfKernelHasPlugins(Kernel kernel)
   {
-    if(!(kernel is not null && kernel.Plugins.IsNullOrEmpty()))
+    if (!(kernel is not null && kernel.Plugins.IsNullOrEmpty()))
     {
       throw new ArgumentException("Kernel should not have any plugins when an agent.");
     }

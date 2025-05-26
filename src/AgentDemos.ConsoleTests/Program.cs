@@ -28,7 +28,7 @@ builder.Services.AddAzureOpenAITextEmbeddingGeneration(endpoint: config["AzureOp
                                               deploymentName: "text-embedding-3-small");
 
 builder.Services.AddCourseRecommendationAgentServices();
-builder.Services.AddDataAnalysisAgentCCServices();
+builder.Services.AddDataAnalysisAgentServices();
 builder.Services.AddSqlAgentServices();
 
 builder.AddSqlServerClient(connectionName: "northwind");
