@@ -1,0 +1,261 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.33.13.18514",
+      "templateHash": "504217202076449617"
+    }
+  },
+  "parameters": {
+    "userPrincipalId": {
+      "type": "string",
+      "metadata": {
+        "description": "The Object ID (Principal ID) of the user to whom the roles will be assigned. Found in Microsoft Entra ID for the user."
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "openai-deployment",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "modelDeployments": {
+            "value": [
+              {
+                "name": "gpt-4.1",
+                "modelName": "gpt-4.1",
+                "modelVersion": "2025-04-14",
+                "capacity": 50
+              },
+              {
+                "name": "gpt-4.1-mini",
+                "modelName": "gpt-4.1-mini",
+                "modelVersion": "2025-04-14",
+                "capacity": 200
+              }
+            ]
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.33.13.18514",
+              "templateHash": "10454071856221761494"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string",
+              "defaultValue": "swedencentral",
+              "metadata": {
+                "description": "Location for all resources."
+              }
+            },
+            "sku": {
+              "type": "string",
+              "defaultValue": "S0",
+              "allowedValues": [
+                "S0"
+              ],
+              "metadata": {
+                "description": "The SKU for the Azure AI Services account."
+              }
+            },
+            "modelDeployments": {
+              "type": "array",
+              "metadata": {
+                "description": "Array of model deployments. Each object should specify name, modelName, modelVersion, and capacity."
+              }
+            }
+          },
+          "variables": {
+            "uniqueSuffix": "[uniqueString(resourceGroup().id)]",
+            "aiServiceAccountName": "[toLower(format('aisvc{0}', variables('uniqueSuffix')))]",
+            "customDomainName": "[toLower(format('aicd{0}', variables('uniqueSuffix')))]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.CognitiveServices/accounts",
+              "apiVersion": "2025-04-01-preview",
+              "name": "[variables('aiServiceAccountName')]",
+              "location": "[parameters('location')]",
+              "identity": {
+                "type": "SystemAssigned"
+              },
+              "sku": {
+                "name": "[parameters('sku')]"
+              },
+              "kind": "AIServices",
+              "properties": {
+                "customSubDomainName": "[variables('customDomainName')]"
+              }
+            },
+            {
+              "copy": {
+                "name": "modelDeploymentResources",
+                "count": "[length(parameters('modelDeployments'))]",
+                "mode": "serial",
+                "batchSize": 1
+              },
+              "type": "Microsoft.CognitiveServices/accounts/deployments",
+              "apiVersion": "2025-04-01-preview",
+              "name": "[format('{0}/{1}', variables('aiServiceAccountName'), parameters('modelDeployments')[copyIndex()].name)]",
+              "properties": {
+                "model": {
+                  "format": "OpenAI",
+                  "name": "[parameters('modelDeployments')[copyIndex()].modelName]",
+                  "version": "[parameters('modelDeployments')[copyIndex()].modelVersion]"
+                }
+              },
+              "sku": {
+                "name": "GlobalStandard",
+                "capacity": "[parameters('modelDeployments')[copyIndex()].capacity]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.CognitiveServices/accounts', variables('aiServiceAccountName'))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "openAIServiceEndpoint": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.CognitiveServices/accounts', variables('aiServiceAccountName')), '2025-04-01-preview').endpoint]"
+            },
+            "openAIServicePrimaryKey": {
+              "type": "string",
+              "value": "[listKeys(resourceId('Microsoft.CognitiveServices/accounts', variables('aiServiceAccountName')), '2025-04-01-preview').key1]"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "aca-dynamic-sessions-deployment",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "userPrincipalId": {
+            "value": "[parameters('userPrincipalId')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.33.13.18514",
+              "templateHash": "7611293127065508988"
+            }
+          },
+          "parameters": {
+            "userPrincipalId": {
+              "type": "string",
+              "metadata": {
+                "description": "The Object ID (Principal ID) of the user to whom the roles will be assigned. Found in Microsoft Entra ID for the user."
+              }
+            }
+          },
+          "variables": {
+            "uniqueSuffix": "[uniqueString(resourceGroup().id)]",
+            "acaDynsessionsName": "[toLower(format('acads{0}', variables('uniqueSuffix')))]",
+            "acaSessionExecutorRoleDefId": "0fb8eba5-a2bb-4abe-b1c1-49dfad359bb0",
+            "acaSessionContributorRoleDefId": "b24988ac-6180-42a0-ab88-20f7382dd24c"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.App/sessionPools",
+              "apiVersion": "2025-01-01",
+              "name": "[variables('acaDynsessionsName')]",
+              "location": "North Europe",
+              "identity": {
+                "type": "None"
+              },
+              "properties": {
+                "poolManagementType": "Dynamic",
+                "containerType": "PythonLTS",
+                "scaleConfiguration": {
+                  "maxConcurrentSessions": 10
+                },
+                "dynamicPoolConfiguration": {
+                  "lifecycleConfiguration": {
+                    "lifecycleType": "Timed",
+                    "cooldownPeriodInSeconds": 300
+                  }
+                },
+                "sessionNetworkConfiguration": {
+                  "status": "EgressDisabled"
+                },
+                "managedIdentitySettings": []
+              }
+            },
+            {
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[format('Microsoft.App/sessionPools/{0}', variables('acaDynsessionsName'))]",
+              "name": "[guid(resourceId('Microsoft.App/sessionPools', variables('acaDynsessionsName')), parameters('userPrincipalId'), variables('acaSessionExecutorRoleDefId'))]",
+              "properties": {
+                "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('acaSessionExecutorRoleDefId'))]",
+                "principalId": "[parameters('userPrincipalId')]",
+                "principalType": "User"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.App/sessionPools', variables('acaDynsessionsName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[format('Microsoft.App/sessionPools/{0}', variables('acaDynsessionsName'))]",
+              "name": "[guid(resourceId('Microsoft.App/sessionPools', variables('acaDynsessionsName')), parameters('userPrincipalId'), variables('acaSessionContributorRoleDefId'))]",
+              "properties": {
+                "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('acaSessionContributorRoleDefId'))]",
+                "principalId": "[parameters('userPrincipalId')]",
+                "principalType": "User"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.App/sessionPools', variables('acaDynsessionsName'))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "management_endpoint": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.App/sessionPools', variables('acaDynsessionsName')), '2025-01-01').poolManagementEndpoint]"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "openAIServiceEndpoint": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', 'openai-deployment'), '2022-09-01').outputs.openAIServiceEndpoint.value]"
+    },
+    "openAIServicePrimaryKey": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', 'openai-deployment'), '2022-09-01').outputs.openAIServicePrimaryKey.value]"
+    },
+    "acaDynSessionsManagementEndpoint": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', 'aca-dynamic-sessions-deployment'), '2022-09-01').outputs.management_endpoint.value]"
+    }
+  }
+}
