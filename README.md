@@ -77,6 +77,22 @@ Access the application at: `https://localhost:5001` (or the port specified in yo
 - `AgentDemos.ConsoleTests`: Console application for testing
 - `AgentDemos.ServiceDefaults`: Shared service configurations
 
+## Demos
+
+### SQL Workflow
+Sample questions:
+```text
+How have our monthly sales evolved over the lifetime of our company?
+```
+
+```text
+Hoe zijn onze maandelijkse verkoopscijfers geevolueerd over het bestaan van ons bedrijf?
+```
+
+```text
+Who is our best sales person in total number of sales?
+```
+
 ## Troubleshooting
 
 ### Common Issues
