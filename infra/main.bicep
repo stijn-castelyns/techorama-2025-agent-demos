@@ -17,6 +17,12 @@ module openai 'resources/openai.bicep' = {
         modelVersion: '2025-04-14'
         capacity: 200
       }
+      {
+        name: 'gpt-4o'
+        modelName: 'gpt-4o'
+        modelVersion: '2024-11-20'
+        capacity: 50
+      }
     ]
   }
 }

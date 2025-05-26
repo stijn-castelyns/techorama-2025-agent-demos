@@ -345,8 +345,8 @@ public static class U2UAgentFactory
 
     var agentsPlugin = KernelPluginFactory.CreateFromFunctions("AgentPlugin",
     [
-        AgentKernelFunctionFactory.CreateFromAgent(CreateSqlAgent(kernel.Clone())),
-        AgentKernelFunctionFactory.CreateFromAgent(CreateDataAnalysisAgent(kernel.Clone()))
+        AgentKernelFunctionFactory.CreateFromAgent(CreateSqlAgent(kernel.Clone(), "gpt-4.1", "gpt-4.1-service")),
+        AgentKernelFunctionFactory.CreateFromAgent(CreateDataAnalysisAgent(kernel.Clone(), "gpt-4.1", "gpt-4.1-service"))
     ]);
 
     kernel.Plugins.Add(agentsPlugin);
@@ -386,7 +386,7 @@ public static class U2UAgentFactory
     }
   }
 
-  private static PromptExecutionSettings? GetPromptExecutionSettings(string? modelId, string? serviceId)
+  public static PromptExecutionSettings? GetPromptExecutionSettings(string? modelId, string? serviceId)
   {
     if(modelId is null && serviceId is null)
     {

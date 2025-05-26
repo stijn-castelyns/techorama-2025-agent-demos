@@ -7,7 +7,10 @@
 @implements IDisposable
 
 <div class="chat-component">
-  <ChatHeader OnNewChat="@ResetConversationAsync" />
+  <ChatHeader 
+  OnNewChat="@ResetConversationAsync" 
+  OnModelSelected="@OnModelSelected" 
+  InitialModel="@ModelId" />
 
   <ChatMessageList Messages="@chatThread.ChatHistory" InProgressMessage="@currentResponseMessage">
     <NoMessagesContent>
@@ -29,15 +32,33 @@
   [Parameter]
   public string ModelId { get; set; } = "gpt-4.1-mini";
 
+  [Parameter]
+  public EventCallback<string> OnModelChanged { get; set; }
+
   private ChatHistoryAgentThread chatThread = new();
   private CancellationTokenSource? currentResponseCancellation;
   private ChatMessageContent? currentResponseMessage;
   private ChatInput? chatInput;
+  private string currentModelId = "gpt-4.1-mini";
+  private string currentServiceId = "gpt-4.1-mini-service";
 
   protected override void OnInitialized()
   {
     chatThread = new ChatHistoryAgentThread(new ChatHistory());
+    currentModelId = ModelId;
+    currentServiceId = $"{ModelId}-service";
     ResetConversationAsync();
+  }
+
+  private void OnModelSelected(string selectedModel)
+  {
+    currentModelId = selectedModel;
+    currentServiceId = $"{selectedModel}-service";
+
+    // Update the agent's execution settings
+    var executionSettings = U2UAgentFactory.GetPromptExecutionSettings(currentModelId, currentServiceId);
+
+    OnModelChanged.InvokeAsync(selectedModel);
   }
 
   private async Task AddUserMessageAsync(ChatMessageContent userMessage)
@@ -58,7 +79,10 @@
 
     // Get the currently selected agent
 
-    await foreach (var response in Agent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token))
+    await foreach (var response in Agent.InvokeAsync(thread: chatThread, cancellationToken: currentResponseCancellation.Token, options: new AgentInvokeOptions()
+    {
+        KernelArguments = new KernelArguments(U2UAgentFactory.GetPromptExecutionSettings(currentModelId, currentServiceId))
+    }))
     {
       ChatMessageItem.NotifyChanged(currentResponseMessage);
     }

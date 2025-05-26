@@ -1,15 +1,65 @@
 <div class="chat-header-container main-background-gradient">
-    <div class="chat-header-controls page-width">
-        <button class="btn-default" @onclick="@OnNewChat">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="new-chat-icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-            New chat
-        </button>
+  <div class="chat-header-controls page-width">
+    <button class="btn-default" @onclick="@OnNewChat">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="new-chat-icon">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+      New chat
+    </button>
+
+    <div class="model-selector">
+      <select @bind="SelectedModel" @bind:after="ModelSelectionChanged" class="model-dropdown">
+        <option value="gpt-4.1-mini">GPT-4.1 Mini</option>
+        <option value="gpt-4.1">GPT-4.1</option>
+        <option value="gpt-4o">GPT-4o</option>
+        <option value="gemini-2.5-flash-preview-05-20">Gemini 2.5 Flash</option>
+        <option value="gemini-2.5-pro-preview-05-06">Gemini 2.5 Pro</option>
+      </select>
     </div>
+  </div>
 </div>
 
+<style>
+  .model-selector {
+    display: flex;
+    align-items: center;
+  }
+
+  .model-dropdown {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .chat-header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>
+
 @code {
-    [Parameter]
-    public EventCallback OnNewChat { get; set; }
+  [Parameter]
+  public EventCallback OnNewChat { get; set; }
+
+  [Parameter]
+  public string InitialModel { get; set; } = "gpt-4.1-mini";
+
+  [Parameter]
+  public EventCallback<string> OnModelSelected { get; set; }
+
+  private string SelectedModel { get; set; } = "gpt-4.1-mini";
+
+  protected override void OnInitialized()
+  {
+    SelectedModel = InitialModel;
+  }
+
+  private async Task ModelSelectionChanged()
+  {
+    await OnModelSelected.InvokeAsync(SelectedModel);
+  }
 }
