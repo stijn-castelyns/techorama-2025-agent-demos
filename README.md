@@ -114,6 +114,18 @@ Which products are most frequently purchased together in the same order? Can we 
 How does the performance (average sales, number of orders per employee) of employees correlate with their manager? Are there specific managers whose teams consistently outperform others?
 ```
 
+### Data Analysis Agent
+Sample questions:
+```text
+Model the population evolution of rabbits, and show the results in a graph
+```
+
+### Reporting Agent
+Sample questions:
+```text
+How have the monthly sales of our top 3 sales people evolved over the lifetime of our company? Include both tables and graphs
+```
+
 ## Troubleshooting
 
 ### Common Issues

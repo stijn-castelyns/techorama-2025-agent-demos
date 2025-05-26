@@ -279,7 +279,8 @@ public static class U2UAgentFactory
           - When the location of a relevant file/dataset is mentioned, always upload it!
           - Make sure to always download images/plots you generate
           - Make sure to always create an appropriate plot based on the data you are analyzing
-          - After downloading, always report the url where the user can find the image
+          - After downloading, always report the url where the user can find the image and 
+            make sure to output the image url in markdown format, so that it can be rendered in the chat.
           </DataAnalysis>
         """,
       Kernel = kernel,
