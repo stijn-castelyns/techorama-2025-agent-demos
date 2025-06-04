@@ -55,6 +55,7 @@ public class SqlPlugin(SqlConnection sqlConnection, ILogger<SqlPlugin> logger)
     return stringSchema;
   }
 
+  #region HelperFunctions
   private async Task<List<TableInfo>> GetTablesAsync(SqlConnection connection)
   {
     var tables = new List<TableInfo>();
@@ -607,6 +608,7 @@ public class SqlPlugin(SqlConnection sqlConnection, ILogger<SqlPlugin> logger)
 
     return string.Empty;
   }
+  #endregion
 
   [KernelFunction, Description("Retrieves a sample of rows from a specific table in the database")]
   public string SampleTableData(
